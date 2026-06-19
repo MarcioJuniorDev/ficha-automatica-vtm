@@ -107,30 +107,70 @@ function StatDots({ label, stat, onChange }) {
         display: "flex",
         flexDirection: "column",
         alignItems: "center",
-        gap: "8px"
+        gap: "8px",
+        width: "100%"
       }}
     >
-      <strong>{label}</strong>
+      <strong style={{ textAlign: "center", minHeight: "40px" }}>
+        {label}
+      </strong>
 
-      <div>
-        {[...Array(stat.max)].map((_, i) => (
-          <span
-            key={i}
-            onClick={() =>
-              onChange({
-                ...stat,
-                atual: stat.atual === i + 1 ? 0 : i + 1
-              })
-            }
-            style={{
-              cursor: "pointer",
-              fontSize: "20px",
-              marginRight: "3px"
-            }}
-          >
-            {i < stat.atual ? "●" : "○"}
-          </span>
-        ))}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "10px"
+        }}
+      >
+        {/* Botão - */}
+        <button
+          onClick={() =>
+            stat.atual > 0 &&
+            onChange({
+              ...stat,
+              atual: stat.atual - 1
+            })
+          }
+          style={buttonStyle}
+        >
+          -
+        </button>
+
+        {/* Bolinhas */}
+        <div style={{ textAlign: "center" }}>
+          {[...Array(stat.max)].map((_, i) => (
+            <span
+              key={i}
+              onClick={() =>
+                onChange({
+                  ...stat,
+                  atual: stat.atual === i + 1 ? 0 : i + 1
+                })
+              }
+              style={{
+                cursor: "pointer",
+                fontSize: "20px",
+                marginRight: "3px"
+              }}
+            >
+              {i < stat.atual ? "●" : "○"}
+            </span>
+          ))}
+        </div>
+
+        {/* Botão + */}
+        <button
+          onClick={() =>
+            stat.atual < stat.max &&
+            onChange({
+              ...stat,
+              atual: stat.atual + 1
+            })
+          }
+          style={buttonStyle}
+        >
+          +
+        </button>
       </div>
 
       <span>
@@ -141,27 +181,46 @@ function StatDots({ label, stat, onChange }) {
 }
 
 function EditableField({ label, value, onChange, type = "text" }) {
+  const isNumber = type === "number";
+
+  const sharedStyle = {
+    width: "100%",
+    padding: 8,
+    borderRadius: 6,
+    border: "1px solid #444",
+    background: "#333",
+    color: "white",
+    textAlign: "center"
+  };
+
   return (
     <div style={{ marginBottom: 12 }}>
-      <label style={{ display: "block", marginBottom: 4 }}>{label}</label>
-      <input
-        type={type}
-        value={value}
-        onChange={(e) =>
-          onChange(type === "number" ? Number(e.target.value) : e.target.value)
-        }
-        style={{
-          width: "100%",
-          padding: 8,
-          borderRadius: 6,
-          border: "1px solid #444",
-          background: "#333",
-          color: "white"
-        }}
-      />
+      <label style={{ display: "block", marginBottom: 4 }}>
+        {label}
+      </label>
+
+      {isNumber ? (
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          style={sharedStyle}
+        />
+      ) : (
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          rows={1}
+          style={{
+            ...sharedStyle,
+            resize: "vertical"
+          }}
+        />
+      )}
     </div>
   );
 }
+
 function EditableDots({ label, value, onChange, max = 5 }) {
   return (
     <div
@@ -283,11 +342,16 @@ const styles = {
     gap: "20px"
   },
 
-  doubleColumn: {
-    display: "grid",
-    gridTemplateColumns: "1fr 1fr",
+  twoColumns: {
+    display: "flex",
     gap: "20px",
-    alignItems: "start"
+    alignItems: "flex-start"
+  },
+
+  column: {
+    flex: 1,
+    display: "flex",
+    flexDirection: "column"
   }
 };
 
@@ -333,16 +397,16 @@ const atributosLabels = {
 
 export default function CharacterSheet() {
   const [infoBasica, setInfoBasica] = useState({
-  nome: "",
-  conceito: "",
-  predador: "",
-  cronica: "",
-  ambicao: "",
-  cla: "",
-  senhor: "",
-  desejo: "",
-  geracao: ""
-});
+    nome: "",
+    conceito: "",
+    predador: "",
+    cronica: "",
+    ambicao: "",
+    cla: "",
+    senhor: "",
+    desejo: "",
+    geracao: ""
+  });
 
   const [atributos, setAtributos] = useState({
     forca: 1,
@@ -357,11 +421,11 @@ export default function CharacterSheet() {
   });
 
   const [stats, setStats] = useState({
-  vida: { atual: 0, max: 10 },
-  forcaVontade: { atual: 0, max: 10 },
-  humanidade: { atual: 0, max: 10 },
-  fome: { atual: 0, max: 5 }
-});
+    vida: { atual: 0, max: 10 },
+    forcaVontade: { atual: 0, max: 10 },
+    humanidade: { atual: 0, max: 10 },
+    fome: { atual: 0, max: 5 }
+  });
 
   const [pericias, setPericias] = useState({
     esportes: 0,
@@ -405,512 +469,710 @@ export default function CharacterSheet() {
   });
 
   const [vantagensDefeitos, setVantagensDefeitos] = useState([
-  { nome: "", pontos: 0 },
-]);
+    { nome: "", pontos: 0 },
+  ]);
 
-const [blood, setBlood] = useState({
-  potencia: 2,
-  surto: 0,
-  cura: 0,
-  bonus: 0,
-  reroll: 0,
-  penalidade: 0,
-  desgraca: 0
-});
+  const [blood, setBlood] = useState({
+    potencia: 2,
+    surto: 0,
+    cura: 0,
+    bonus: 0,
+    reroll: 0,
+    penalidade: 0,
+    desgraca: 0
+  });
 
-const [exp, setExp] = useState({
-  total: 0,
-  gasta: 0
-});
+  const [exp, setExp] = useState({
+    total: 0,
+    gasta: 0
+  });
 
-const [extras, setExtras] = useState({
-  idadeReal: 0,
-  idadeAparente: 0,
-  nascimento: "",
-  morte: "",
-  aparencia: "",
-  caracteristicas: "",
-  preludio: ""
-});
+  const [extras, setExtras] = useState({
+    idadeReal: 0,
+    idadeAparente: 0,
+    nascimento: "",
+    morte: "",
+    aparencia: "",
+    caracteristicas: "",
+    preludio: ""
+  });
+
+  const [notes, setNotes] = useState("");
 
   return (
     <div style={styles.page}>
-      <h1>Ficha VTM V5</h1>
+      <h1 style={styles.sectionTitle}>Ficha VTM V5</h1>
 
       <section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Informações Básicas</h2>
+        <h2 style={styles.sectionTitle}>Informações Básicas</h2>
 
-  <div style={styles.grid3}>
-    {infoFields.map(([key, label]) => (
-      <EditableField
-        key={key}
-        label={label}
-        value={infoBasica[key]}
-        onChange={(value) =>
-          setInfoBasica({
-            ...infoBasica,
-            [key]: value
-          })
-        }
-      />
-    ))}
-  </div>
-</section>
-
-      <section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Atributos</h2>
-
-  <div style={styles.grid3}>
-    {/* Físicos */}
-    <div>
-      <h3>Físicos</h3>
-
-      <EditableDots
-        label="Força"
-        value={atributos.forca}
-        onChange={(v) =>
-          setAtributos({ ...atributos, forca: v })
-        }
-      />
-
-      <EditableDots
-        label="Destreza"
-        value={atributos.destreza}
-        onChange={(v) =>
-          setAtributos({ ...atributos, destreza: v })
-        }
-      />
-
-      <EditableDots
-        label="Vigor"
-        value={atributos.vigor}
-        onChange={(v) =>
-          setAtributos({ ...atributos, vigor: v })
-        }
-      />
-    </div>
-
-    {/* Sociais */}
-    <div>
-      <h3>Sociais</h3>
-
-      <EditableDots
-        label="Carisma"
-        value={atributos.carisma}
-        onChange={(v) =>
-          setAtributos({ ...atributos, carisma: v })
-        }
-      />
-
-      <EditableDots
-        label="Manipulação"
-        value={atributos.manipulacao}
-        onChange={(v) =>
-          setAtributos({ ...atributos, manipulacao: v })
-        }
-      />
-
-      <EditableDots
-        label="Compostura"
-        value={atributos.compostura}
-        onChange={(v) =>
-          setAtributos({ ...atributos, compostura: v })
-        }
-      />
-    </div>
-
-    {/* Mentais */}
-    <div>
-      <h3>Mentais</h3>
-
-      <EditableDots
-        label="Inteligência"
-        value={atributos.inteligencia}
-        onChange={(v) =>
-          setAtributos({ ...atributos, inteligencia: v })
-        }
-      />
-
-      <EditableDots
-        label="Raciocínio"
-        value={atributos.raciocinio}
-        onChange={(v) =>
-          setAtributos({ ...atributos, raciocinio: v })
-        }
-      />
-
-      <EditableDots
-        label="Determinação"
-        value={atributos.determinacao}
-        onChange={(v) =>
-          setAtributos({ ...atributos, determinacao: v })
-        }
-      />
-    </div>
-  </div>
-</section>
+        <div style={styles.grid3}>
+          {infoFields.map(([key, label]) => (
+            <EditableField
+              key={key}
+              label={label}
+              value={infoBasica[key]}
+              onChange={(value) =>
+                setInfoBasica({
+                  ...infoBasica,
+                  [key]: value
+                })
+              }
+            />
+          ))}
+        </div>
+      </section>
 
       <section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Stats</h2>
+        <h2 style={styles.sectionTitle}>Atributos</h2>
 
-  <div style={styles.statsGrid}>
-    <StatDots
-      label="Vida"
-      stat={stats.vida}
-      onChange={(v) => setStats({ ...stats, vida: v })}
-    />
+        <div style={styles.grid3}>
+          {/* Físicos */}
+          <div>
+            <h3>Físicos</h3>
 
-    <StatDots
-      label="Força de Vontade"
-      stat={stats.forcaVontade}
-      onChange={(v) =>
-        setStats({ ...stats, forcaVontade: v })
-      }
-    />
+            <EditableDots
+              label="Força"
+              value={atributos.forca}
+              onChange={(v) =>
+                setAtributos({ ...atributos, forca: v })
+              }
+            />
 
-    <StatDots
-      label="Humanidade"
-      stat={stats.humanidade}
-      onChange={(v) =>
-        setStats({ ...stats, humanidade: v })
-      }
-    />
+            <EditableDots
+              label="Destreza"
+              value={atributos.destreza}
+              onChange={(v) =>
+                setAtributos({ ...atributos, destreza: v })
+              }
+            />
 
-    <StatDots
-      label="Fome"
-      stat={stats.fome}
-      onChange={(v) =>
-        setStats({ ...stats, fome: v })
-      }
-    />
-  </div>
-</section>
+            <EditableDots
+              label="Vigor"
+              value={atributos.vigor}
+              onChange={(v) =>
+                setAtributos({ ...atributos, vigor: v })
+              }
+            />
+          </div>
+
+          {/* Sociais */}
+          <div>
+            <h3>Sociais</h3>
+
+            <EditableDots
+              label="Carisma"
+              value={atributos.carisma}
+              onChange={(v) =>
+                setAtributos({ ...atributos, carisma: v })
+              }
+            />
+
+            <EditableDots
+              label="Manipulação"
+              value={atributos.manipulacao}
+              onChange={(v) =>
+                setAtributos({ ...atributos, manipulacao: v })
+              }
+            />
+
+            <EditableDots
+              label="Compostura"
+              value={atributos.compostura}
+              onChange={(v) =>
+                setAtributos({ ...atributos, compostura: v })
+              }
+            />
+          </div>
+
+          {/* Mentais */}
+          <div>
+            <h3>Mentais</h3>
+
+            <EditableDots
+              label="Inteligência"
+              value={atributos.inteligencia}
+              onChange={(v) =>
+                setAtributos({ ...atributos, inteligencia: v })
+              }
+            />
+
+            <EditableDots
+              label="Raciocínio"
+              value={atributos.raciocinio}
+              onChange={(v) =>
+                setAtributos({ ...atributos, raciocinio: v })
+              }
+            />
+
+            <EditableDots
+              label="Determinação"
+              value={atributos.determinacao}
+              onChange={(v) =>
+                setAtributos({ ...atributos, determinacao: v })
+              }
+            />
+          </div>
+        </div>
+      </section>
 
       <section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Perícias</h2>
+        <h2 style={styles.sectionTitle}></h2>
 
-  <div style={styles.grid3}>
-    {/* Físicas */}
-    <div>
-      <h3>Físicas</h3>
+        <div style={styles.statsGrid}>
+          <StatDots
+            label="Vida"
+            stat={stats.vida}
+            onChange={(v) => setStats({ ...stats, vida: v })}
+          />
 
-      <EditableDots
-        label="Esportes"
-        value={pericias.esportes}
-        onChange={(v) => setPericias({ ...pericias, esportes: v })}
-      />
-      <EditableDots
-        label="Briga"
-        value={pericias.briga}
-        onChange={(v) => setPericias({ ...pericias, briga: v })}
-      />
-      <EditableDots
-        label="Ofícios"
-        value={pericias.oficios}
-        onChange={(v) => setPericias({ ...pericias, oficios: v })}
-      />
-      <EditableDots
-        label="Condução"
-        value={pericias.conducao}
-        onChange={(v) => setPericias({ ...pericias, conducao: v })}
-      />
-      <EditableDots
-        label="Armas de Fogo"
-        value={pericias.armasDeFogo}
-        onChange={(v) => setPericias({ ...pericias, armasDeFogo: v })}
-      />
-      <EditableDots
-        label="Armas Brancas"
-        value={pericias.armasBrancas}
-        onChange={(v) => setPericias({ ...pericias, armasBrancas: v })}
-      />
-      <EditableDots
-        label="Roubo"
-        value={pericias.roubo}
-        onChange={(v) => setPericias({ ...pericias, roubo: v })}
-      />
-      <EditableDots
-        label="Furtividade"
-        value={pericias.furtividade}
-        onChange={(v) => setPericias({ ...pericias, furtividade: v })}
-      />
-      <EditableDots
-        label="Sobrevivência"
-        value={pericias.sobrevivencia}
-        onChange={(v) => setPericias({ ...pericias, sobrevivencia: v })}
-      />
-    </div>
+          <StatDots
+            label="Força de Vontade"
+            stat={stats.forcaVontade}
+            onChange={(v) =>
+              setStats({ ...stats, forcaVontade: v })
+            }
+          />
 
-    {/* Sociais */}
-    <div>
-      <h3>Sociais</h3>
+          <StatDots
+            label="Humanidade"
+            stat={stats.humanidade}
+            onChange={(v) =>
+              setStats({ ...stats, humanidade: v })
+            }
+          />
 
-      <EditableDots
-        label="Empatia c/ Animais"
-        value={pericias.empatiaComAnimais}
-        onChange={(v) => setPericias({ ...pericias, empatiaComAnimais: v })}
-      />
-      <EditableDots
-        label="Etiqueta"
-        value={pericias.etiqueta}
-        onChange={(v) => setPericias({ ...pericias, etiqueta: v })}
-      />
-      <EditableDots
-        label="Intuição"
-        value={pericias.intuicao}
-        onChange={(v) => setPericias({ ...pericias, intuicao: v })}
-      />
-      <EditableDots
-        label="Intimidação"
-        value={pericias.intimidacao}
-        onChange={(v) => setPericias({ ...pericias, intimidacao: v })}
-      />
-      <EditableDots
-        label="Liderança"
-        value={pericias.lideranca}
-        onChange={(v) => setPericias({ ...pericias, lideranca: v })}
-      />
-      <EditableDots
-        label="Performance"
-        value={pericias.performance}
-        onChange={(v) => setPericias({ ...pericias, performance: v })}
-      />
-      <EditableDots
-        label="Persuasão"
-        value={pericias.persuasao}
-        onChange={(v) => setPericias({ ...pericias, persuasao: v })}
-      />
-      <EditableDots
-        label="Manha"
-        value={pericias.manha}
-        onChange={(v) => setPericias({ ...pericias, manha: v })}
-      />
-      <EditableDots
-        label="Lábia"
-        value={pericias.labia}
-        onChange={(v) => setPericias({ ...pericias, labia: v })}
-      />
-    </div>
+          <StatDots
+            label="Fome"
+            stat={stats.fome}
+            onChange={(v) =>
+              setStats({ ...stats, fome: v })
+            }
+          />
+        </div>
+      </section>
 
-    {/* Mentais */}
-    <div>
-      <h3>Mentais</h3>
+      <section style={styles.card}>
+        <h2 style={styles.sectionTitle}>Habilidades</h2>
 
-      <EditableDots
-        label="Acadêmicos"
-        value={pericias.academicos}
-        onChange={(v) => setPericias({ ...pericias, academicos: v })}
-      />
-      <EditableDots
-        label="Consciência"
-        value={pericias.consciencia}
-        onChange={(v) => setPericias({ ...pericias, consciencia: v })}
-      />
-      <EditableDots
-        label="Finanças"
-        value={pericias.financas}
-        onChange={(v) => setPericias({ ...pericias, financas: v })}
-      />
-      <EditableDots
-        label="Investigação"
-        value={pericias.investigacao}
-        onChange={(v) => setPericias({ ...pericias, investigacao: v })}
-      />
-      <EditableDots
-        label="Medicina"
-        value={pericias.medicina}
-        onChange={(v) => setPericias({ ...pericias, medicina: v })}
-      />
-      <EditableDots
-        label="Ocultismo"
-        value={pericias.ocultismo}
-        onChange={(v) => setPericias({ ...pericias, ocultismo: v })}
-      />
-      <EditableDots
-        label="Política"
-        value={pericias.politica}
-        onChange={(v) => setPericias({ ...pericias, politica: v })}
-      />
-      <EditableDots
-        label="Ciência"
-        value={pericias.ciencia}
-        onChange={(v) => setPericias({ ...pericias, ciencia: v })}
-      />
-      <EditableDots
-        label="Tecnologia"
-        value={pericias.tecnologia}
-        onChange={(v) => setPericias({ ...pericias, tecnologia: v })}
-      />
-    </div>
-  </div>
-</section>
+        <div style={styles.grid3}>
+          {/* Físicas */}
+          <div>
+            <h3>Físicas</h3>
 
+            <EditableDots
+              label="Esportes"
+              value={pericias.esportes}
+              onChange={(v) => setPericias({ ...pericias, esportes: v })}
+            />
+            <EditableDots
+              label="Briga"
+              value={pericias.briga}
+              onChange={(v) => setPericias({ ...pericias, briga: v })}
+            />
+            <EditableDots
+              label="Ofícios"
+              value={pericias.oficios}
+              onChange={(v) => setPericias({ ...pericias, oficios: v })}
+            />
+            <EditableDots
+              label="Condução"
+              value={pericias.conducao}
+              onChange={(v) => setPericias({ ...pericias, conducao: v })}
+            />
+            <EditableDots
+              label="Armas de Fogo"
+              value={pericias.armasDeFogo}
+              onChange={(v) => setPericias({ ...pericias, armasDeFogo: v })}
+            />
+            <EditableDots
+              label="Armas Brancas"
+              value={pericias.armasBrancas}
+              onChange={(v) => setPericias({ ...pericias, armasBrancas: v })}
+            />
+            <EditableDots
+              label="Roubo"
+              value={pericias.roubo}
+              onChange={(v) => setPericias({ ...pericias, roubo: v })}
+            />
+            <EditableDots
+              label="Furtividade"
+              value={pericias.furtividade}
+              onChange={(v) => setPericias({ ...pericias, furtividade: v })}
+            />
+            <EditableDots
+              label="Sobrevivência"
+              value={pericias.sobrevivencia}
+              onChange={(v) => setPericias({ ...pericias, sobrevivencia: v })}
+            />
+          </div>
+
+          {/* Sociais */}
+          <div>
+            <h3>Sociais</h3>
+
+            <EditableDots
+              label="Empatia c/ Animais"
+              value={pericias.empatiaComAnimais}
+              onChange={(v) => setPericias({ ...pericias, empatiaComAnimais: v })}
+            />
+            <EditableDots
+              label="Etiqueta"
+              value={pericias.etiqueta}
+              onChange={(v) => setPericias({ ...pericias, etiqueta: v })}
+            />
+            <EditableDots
+              label="Intuição"
+              value={pericias.intuicao}
+              onChange={(v) => setPericias({ ...pericias, intuicao: v })}
+            />
+            <EditableDots
+              label="Intimidação"
+              value={pericias.intimidacao}
+              onChange={(v) => setPericias({ ...pericias, intimidacao: v })}
+            />
+            <EditableDots
+              label="Liderança"
+              value={pericias.lideranca}
+              onChange={(v) => setPericias({ ...pericias, lideranca: v })}
+            />
+            <EditableDots
+              label="Performance"
+              value={pericias.performance}
+              onChange={(v) => setPericias({ ...pericias, performance: v })}
+            />
+            <EditableDots
+              label="Persuasão"
+              value={pericias.persuasao}
+              onChange={(v) => setPericias({ ...pericias, persuasao: v })}
+            />
+            <EditableDots
+              label="Manha"
+              value={pericias.manha}
+              onChange={(v) => setPericias({ ...pericias, manha: v })}
+            />
+            <EditableDots
+              label="Lábia"
+              value={pericias.labia}
+              onChange={(v) => setPericias({ ...pericias, labia: v })}
+            />
+          </div>
+
+          {/* Mentais */}
+          <div>
+            <h3>Mentais</h3>
+
+            <EditableDots
+              label="Acadêmicos"
+              value={pericias.academicos}
+              onChange={(v) => setPericias({ ...pericias, academicos: v })}
+            />
+            <EditableDots
+              label="Consciência"
+              value={pericias.consciencia}
+              onChange={(v) => setPericias({ ...pericias, consciencia: v })}
+            />
+            <EditableDots
+              label="Finanças"
+              value={pericias.financas}
+              onChange={(v) => setPericias({ ...pericias, financas: v })}
+            />
+            <EditableDots
+              label="Investigação"
+              value={pericias.investigacao}
+              onChange={(v) => setPericias({ ...pericias, investigacao: v })}
+            />
+            <EditableDots
+              label="Medicina"
+              value={pericias.medicina}
+              onChange={(v) => setPericias({ ...pericias, medicina: v })}
+            />
+            <EditableDots
+              label="Ocultismo"
+              value={pericias.ocultismo}
+              onChange={(v) => setPericias({ ...pericias, ocultismo: v })}
+            />
+            <EditableDots
+              label="Política"
+              value={pericias.politica}
+              onChange={(v) => setPericias({ ...pericias, politica: v })}
+            />
+            <EditableDots
+              label="Ciência"
+              value={pericias.ciencia}
+              onChange={(v) => setPericias({ ...pericias, ciencia: v })}
+            />
+            <EditableDots
+              label="Tecnologia"
+              value={pericias.tecnologia}
+              onChange={(v) => setPericias({ ...pericias, tecnologia: v })}
+            />
+          </div>
+        </div>
+      </section>
       <section style={styles.card}>
         <h2 style={styles.sectionTitle}>Disciplinas</h2>
         {disciplinas.map((disc, index) => (
-  <div
-    key={index}
-    style={{
-      marginBottom: "20px",
-      padding: "15px",
-      border: "1px solid #444",
-      borderRadius: "8px"
-    }}
-  >
-    <EditableField
-      label="Nome"
-      value={disc.nome}
-      onChange={(value) => {
-        const copy = [...disciplinas];
-        copy[index].nome = value;
-        setDisciplinas(copy);
-      }}
-    />
+          <div
+            key={index}
+            style={{
+              marginBottom: "20px",
+              padding: "15px",
+              border: "1px solid #444",
+              borderRadius: "8px"
+            }}
+          >
+            <EditableField
+              label="Nome"
+              value={disc.nome}
+              onChange={(value) => {
+                const copy = [...disciplinas];
+                copy[index].nome = value;
+                setDisciplinas(copy);
+              }}
+            />
 
-    <EditableDots
-      label="Nível"
-      value={disc.nivel}
-      onChange={(value) => {
-        const copy = [...disciplinas];
-        copy[index].nivel = value;
-        setDisciplinas(copy);
-      }}
-    />
+            <EditableDots
+              label="Nível"
+              value={disc.nivel}
+              onChange={(value) => {
+                const copy = [...disciplinas];
+                copy[index].nivel = value;
+                setDisciplinas(copy);
+              }}
+            />
 
-    <EditableField
-      label="Poderes"
-      value={disc.poderes}
-      onChange={(value) => {
-        const copy = [...disciplinas];
-        copy[index].poderes = value;
-        setDisciplinas(copy);
-      }}
-    />
+            <EditableField
+              label="Poderes"
+              value={disc.poderes}
+              onChange={(value) => {
+                const copy = [...disciplinas];
+                copy[index].poderes = value;
+                setDisciplinas(copy);
+              }}
+            />
 
-      <button
-          onClick={() =>
-            setDisciplinas([
-              ...disciplinas,
-              { nome: "", nivel: 0, poderes: "" }
-            ])
-          }
+            <button
+              onClick={() =>
+                setDisciplinas([
+                  ...disciplinas,
+                  { nome: "", nivel: 0, poderes: "" }
+                ])
+              }
 
-          style={{
-        marginTop: "10px",
-        padding: "8px 12px",
-        background: "#028b00",
-        color: "white",
-        border: "none",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-        >
-          + Disciplina
-        </button>
+              style={{
+                marginTop: "10px",
+                padding: "8px 12px",
+                background: "#028b00",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              + Disciplina
+            </button>
 
-    <button
-      disabled={disciplinas.length === 1}
-      onClick={() =>
-      setDisciplinas(
-      disciplinas.filter((_, i) => i !== index)
-        )
-      }
-      style={{
-        marginTop: "10px",
-        padding: "8px 12px",
-        background: "#8b0000",
-        color: "white",
-        border: "none",
-        borderRadius: "6px",
-        cursor: "pointer"
-      }}
-    >
-      - Disciplina
-    </button>
-  </div>
-))}
-      </section>
-<div style={styles.doubleColumn}>
-      <section style={styles.card}>
-        <h2 style={styles.sectionTitle}>Lore</h2>
-        {Object.entries(lore).map(([key, value]) => (
-          <EditableField
-            key={key}
-            label={key}
-            value={value}
-            onChange={(v) =>
-              setLore({ ...lore, [key]: v })
-            }
-          />
+            <button
+              disabled={disciplinas.length === 1}
+              onClick={() =>
+                setDisciplinas(
+                  disciplinas.filter((_, i) => i !== index)
+                )
+              }
+              style={{
+                marginTop: "10px",
+                padding: "8px 12px",
+                background: "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              - Disciplina
+            </button>
+          </div>
         ))}
       </section>
 
-      <section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
+      <div style={styles.twoColumns}>
+        {/* COLUNA ESQUERDA */}
+        <div style={styles.column}>
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}></h2>
 
-  <StatDots
-    label="Potência"
-    stat={{ atual: blood.potencia, max: 10 }}
-    onChange={(v) =>
-      setBlood({ ...blood, potencia: v.atual })
-    }
-  />
+            {Object.entries(lore).map(([key, value]) => (
+              <EditableField
+                key={key}
+                label={key}
+                value={value}
+                onChange={(v) =>
+                  setLore({ ...lore, [key]: v })
+                }
+              />
+            ))}
+          </section>
 
-  <EditableField
-    label="Surto de Sangue"
-    type="number"
-    value={blood.surto}
-    onChange={(v) => setBlood({ ...blood, surto: v })}
-  />
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Vantagens e Defeitos</h2>
+            {vantagensDefeitos.map((disc, index) => (
+              <div
+                key={index}
+                style={{
+                  marginBottom: "20px",
+                  padding: "15px",
+                  border: "1px solid #444",
+                  borderRadius: "8px"
+                }}
+              >
+                <EditableField
+                  label="Nome"
+                  value={disc.nome}
+                  onChange={(value) => {
+                    const copy = [...vantagensDefeitos];
+                    copy[index].nome = value;
+                    setVantagensDefeitos(copy);
+                  }}
+                />
 
-  <EditableField
-    label="Cura por Sangue"
-    type="number"
-    value={blood.cura}
-    onChange={(v) => setBlood({ ...blood, cura: v })}
-  />
-</section>
-</div>
+                <EditableDots
+                  label="Nível"
+                  value={disc.nivel}
+                  onChange={(value) => {
+                    const copy = [...vantagensDefeitos];
+                    copy[index].nivel = value;
+                    setVantagensDefeitos(copy);
+                  }}
+                />
 
-<div style={styles.doubleColumn}>
-<section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Experiência</h2>
+                <button
+                  onClick={() =>
+                    setVantagensDefeitos([
+                      ...vantagensDefeitos,
+                      { nome: "", nivel: 0 }
+                    ])
+                  }
+                  style={{
+                    marginTop: "10px",
+                    padding: "8px 12px",
+                    background: "#028b00",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer"
+                  }}
+                >
+                  + Vantagem
+                </button>
 
-  <EditableField
-    label="EXP Total"
-    type="number"
-    value={exp.total}
-    onChange={(v) => setExp({ ...exp, total: v })}
-  />
+                <button
+                  disabled={vantagensDefeitos.length === 1}
+                  onClick={() =>
+                    setVantagensDefeitos(
+                      vantagensDefeitos.filter((_, i) => i !== index)
+                    )
+                  }
+                  style={{
+                    marginTop: "10px",
+                    padding: "8px 12px",
+                    background: "#8b0000",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer"
+                  }}
+                >
+                  - Vantagem
+                </button>
+              </div>
+            ))}
+          </section>
 
-  <EditableField
-    label="EXP Gasta"
-    type="number"
-    value={exp.gasta}
-    onChange={(v) => setExp({ ...exp, gasta: v })}
-  />
-</section>
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Notas</h2>
 
-<section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Detalhes</h2>
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Escreva aqui suas notas..."
+              rows={8}
+              style={{
+                width: "95%",
+                padding: 10,
+                borderRadius: 6,
+                border: "1px solid #444",
+                background: "#333",
+                color: "white",
+                resize: "vertical",
+                fontFamily: "Arial",
+                lineHeight: "1.4"
+              }}
+            />
+          </section>
+        </div>
 
-  <EditableField
-    label="Idade Verdadeira"
-    value={extras.idadeReal}
-    onChange={(v) =>
-      setExtras({ ...extras, idadeReal: v })
-    }
-  />
+        {/* COLUNA DIREITA */}
+        <div style={styles.column}>
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
 
-  <EditableField
-    label="Aparência"
-    value={extras.aparencia}
-    onChange={(v) =>
-      setExtras({ ...extras, aparencia: v })
-    }
-  />
-</section>
-</div>
+            <StatDots
+              label="Potência"
+              stat={{ atual: blood.potencia, max: 10 }}
+              onChange={(v) =>
+                setBlood({ ...blood, potencia: v.atual })
+              }
+            />
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                columnGap: "25px"
+              }}
+            >
+              <EditableField
+                label="Surto de Sangue"
+                type="number"
+                value={blood.surto}
+                onChange={(v) =>
+                  setBlood({ ...blood, surto: v })
+                }
+              />
+
+              <EditableField
+                label="Cura por Sangue"
+                type="number"
+                value={blood.cura}
+                onChange={(v) =>
+                  setBlood({ ...blood, cura: v })
+                }
+              />
+
+              <EditableField
+                label="Poder Bônus"
+                type="number"
+                value={blood.bonus}
+                onChange={(v) =>
+                  setBlood({ ...blood, bonus: v })
+                }
+              />
+
+              <EditableField
+                label="Re-rolar Fome"
+                type="number"
+                value={blood.reroll}
+                onChange={(v) =>
+                  setBlood({ ...blood, reroll: v })
+                }
+              />
+
+              <EditableField
+                label="Penalidade Alimentícia"
+                type="number"
+                value={blood.penalidade}
+                onChange={(v) =>
+                  setBlood({ ...blood, penalidade: v })
+                }
+              />
+
+              <EditableField
+                label="Severidade da Desgraça"
+                type="number"
+                value={blood.desgraca}
+                onChange={(v) =>
+                  setBlood({ ...blood, desgraca: v })
+                }
+              />
+            </div>
+          </section>
+
+
+
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Experiência</h2>
+
+            <EditableField
+              label="EXP Total"
+              type="number"
+              value={exp.total}
+              onChange={(v) =>
+                setExp({ ...exp, total: v })
+              }
+            />
+
+            <EditableField
+              label="EXP Gasta"
+              type="number"
+              value={exp.gasta}
+              onChange={(v) =>
+                setExp({ ...exp, gasta: v })
+              }
+            />
+          </section>
+
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Detalhes</h2>
+
+            <EditableField
+              label="Idade verdadeira"
+              value={extras.idadeReal}
+              onChange={(v) =>
+                setExtras({ ...extras, idadeReal: v })
+              }
+            />
+
+            <EditableField
+              label="Idade aparente"
+              value={extras.idadeAparente}
+              onChange={(v) =>
+                setExtras({ ...extras, idadeAparente: v })
+              }
+            />
+
+            <EditableField
+              label="Data de nascimento"
+              value={extras.nascimento}
+              onChange={(v) =>
+                setExtras({ ...extras, nascimento: v })
+              }
+            />
+
+            <EditableField
+              label="Data de morte"
+              value={extras.morte}
+              onChange={(v) =>
+                setExtras({ ...extras, morte: v })
+              }
+            />
+
+            <EditableField
+              label="Aparência"
+              value={extras.aparencia}
+              onChange={(v) =>
+                setExtras({ ...extras, aparencia: v })
+              }
+            />
+
+            <EditableField
+              label="Características distintas"
+              value={extras.caracteristicas}
+              onChange={(v) =>
+                setExtras({ ...extras, caracteristicas: v })
+              }
+            />
+
+            <EditableField
+              label="Prelúdio"
+              value={extras.preludio}
+              onChange={(v) =>
+                setExtras({ ...extras, preludio: v })
+              }
+            />
+          </section>
+        </div>
+      </div>
     </div>
   );
 }

@@ -41,6 +41,7 @@ function CounterStat({ label, stat, onChange }) {
     >
       <strong>{label}</strong>
 
+      {/* Atual */}
       <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
         <button
           onClick={() =>
@@ -52,9 +53,7 @@ function CounterStat({ label, stat, onChange }) {
           -
         </button>
 
-        <span style={{ minWidth: 50, textAlign: "center" }}>
-          {stat.atual} / {stat.max}
-        </span>
+        <span>{stat.atual}</span>
 
         <button
           onClick={() =>
@@ -64,6 +63,37 @@ function CounterStat({ label, stat, onChange }) {
           style={buttonStyle}
         >
           +
+        </button>
+      </div>
+
+      {/* Máximo */}
+      <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+        <button
+          onClick={() =>
+            stat.max > 1 &&
+            onChange({
+              ...stat,
+              max: stat.max - 1,
+              atual: Math.min(stat.atual, stat.max - 1)
+            })
+          }
+          style={buttonStyle}
+        >
+          - Max
+        </button>
+
+        <span>Máx: {stat.max}</span>
+
+        <button
+          onClick={() =>
+            onChange({
+              ...stat,
+              max: stat.max + 1
+            })
+          }
+          style={buttonStyle}
+        >
+          + Max
         </button>
       </div>
     </div>
@@ -89,7 +119,7 @@ function StatDots({ label, stat, onChange }) {
             onClick={() =>
               onChange({
                 ...stat,
-                atual: i + 1
+                atual: stat.atual === i + 1 ? 0 : i + 1
               })
             }
             style={{
@@ -132,24 +162,78 @@ function EditableField({ label, value, onChange, type = "text" }) {
     </div>
   );
 }
-
 function EditableDots({ label, value, onChange, max = 5 }) {
   return (
-    <div style={{ marginBottom: 12 }}>
-      <div style={{ marginBottom: 4 }}>{label}</div>
-      {[1, 2, 3, 4, 5].map((n) => (
-        <span
-          key={n}
-          onClick={() => onChange(n)}
+    <div
+      style={{
+        marginBottom: 16,
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center" // centraliza tudo
+      }}
+    >
+      {/* Texto */}
+      <div
+        style={{
+          marginBottom: 6,
+          textAlign: "center",
+          minHeight: "20px"
+        }}
+      >
+        {label}
+      </div>
+
+      {/* Controles */}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          justifyContent: "center",
+          gap: "8px"
+        }}
+      >
+        {/* Botão - */}
+        <button
+          onClick={() => value > 0 && onChange(value - 1)}
+          style={buttonStyle}
+        >
+          -
+        </button>
+
+        {/* Bolinhas */}
+        <div
           style={{
-            cursor: "pointer",
-            fontSize: 22,
-            marginRight: 4
+            minWidth: "140px",
+            textAlign: "center"
           }}
         >
-          {n <= value ? "●" : "○"}
-        </span>
-      ))}
+          {[...Array(max)].map((_, i) => {
+            const n = i + 1;
+
+            return (
+              <span
+                key={n}
+                onClick={() => onChange(value === n ? 0 : n)}
+                style={{
+                  cursor: "pointer",
+                  fontSize: 22,
+                  marginRight: 4
+                }}
+              >
+                {n <= value ? "●" : "○"}
+              </span>
+            );
+          })}
+        </div>
+
+        {/* Botão + */}
+        <button
+          onClick={() => value < max && onChange(value + 1)}
+          style={buttonStyle}
+        >
+          +
+        </button>
+      </div>
     </div>
   );
 }
@@ -171,14 +255,19 @@ const styles = {
     color: "white",
     minHeight: "100vh",
     padding: 20,
-    fontFamily: "Arial"
+    fontFamily: "Arial",
   },
 
   card: {
     background: "#222",
     padding: 20,
     borderRadius: 12,
-    marginBottom: 20
+    marginBottom: 20,
+  },
+
+  sectionTitle: {
+    color: "white",
+    marginTop: 0
   },
 
   grid3: {
@@ -335,8 +424,8 @@ const [exp, setExp] = useState({
 });
 
 const [extras, setExtras] = useState({
-  idadeReal: 37,
-  idadeAparente: 37,
+  idadeReal: 0,
+  idadeAparente: 0,
   nascimento: "",
   morte: "",
   aparencia: "",
@@ -349,7 +438,7 @@ const [extras, setExtras] = useState({
       <h1>Ficha VTM V5</h1>
 
       <section style={styles.card}>
-  <h2>Informações Básicas</h2>
+  <h2 style={styles.sectionTitle}>Informações Básicas</h2>
 
   <div style={styles.grid3}>
     {infoFields.map(([key, label]) => (
@@ -369,7 +458,7 @@ const [extras, setExtras] = useState({
 </section>
 
       <section style={styles.card}>
-  <h2>Atributos</h2>
+  <h2 style={styles.sectionTitle}>Atributos</h2>
 
   <div style={styles.grid3}>
     {/* Físicos */}
@@ -462,7 +551,7 @@ const [extras, setExtras] = useState({
 </section>
 
       <section style={styles.card}>
-  <h2>Stats</h2>
+  <h2 style={styles.sectionTitle}>Stats</h2>
 
   <div style={styles.statsGrid}>
     <StatDots
@@ -498,7 +587,7 @@ const [extras, setExtras] = useState({
 </section>
 
       <section style={styles.card}>
-  <h2>Perícias</h2>
+  <h2 style={styles.sectionTitle}>Perícias</h2>
 
   <div style={styles.grid3}>
     {/* Físicas */}
@@ -657,7 +746,7 @@ const [extras, setExtras] = useState({
 </section>
 
       <section style={styles.card}>
-        <h2>Disciplinas</h2>
+        <h2 style={styles.sectionTitle}>Disciplinas</h2>
         {disciplinas.map((disc, index) => (
   <div
     key={index}
@@ -743,7 +832,7 @@ const [extras, setExtras] = useState({
       </section>
 <div style={styles.doubleColumn}>
       <section style={styles.card}>
-        <h2>Lore</h2>
+        <h2 style={styles.sectionTitle}>Lore</h2>
         {Object.entries(lore).map(([key, value]) => (
           <EditableField
             key={key}
@@ -757,7 +846,7 @@ const [extras, setExtras] = useState({
       </section>
 
       <section style={styles.card}>
-  <h2>Potência de Sangue</h2>
+  <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
 
   <StatDots
     label="Potência"
@@ -785,7 +874,7 @@ const [extras, setExtras] = useState({
 
 <div style={styles.doubleColumn}>
 <section style={styles.card}>
-  <h2>Experiência</h2>
+  <h2 style={styles.sectionTitle}>Experiência</h2>
 
   <EditableField
     label="EXP Total"
@@ -803,7 +892,7 @@ const [extras, setExtras] = useState({
 </section>
 
 <section style={styles.card}>
-  <h2>Detalhes</h2>
+  <h2 style={styles.sectionTitle}>Detalhes</h2>
 
   <EditableField
     label="Idade Verdadeira"

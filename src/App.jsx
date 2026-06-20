@@ -1,5 +1,31 @@
 import React, { useState } from "react";
 
+function fnRolarDado(dices, type) {
+  let dicesRolled = 0, text;
+  const results = [];
+
+  while (dicesRolled < dices) {
+    const roll = Math.floor(Math.random() * 10) + 1;
+
+    results.push(roll);
+
+    dicesRolled += 1;
+  }
+
+  if (type == "C") {
+    if (results[0] > 5) {
+      text = "Sucesso."
+      alert(text);
+    }
+    else {
+      text = "Falha."
+      alert(text);
+    }
+  }
+
+  console.log(results);
+}
+
 function TraitDots({ trait, onChange }) {
   return (
     <div
@@ -649,6 +675,23 @@ export default function CharacterSheet() {
               setStats({ ...stats, fome: v })
             }
           />
+        </div>
+
+        {/* BOTÃO ABAIXO DO GRID */}
+        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px", marginRight: "3.5%" }}>
+          <button
+            onClick={() => fnRolarDado(1, "C")}
+            style={{
+              padding: "10px 15px",
+              background: "#8b0000",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer",
+            }}
+          >
+            Checagem de Sangue
+          </button>
         </div>
       </section>
 

@@ -1,31 +1,5 @@
 import React, { useState } from "react";
 
-function fnRolarDado(dices, type) {
-  let dicesRolled = 0, text;
-  const results = [];
-
-  while (dicesRolled < dices) {
-    const roll = Math.floor(Math.random() * 10) + 1;
-
-    results.push(roll);
-
-    dicesRolled += 1;
-  }
-
-  if (type == "C") {
-    if (results[0] > 5) {
-      text = "Sucesso."
-      alert(text);
-    }
-    else {
-      text = "Falha."
-      alert(text);
-    }
-  }
-
-  console.log(results);
-}
-
 function TraitDots({ trait, onChange }) {
   return (
     <div
@@ -126,7 +100,7 @@ function CounterStat({ label, stat, onChange }) {
   );
 }
 
-function StatDots({ label, stat, onChange }) {
+function StatDots({ label, stat, onChange, reverse = false }) {
   return (
     <div
       style={{
@@ -148,7 +122,6 @@ function StatDots({ label, stat, onChange }) {
           gap: "10px"
         }}
       >
-        {/* Botão - */}
         <button
           onClick={() =>
             stat.atual > 0 &&
@@ -162,8 +135,13 @@ function StatDots({ label, stat, onChange }) {
           -
         </button>
 
-        {/* Bolinhas */}
-        <div style={{ textAlign: "center" }}>
+        <div
+          style={{
+            textAlign: "center",
+            display: "flex",
+            flexDirection: reverse ? "row-reverse" : "row"
+          }}
+        >
           {[...Array(stat.max)].map((_, i) => (
             <span
               key={i}
@@ -176,7 +154,8 @@ function StatDots({ label, stat, onChange }) {
               style={{
                 cursor: "pointer",
                 fontSize: "20px",
-                marginRight: "3px"
+                marginRight: reverse ? "0px" : "3px",
+                marginLeft: reverse ? "3px" : "0px"
               }}
             >
               {i < stat.atual ? "●" : "○"}
@@ -184,7 +163,6 @@ function StatDots({ label, stat, onChange }) {
           ))}
         </div>
 
-        {/* Botão + */}
         <button
           onClick={() =>
             stat.atual < stat.max &&
@@ -422,6 +400,106 @@ const atributosLabels = {
 };
 
 export default function CharacterSheet() {
+
+  function fnRolarDado(dices, type) {
+    let roll;
+    let success = 0;
+    let dicesRolled = 0;
+    const results = [];
+
+    if(dices <= 0)
+    {
+      dices = 1;
+    }
+
+    while (dicesRolled < dices) {
+      const roll = Math.floor(Math.random() * 10) + 1;
+      results.push(roll);
+      dicesRolled++;
+    }
+
+    switch (type) {
+      case "CS":
+        roll = results[0];
+        success = roll > 5;
+
+        if (!success) {
+          setStats({
+            ...stats,
+            fome: {
+              ...stats.fome,
+              atual: Math.min(stats.fome.atual + 1, stats.fome.max)
+            }
+          });
+        }
+
+        setAlertMessage(
+          success
+            ? `Sucesso. (${roll})`
+            : `Falha. (${roll})`
+        );
+        break;
+
+      case "TR":
+        for (let i = 0; i < results.length; i++) {
+          if (results[i] > 5) {
+            success++;
+          }
+        }
+
+        if (success > 0) {
+          // Remove todas as máculas
+          setStats({
+            ...stats,
+            maculas: {
+              ...stats.maculas,
+              atual: 0
+            }
+          });
+
+          setAlertMessage(
+            `Remorso sentido: ${success} sucesso(s). Máculas removidas.`
+          );
+        } else {
+          // Perde 1 humanidade e remove máculas
+          setStats({
+            ...stats,
+            humanidade: {
+              ...stats.humanidade,
+              atual: Math.max(stats.humanidade.atual - 1, 0)
+            },
+            maculas: {
+              ...stats.maculas,
+              atual: 0
+            }
+          });
+
+          setAlertMessage(
+            "A Besta venceu. -1 Humanidade e Máculas removidas."
+          );
+        }
+        break;
+
+      case "TS":
+        for (let i = 0; i < results.length; i++) {
+          if (results[i] > 5) {
+            success++;
+          }
+        }
+
+        setAlertMessage(
+          `${success} sucesso(s). (${results.join(", ")})`
+        );
+        break;
+
+      default:
+        setAlertMessage("Tipo de rolagem inválido.");
+        break;
+    }
+
+    console.log(results);
+  }
+
   const [infoBasica, setInfoBasica] = useState({
     nome: "",
     conceito: "",
@@ -450,8 +528,15 @@ export default function CharacterSheet() {
     vida: { atual: 0, max: 10 },
     forcaVontade: { atual: 0, max: 10 },
     humanidade: { atual: 0, max: 10 },
-    fome: { atual: 0, max: 5 }
+    fome: { atual: 0, max: 5 },
+    maculas: { atual: 0, max: 10 },
+    danoSupV: { atual: 0, max: 10 },
+    danoAgrV: { atuaç: 0, max: 10 },
+    danoSupF: { atual: 0, max: 10 },
+    danoAgrF: { atuaç: 0, max: 10 }
   });
+
+  const [alertMessage, setAlertMessage] = useState("");
 
   const [pericias, setPericias] = useState({
     esportes: 0,
@@ -548,6 +633,8 @@ export default function CharacterSheet() {
           ))}
         </div>
       </section>
+
+
 
       <section style={styles.card}>
         <h2 style={styles.sectionTitle}>Atributos</h2>
@@ -647,7 +734,7 @@ export default function CharacterSheet() {
 
         <div style={styles.statsGrid}>
           <StatDots
-            label="Vida"
+            label="Vitalidade"
             stat={stats.vida}
             onChange={(v) => setStats({ ...stats, vida: v })}
           />
@@ -675,23 +762,96 @@ export default function CharacterSheet() {
               setStats({ ...stats, fome: v })
             }
           />
-        </div>
 
-        {/* BOTÃO ABAIXO DO GRID */}
-        <div style={{ display: "flex", justifyContent: "flex-end", marginTop: "10px", marginRight: "3.5%" }}>
-          <button
-            onClick={() => fnRolarDado(1, "C")}
+          <StatDots
+            label="Dano superficial"
+            stat={stats.danoSupV}
+            onChange={(v) =>
+              setStats({ ...stats, danoSupV: v })
+            }
+          />
+
+          <StatDots
+            label="Dano superficial"
+            stat={stats.danoSupF}
+            onChange={(v) =>
+              setStats({ ...stats, danoSupF: v })
+            }
+          />
+
+          <StatDots
+            label="Máculas"
+            stat={stats.maculas}
+            reverse={true}
+            onChange={(v) =>
+              setStats({ ...stats, maculas: v })
+            }
+          />
+
+          {/* BOTÃO EMBAIXO DE FOME */}
+          <div
             style={{
-              padding: "10px 15px",
-              background: "#8b0000",
-              color: "white",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer",
+              gridColumn: 4,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
             }}
           >
-            Checagem de Sangue
-          </button>
+            <button
+              onClick={() => (fnRolarDado(1, "CS"))}
+              style={{
+                padding: "10px 15px",
+                background: "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              Checagem de Sangue
+            </button>
+          </div>
+
+          <StatDots
+            label="Dano Agravado"
+            stat={stats.danoAgrV}
+            reverse={true}
+            onChange={(v) =>
+              setStats({ ...stats, danoAgrV: v })
+            }
+          />
+
+          <StatDots
+            label="Dano Agravado"
+            stat={stats.danoAgrF}
+            reverse={true}
+            onChange={(v) =>
+              setStats({ ...stats, danoAgrF: v })
+            }
+          />
+
+          <div
+            style={{
+              gridColumn: 3,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <button
+              onClick={() => fnRolarDado(10 - (stats.humanidade.atual + stats.maculas.atual), "TR")}
+              style={{
+                padding: "10px 15px",
+                background: "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              Testar Remorso
+            </button>
+          </div>
         </div>
       </section>
 
@@ -1216,6 +1376,56 @@ export default function CharacterSheet() {
           </section>
         </div>
       </div>
+      {alertMessage && (
+        <div
+          style={{
+            position: "fixed",
+            top: "50%",
+            left: "50%",
+            transform: "translate(-50%, -50%)",
+            background: "#222",
+            color: "white",
+            padding: "35px 50px",
+            borderRadius: "12px",
+            border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
+              }`,
+            zIndex: 9999,
+            textAlign: "center",
+            minWidth: "300px"
+          }}
+        >
+          <h2
+            style={{
+              fontSize: "48px",
+              margin: 0,
+              color:
+                alertMessage.startsWith("Sucesso")
+                  ? "#00ff66"
+                  : "#ff4444"
+            }}
+          >
+            {alertMessage}
+          </h2>
+
+          <button
+            onClick={() => setAlertMessage("")}
+            style={{
+              marginTop: "20px",
+              padding: "10px 20px",
+              background:
+                alertMessage.startsWith("Sucesso")
+                  ? "#008800"
+                  : "#8b0000",
+              color: "white",
+              border: "none",
+              borderRadius: "6px",
+              cursor: "pointer"
+            }}
+          >
+            Fechar
+          </button>
+        </div>
+      )}
     </div>
   );
 }

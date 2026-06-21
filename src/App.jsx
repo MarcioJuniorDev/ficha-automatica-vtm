@@ -899,16 +899,21 @@ export default function CharacterSheet() {
 
     const { error } = await supabase
       .from("fichas")
-      .upsert({
-        nome: infoBasica.nome,
-        data: ficha
-      });
+      .upsert(
+        {
+          nome: infoBasica.nome,
+          data: ficha
+        },
+        {
+          onConflict: "nome"
+        }
+      );
 
     if (error) {
-      setAlertMessage("Erro ao salvar.");
       console.error(error);
+      setAlertMessage("Erro ao salvar.");
     } else {
-      setAlertMessage("Ficha salva!");
+      setAlertMessage("Ficha salva/substituída!");
     }
   }
 

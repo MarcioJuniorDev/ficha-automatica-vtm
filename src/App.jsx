@@ -875,7 +875,8 @@ export default function CharacterSheet() {
     morte: "",
     aparencia: "",
     caracteristicas: "",
-    preludio: ""
+    preludio: "",
+    ressonancia
   });
 
   const [notes, setNotes] = useState("");
@@ -1860,6 +1861,14 @@ export default function CharacterSheet() {
               value={extras.preludio}
               onChange={(v) =>
                 setExtras({ ...extras, preludio: v })
+              }
+            />
+
+            <EditableField
+              label="Ressonância"
+              value={extras.ressonancia}
+              onChange={(v) =>
+                setExtras({ ...extras, ressonancia: v })
               }
             />
           </section>

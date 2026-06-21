@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 function TraitDots({ trait, onChange }) {
   return (
@@ -184,47 +184,6 @@ function StatDots({ label, stat, onChange, reverse = false }) {
   );
 }
 
-function EditableField({ label, value, onChange, type = "text" }) {
-  const isNumber = type === "number";
-
-  const sharedStyle = {
-    width: "100%",
-    padding: 8,
-    borderRadius: 6,
-    border: "1px solid #444",
-    background: "#333",
-    color: "white",
-    textAlign: "center"
-  };
-
-  return (
-    <div style={{ marginBottom: 12 }}>
-      <label style={{ display: "block", marginBottom: 4 }}>
-        {label}
-      </label>
-
-      {isNumber ? (
-        <input
-          type="number"
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          style={sharedStyle}
-        />
-      ) : (
-        <textarea
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          rows={1}
-          style={{
-            ...sharedStyle,
-            resize: "vertical"
-          }}
-        />
-      )}
-    </div>
-  );
-}
-
 function EditableDots({ label, value, onChange, max = 5 }) {
   return (
     <div
@@ -359,18 +318,6 @@ const styles = {
   }
 };
 
-const infoFields = [
-  ["nome", "Nome"],
-  ["conceito", "Conceito"],
-  ["predador", "Predador"],
-  ["cronica", "Crônica"],
-  ["ambicao", "Ambição"],
-  ["cla", "Clã"],
-  ["senhor", "Senhor"],
-  ["desejo", "Desejo"],
-  ["geracao", "Geração"]
-]
-
 const statFields = [
   ["vida", "Vida"],
   ["forcaVontade", "Força de Vontade"],
@@ -401,14 +348,102 @@ const atributosLabels = {
 
 export default function CharacterSheet() {
 
+  function getValorCaracteristica(nome) {
+    if (nome in atributos) {
+      return atributos[nome];
+    }
+
+    if (nome in pericias) {
+      return pericias[nome];
+    }
+
+    return 0;
+  }
+
+  function fazerTeste() {
+    const valor1 = getValorCaracteristica(carac1);
+    const valor2 = getValorCaracteristica(carac2);
+
+    const totalDados = valor1 + valor2;
+
+    fnRolarDado(totalDados, "TS");
+    setPodeRerrolar(true);
+  }
+
+  function StatBar({
+    label,
+    max,
+    superficial,
+    agravado,
+    onSupChange,
+    onAgrChange
+  }) {
+    return (
+      <div style={{ marginBottom: "25px", width: "100%" }}>
+        <strong style={{ fontSize: "18px" }}>
+          {label} ({max})
+        </strong>
+
+        <div
+          style={{
+            display: "grid",
+            gridTemplateColumns: `repeat(${max}, 1fr)`,
+            gap: "4px",
+            marginTop: "10px",
+            marginBottom: "15px"
+          }}
+        >
+          {[...Array(max)].map((_, i) => {
+            let bg = "#222";
+
+            if (i < agravado) {
+              bg = "#111";
+            } else if (i < agravado + superficial) {
+              bg = "#8b0000";
+            }
+
+            return (
+              <div
+                key={i}
+                style={{
+                  height: "28px",
+                  borderRadius: "4px",
+                  border: "1px solid #555",
+                  background: bg
+                }}
+              />
+            );
+          })}
+        </div>
+
+        <div style={{ display: "flex", gap: "20px" }}>
+          <div>
+            <span>Superficial: {superficial}</span>
+            <div>
+              <button onClick={() => onSupChange(superficial - 1)}>-</button>
+              <button onClick={() => onSupChange(superficial + 1)}>+</button>
+            </div>
+          </div>
+
+          <div>
+            <span>Agravado: {agravado}</span>
+            <div>
+              <button onClick={() => onAgrChange(agravado - 1)}>-</button>
+              <button onClick={() => onAgrChange(agravado + 1)}>+</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   function fnRolarDado(dices, type) {
     let roll;
     let success = 0;
     let dicesRolled = 0;
     const results = [];
 
-    if(dices <= 0)
-    {
+    if (dices <= 0) {
       dices = 1;
     }
 
@@ -481,23 +516,237 @@ export default function CharacterSheet() {
         break;
 
       case "TS":
+        let tens = 0;
+        let hungerTens = 0;
+        let hungerOnes = 0;
+
+        const hungerDice = stats.fome.atual;
+        let normalResults = results.slice(0, results.length - hungerDice);
+        const hungerResults = results.slice(results.length - hungerDice);
+
+        // Salva para rerrolagem posterior
+        setLastNormalRoll(normalResults);
+        setLastHungerRoll(hungerResults);
+
         for (let i = 0; i < results.length; i++) {
-          if (results[i] > 5) {
-            success++;
+          const roll = results[i];
+          const isHungerDie = i >= results.length - hungerDice;
+
+          if (roll > 5) success++;
+
+          if (roll === 10) {
+            tens++;
+            if (isHungerDie) hungerTens++;
+          }
+
+          if (roll === 1 && isHungerDie) {
+            hungerOnes++;
           }
         }
 
-        setAlertMessage(
-          `${success} sucesso(s). (${results.join(", ")})`
-        );
-        break;
+        success += Math.floor(tens / 2) * 2;
 
-      default:
-        setAlertMessage("Tipo de rolagem inválido.");
+        let msg =
+          `${success} sucesso(s)\n` +
+          `Normais: [${normalResults.join(", ")}]\n` +
+          `Fome: [${hungerResults.join(", ")}]`;
+
+        const hasCritical = tens >= 2;
+        const isMessyCritical = hasCritical && hungerTens > 0;
+        const isBestialFailure = success === 0 && hungerOnes > 0;
+
+        if (isMessyCritical) msg += "\nCRÍTICO BESTIAL!";
+        else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
+
+        setAlertMessage(msg);
         break;
     }
 
     console.log(results);
+  }
+
+  const [lastNormalRoll, setLastNormalRoll] = useState([]);
+  const [lastHungerRoll, setLastHungerRoll] = useState([]);
+
+  function rerrolarForcaVontade() {
+    let rerolled = [...lastNormalRoll];
+    let rerolls = 0;
+
+    for (let i = 0; i < rerolled.length; i++) {
+      if (rerolled[i] < 6 && rerolls < 3) {
+        rerolled[i] = Math.floor(Math.random() * 10) + 1;
+        rerolls++;
+      }
+    }
+
+    setLastNormalRoll(rerolled);
+
+    // Gasta 1 dano superficial de força de vontade
+    setStats({
+      ...stats,
+      danoSupF: {
+        ...stats.danoSupF,
+        atual: Math.min(
+          stats.danoSupF.atual + 1,
+          stats.forcaVontade.max
+        )
+      }
+    });
+
+    const combined = [...rerolled, ...lastHungerRoll];
+    fnRecalcularTeste(combined);
+    setPodeRerrolar(false);
+  }
+
+  function fnRecalcularTeste(results) {
+    let success = 0;
+    let tens = 0;
+    let hungerTens = 0;
+    let hungerOnes = 0;
+
+    const hungerDice = stats.fome.atual;
+    const normalResults = results.slice(0, results.length - hungerDice);
+    const hungerResults = results.slice(results.length - hungerDice);
+
+    for (let i = 0; i < results.length; i++) {
+      const roll = results[i];
+      const isHungerDie = i >= results.length - hungerDice;
+
+      if (roll > 5) success++;
+
+      if (roll === 10) {
+        tens++;
+        if (isHungerDie) hungerTens++;
+      }
+
+      if (roll === 1 && isHungerDie) {
+        hungerOnes++;
+      }
+    }
+
+    success += Math.floor(tens / 2) * 2;
+
+    let msg =
+      `RERROLAGEM\n` +
+      `${success} sucesso(s)\n` +
+      `Normais: [${normalResults.join(", ")}]\n` +
+      `Fome: [${hungerResults.join(", ")}]`;
+
+    const hasCritical = tens >= 2;
+    const isMessyCritical = hasCritical && hungerTens > 0;
+    const isBestialFailure = success === 0 && hungerOnes > 0;
+
+    if (isMessyCritical) msg += "\nCRÍTICO BESTIAL!";
+    else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
+
+    setAlertMessage(msg);
+  }
+
+
+  const clans = [
+    "Brujah",
+    "Gangrel",
+    "Malkavianos",
+    "Nosferatu",
+    "Toreador",
+    "Tremere",
+    "Ventrue",
+    "Caitiff",
+    "Sangue-ralo"
+  ];
+
+  const predatorTypes = [
+    "Consensualista",
+    "Fazendeiro",
+    "Osíris",
+    "Sacoleiro",
+    "Sandman",
+    "Sanguessuga",
+    "Scene Queen",
+    "Sereia",
+    "Trinchador",
+    "Vira-lata"
+  ];
+
+  const infoFields = [
+    { key: "nome", label: "Nome" },
+    { key: "conceito", label: "Conceito" },
+    {
+      key: "predador",
+      label: "Predador",
+      type: "select",
+      options: predatorTypes
+    },
+    { key: "cronica", label: "Crônica" },
+    { key: "ambicao", label: "Ambição" },
+    {
+      key: "cla",
+      label: "Clã",
+      type: "select",
+      options: clans
+    },
+    { key: "senhor", label: "Senhor" },
+    { key: "desejo", label: "Desejo" },
+    { key: "geracao", label: "Geração" }
+  ];
+
+  function EditableField({
+    label,
+    value,
+    onChange,
+    type = "text",
+    options = []
+  }) {
+    const sharedStyle = {
+      width: "100%",
+      padding: 8,
+      borderRadius: 6,
+      border: "1px solid #444",
+      background: "#333",
+      color: "white",
+      textAlign: "center"
+    };
+
+    return (
+      <div style={{ marginBottom: 12 }}>
+        <label style={{ display: "block", marginBottom: 4 }}>
+          {label}
+        </label>
+
+        {type === "select" ? (
+          <select
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            style={sharedStyle}
+          >
+            <option value="">Selecione...</option>
+
+            {options.map((option) => (
+              <option key={option} value={option}>
+                {option}
+              </option>
+            ))}
+          </select>
+        ) : type === "number" ? (
+          <input
+            type="number"
+            value={value}
+            onChange={(e) => onChange(Number(e.target.value))}
+            style={sharedStyle}
+          />
+        ) : (
+          <textarea
+            value={value}
+            onChange={(e) => onChange(e.target.value)}
+            rows={1}
+            style={{
+              ...sharedStyle,
+              resize: "vertical"
+            }}
+          />
+        )}
+      </div>
+    );
   }
 
   const [infoBasica, setInfoBasica] = useState({
@@ -530,11 +779,31 @@ export default function CharacterSheet() {
     humanidade: { atual: 0, max: 10 },
     fome: { atual: 0, max: 5 },
     maculas: { atual: 0, max: 10 },
+
     danoSupV: { atual: 0, max: 10 },
-    danoAgrV: { atuaç: 0, max: 10 },
+    danoAgrV: { atual: 0, max: 10 },
+
     danoSupF: { atual: 0, max: 10 },
-    danoAgrF: { atuaç: 0, max: 10 }
+    danoAgrF: { atual: 0, max: 10 }
   });
+
+  useEffect(() => {
+    setStats((prev) => ({
+      ...prev,
+      vida: {
+        ...prev.vida,
+        max: atributos.vigor + 3
+      },
+      forcaVontade: {
+        ...prev.forcaVontade,
+        max: atributos.compostura + atributos.determinacao
+      }
+    }));
+  }, [
+    atributos.vigor,
+    atributos.compostura,
+    atributos.determinacao
+  ]);
 
   const [alertMessage, setAlertMessage] = useState("");
 
@@ -609,24 +878,131 @@ export default function CharacterSheet() {
   });
 
   const [notes, setNotes] = useState("");
+  const [carac1, setCarac1] = useState("");
+  const [carac2, setCarac2] = useState("");
 
+  function getAllOptions() {
+    return [
+      ...Object.keys(atributos).map((key) => ({
+        value: key,
+        label: `[Atributo] ${key}`
+      })),
+
+      ...Object.keys(pericias).map((key) => ({
+        value: key,
+        label: `[Perícia] ${key}`
+      })),
+
+      ...disciplinas.map((disc, index) => ({
+        value: `disciplina-${index}`,
+        label: `[Disciplina] ${disc.nome || `Disciplina ${index + 1}`}`
+      }))
+    ];
+  }
+
+  const [podeRerrolar, setPodeRerrolar] = useState(false);
   return (
     <div style={styles.page}>
+      <div
+        style={{
+          position: "fixed",
+          right: "25px",
+          top: "50%",
+          transform: "translateY(-50%)",
+          zIndex: 9999,
+          display: "flex",
+          flexDirection: "column",
+          gap: "14px",
+          width: "280px",
+          padding: "20px",
+          background: "#1a1a1a",
+          border: "2px solid #8b0000",
+          borderRadius: "16px",
+          boxShadow: "0 0 25px rgba(0,0,0,0.7)"
+        }}
+      >
+        <h3
+          style={{
+            margin: 0,
+            padding: "14px",
+            textAlign: "center",
+            background: "linear-gradient(180deg, #8b0000, #5a0000)",
+            color: "white",
+            borderRadius: "12px",
+            fontSize: "26px",
+            fontWeight: "bold",
+            letterSpacing: "1px",
+            boxShadow: "inset 0 0 10px rgba(255,255,255,0.1)"
+          }}
+        >
+          Teste
+        </h3>
+
+        <select
+          value={carac1}
+          onChange={(e) => setCarac1(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #8b0000",
+            background: "#2b2b2b",
+            color: "white",
+            fontSize: "16px",
+            outline: "none"
+          }}
+        >
+          <option value="">Selecione...</option>
+          {getAllOptions().map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+
+        <select
+          value={carac2}
+          onChange={(e) => setCarac2(e.target.value)}
+          style={{
+            width: "100%",
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #8b0000",
+            background: "#2b2b2b",
+            color: "white",
+            fontSize: "16px",
+            outline: "none"
+          }}
+        >
+          <option value="">Selecione...</option>
+          {getAllOptions().map((option) => (
+            <option key={option.value} value={option.value}>
+              {option.label}
+            </option>
+          ))}
+        </select>
+
+        <button onClick={fazerTeste}>
+          Rolar dados
+        </button>
+      </div>
       <h1 style={styles.sectionTitle}>Ficha VTM V5</h1>
 
       <section style={styles.card}>
         <h2 style={styles.sectionTitle}>Informações Básicas</h2>
 
         <div style={styles.grid3}>
-          {infoFields.map(([key, label]) => (
+          {infoFields.map((field) => (
             <EditableField
-              key={key}
-              label={label}
-              value={infoBasica[key]}
+              key={field.key}
+              label={field.label}
+              type={field.type}
+              options={field.options}
+              value={infoBasica[field.key]}
               onChange={(value) =>
                 setInfoBasica({
                   ...infoBasica,
-                  [key]: value
+                  [field.key]: value
                 })
               }
             />
@@ -733,17 +1109,95 @@ export default function CharacterSheet() {
         <h2 style={styles.sectionTitle}></h2>
 
         <div style={styles.statsGrid}>
-          <StatDots
+          <StatBar
             label="Vitalidade"
-            stat={stats.vida}
-            onChange={(v) => setStats({ ...stats, vida: v })}
+            max={stats.vida.max}
+            superficial={stats.danoSupV.atual}
+            agravado={stats.danoAgrV.atual}
+            onMaxChange={(value) =>
+              setStats({
+                ...stats,
+                vida: {
+                  ...stats.vida,
+                  max: value
+                }
+              })
+            }
+            onSupChange={(value) =>
+              setStats({
+                ...stats,
+                danoSupV: {
+                  ...stats.danoSupV,
+                  atual: Math.max(
+                    0,
+                    Math.min(
+                      value,
+                      stats.vida.max - stats.danoAgrV.atual
+                    )
+                  )
+                }
+              })
+            }
+            onAgrChange={(value) =>
+              setStats({
+                ...stats,
+                danoAgrV: {
+                  ...stats.danoAgrV,
+                  atual: Math.max(
+                    0,
+                    Math.min(
+                      value,
+                      stats.vida.max - stats.danoSupV.atual
+                    )
+                  )
+                }
+              })
+            }
           />
 
-          <StatDots
+          <StatBar
             label="Força de Vontade"
-            stat={stats.forcaVontade}
-            onChange={(v) =>
-              setStats({ ...stats, forcaVontade: v })
+            max={stats.forcaVontade.max}
+            superficial={stats.danoSupF.atual}
+            agravado={stats.danoAgrF.atual}
+            onMaxChange={(value) =>
+              setStats({
+                ...stats,
+                forcaVontade: {
+                  ...stats.forcaVontade,
+                  max: value
+                }
+              })
+            }
+            onSupChange={(value) =>
+              setStats({
+                ...stats,
+                danoSupF: {
+                  ...stats.danoSupF,
+                  atual: Math.max(
+                    0,
+                    Math.min(
+                      value,
+                      stats.forcaVontade.max - stats.danoAgrF.atual
+                    )
+                  )
+                }
+              })
+            }
+            onAgrChange={(value) =>
+              setStats({
+                ...stats,
+                danoAgrF: {
+                  ...stats.danoAgrF,
+                  atual: Math.max(
+                    0,
+                    Math.min(
+                      value,
+                      stats.forcaVontade.max - stats.danoSupF.atual
+                    )
+                  )
+                }
+              })
             }
           />
 
@@ -763,30 +1217,23 @@ export default function CharacterSheet() {
             }
           />
 
-          <StatDots
-            label="Dano superficial"
-            stat={stats.danoSupV}
-            onChange={(v) =>
-              setStats({ ...stats, danoSupV: v })
-            }
-          />
-
-          <StatDots
-            label="Dano superficial"
-            stat={stats.danoSupF}
-            onChange={(v) =>
-              setStats({ ...stats, danoSupF: v })
-            }
-          />
-
-          <StatDots
-            label="Máculas"
-            stat={stats.maculas}
-            reverse={true}
-            onChange={(v) =>
-              setStats({ ...stats, maculas: v })
-            }
-          />
+          <div
+            style={{
+              gridColumn: 3,
+              display: "flex",
+              justifyContent: "center",
+              alignItems: "center"
+            }}
+          >
+            <StatDots
+              label="Máculas"
+              stat={stats.maculas}
+              reverse={true}
+              onChange={(v) =>
+                setStats({ ...stats, maculas: v })
+              }
+            />
+          </div>
 
           {/* BOTÃO EMBAIXO DE FOME */}
           <div
@@ -812,24 +1259,6 @@ export default function CharacterSheet() {
             </button>
           </div>
 
-          <StatDots
-            label="Dano Agravado"
-            stat={stats.danoAgrV}
-            reverse={true}
-            onChange={(v) =>
-              setStats({ ...stats, danoAgrV: v })
-            }
-          />
-
-          <StatDots
-            label="Dano Agravado"
-            stat={stats.danoAgrF}
-            reverse={true}
-            onChange={(v) =>
-              setStats({ ...stats, danoAgrF: v })
-            }
-          />
-
           <div
             style={{
               gridColumn: 3,
@@ -853,7 +1282,7 @@ export default function CharacterSheet() {
             </button>
           </div>
         </div>
-      </section>
+      </section >
 
       <section style={styles.card}>
         <h2 style={styles.sectionTitle}>Habilidades</h2>
@@ -1376,56 +1805,74 @@ export default function CharacterSheet() {
           </section>
         </div>
       </div>
-      {alertMessage && (
-        <div
-          style={{
-            position: "fixed",
-            top: "50%",
-            left: "50%",
-            transform: "translate(-50%, -50%)",
-            background: "#222",
-            color: "white",
-            padding: "35px 50px",
-            borderRadius: "12px",
-            border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
-              }`,
-            zIndex: 9999,
-            textAlign: "center",
-            minWidth: "300px"
-          }}
-        >
-          <h2
+      {
+        alertMessage && (
+          <div
             style={{
-              fontSize: "48px",
-              margin: 0,
-              color:
-                alertMessage.startsWith("Sucesso")
-                  ? "#00ff66"
-                  : "#ff4444"
-            }}
-          >
-            {alertMessage}
-          </h2>
-
-          <button
-            onClick={() => setAlertMessage("")}
-            style={{
-              marginTop: "20px",
-              padding: "10px 20px",
-              background:
-                alertMessage.startsWith("Sucesso")
-                  ? "#008800"
-                  : "#8b0000",
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              background: "#222",
               color: "white",
-              border: "none",
-              borderRadius: "6px",
-              cursor: "pointer"
+              padding: "35px 50px",
+              borderRadius: "12px",
+              border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
+                }`,
+              zIndex: 9999,
+              textAlign: "center",
+              minWidth: "300px"
             }}
           >
-            Fechar
-          </button>
-        </div>
-      )}
-    </div>
+            <h2
+              style={{
+                fontSize: "48px",
+                margin: 0,
+                color:
+                  alertMessage.startsWith("Sucesso")
+                    ? "#00ff66"
+                    : "#ff4444"
+              }}
+            >
+              {alertMessage}
+            </h2>
+            {podeRerrolar && (
+              <button onClick={rerrolarForcaVontade} style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                background:
+                  alertMessage.startsWith("Sucesso")
+                    ? "#008800"
+                    : "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "point"
+              }}>
+                Rerrolar(Força de Vontade)
+              </button>
+            )}
+            <button
+              onClick={() => setAlertMessage("")}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                marginLeft: "10px",
+                background:
+                  alertMessage.startsWith("Sucesso")
+                    ? "#008800"
+                    : "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              Fechar
+            </button>
+          </div>
+        )
+      }
+    </div >
   );
 }

@@ -894,7 +894,8 @@ export default function CharacterSheet() {
       extras,
       exp,
       lore,
-      vantagensDefeitos
+      vantagensDefeitos,
+      notes
     };
 
     const { error } = await supabase

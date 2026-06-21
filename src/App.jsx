@@ -876,7 +876,7 @@ export default function CharacterSheet() {
     aparencia: "",
     caracteristicas: "",
     preludio: "",
-    ressonancia
+    ressonancia: ""
   });
 
   const [notes, setNotes] = useState("");

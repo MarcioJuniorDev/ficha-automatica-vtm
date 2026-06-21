@@ -944,6 +944,7 @@ export default function CharacterSheet() {
     setExp(ficha.exp);
     setLore(ficha.lore);
     setVantagensDefeitos(ficha.vantagensDefeitos);
+    setNotes(ficha.notes)
 
     setAlertMessage("Ficha carregada!");
   }

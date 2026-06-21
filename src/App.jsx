@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { supabase } from "./supabase";
 
 function TraitDots({ trait, onChange }) {
   return (
@@ -880,6 +881,65 @@ export default function CharacterSheet() {
   const [notes, setNotes] = useState("");
   const [carac1, setCarac1] = useState("");
   const [carac2, setCarac2] = useState("");
+
+  async function salvarFicha() {
+    const ficha = {
+      infoBasica,
+      atributos,
+      pericias,
+      disciplinas,
+      stats,
+      blood,
+      extras,
+      exp,
+      lore,
+      vantagensDefeitos
+    };
+
+    const { error } = await supabase
+      .from("fichas")
+      .upsert({
+        nome: infoBasica.nome,
+        data: ficha
+      });
+
+    if (error) {
+      setAlertMessage("Erro ao salvar.");
+      console.error(error);
+    } else {
+      setAlertMessage("Ficha salva!");
+    }
+  }
+
+  const [nomeBusca, setNomeBusca] = useState("");
+
+  async function carregarFicha() {
+    const { data, error } = await supabase
+      .from("fichas")
+      .select("*")
+      .eq("nome", nomeBusca)
+      .single();
+
+    if (error || !data) {
+      setAlertMessage("Ficha não encontrada.");
+      return;
+    }
+
+    const ficha = data.data;
+
+    setInfoBasica(ficha.infoBasica);
+    setAtributos(ficha.atributos);
+    setPericias(ficha.pericias);
+    setDisciplinas(ficha.disciplinas);
+    setStats(ficha.stats);
+    setBlood(ficha.blood);
+    setExtras(ficha.extras);
+    setExp(ficha.exp);
+    setLore(ficha.lore);
+    setVantagensDefeitos(ficha.vantagensDefeitos);
+
+    setAlertMessage("Ficha carregada!");
+  }
 
   function getAllOptions() {
     return [
@@ -1873,6 +1933,47 @@ export default function CharacterSheet() {
           </div>
         )
       }
-    </div >
+
+      <input
+        value={nomeBusca}
+        onChange={(e) => setNomeBusca(e.target.value)}
+        placeholder="Nome do personagem"
+      />
+
+      <button onClick={carregarFicha}
+
+        style={{
+          marginLeft: "10px",
+          padding: "12px 20px",
+          background: "gray",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontSize: "16px",
+          fontWeight: "bold",
+          boxShadow: "0 0 10px rgba(0,0,0,0.4)"
+        }}>
+        Buscar ficha
+      </button>
+
+      <button
+        onClick={salvarFicha}
+        style={{
+          marginLeft: "20px",
+          padding: "12px 20px",
+          background: "gray",
+          color: "white",
+          border: "none",
+          borderRadius: "8px",
+          cursor: "pointer",
+          fontSize: "16px",
+          fontWeight: "bold",
+          boxShadow: "0 0 10px rgba(0,0,0,0.4)"
+        }}
+      >
+        Salvar Ficha
+      </button>
+    </div>
   );
 }

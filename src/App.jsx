@@ -806,6 +806,45 @@ export default function CharacterSheet() {
     atributos.determinacao
   ]);
 
+  useEffect(() => {
+    switch(infoBasica.cla)
+    {
+      case "Brujah":
+        lore.desgraça = "O Sangue dos Brujah fervilha com fúria mal contida, que explode sob a menor provocação. Subtraia uma quantidade de dados igual à Gravidade da Perdição do Brujah de qualquer parada para resistir a um Frenesi de fúria, o que não pode reduzir a parada a menos do que um dado.";
+      break;
+
+      case "Gangrel":
+        lore.desgraça = "Os Gangrel se relacionam com sua Besta da mesma forma que os demais Membros se relacionam com os Gangrel: com desconfiança. Quando em frenesi, os Gangrel ganham um ou mais de um aspecto animalesco: um traço físico, um odor ou um comportamento. Esses aspectos duram por mais uma noite depois do frenesi, persistindo como uma ressaca após uma farra.\nCada aspecto reduz um Atributo em 1 ponto — o Narrador pode decidir que uma língua bifurcada ou um odor de urso reduzem Carisma, enquanto orelhas de morcego reduzem Determinação (“todos esses sons me distraem”). Na dúvida, o aspecto reduz Inteligência ou Manipulação.\nA quantidade de aspectos que um Gangrel manifesta é igual à sua Gravidade da Perdição. Se seu personagem curtir a Onda do Frenesi (consulte a pág. 219), você pode escolher manifestar apenas um aspecto, portanto sofrendo apenas uma penalidade em um Atributo.";
+      break;
+    
+      case "Malkavianos":
+        lore.desgraça = "Afli̱gidos por sua linhagem, todos os Malkavianos são amaldiçoados com pelo menos um tipo de transtorno mental. Dependendo de sua história e do estado da sua mente ao morrer, eles podem experimentar delírios, visões de clareza terrível ou algo totalmente diferente.\nQuando um Malkaviano sofre uma Falha Bestial ou uma Compulsão, sua Perdição vem à tona. Nesse caso, o personagem sofre uma penalidade igual à sua Gravidade da Perdição em uma categoria de parada de dados (Física, Social ou Mental) durante toda a cena. Isso se soma a todas as penalidades devidas a Compulsões.\nDurante a criação do personagem, o jogador e o Narrador decidem qual tipo de penalidade é comum e a natureza exata da aflição que acomete o personagem.";
+      break;
+    
+      case "Nosferatu":
+        lore.desgraça = "Hediondos e vis, considera-se que todos os Nosferatu possuem o Defeito Repulsivo (-2) e jamais podem aumentar seu valor de Qualidade Visual. Além disso, qualquer tentativa de esconder suas deformidades resultado em uma penalidade à parada de dados igual à Gravidade da Perdição do personagem (o que inclui poderes de Disciplina, como Máscara de Mil faces e Disfarce do Impostor).\nA maioria dos Nosferatu nao quebra a Máscara ao serem avistados. Eles são vistos pelos mortais como grotesco e quase sempre aterrorizantes, mas nem sempre de modo sobrenatural.";
+      break;
+      
+      case "Toreador":
+        lore.desgraça = "Os Toreador exemplificam o velho ditado segundo o qual a arte no sangue assume formas estranhas. Eles  desejam tão intensamente a beleza que acabem sofrendo em sua ausência. Enquanto seu personagem se encontrar em um ambiente menos do que belo, suas paradas de dados usadas para acionar Disciplinas sofrem um redutor equivalente a sua Gravidade da Perdição. O Narrador decide especificamente como a beleza ou feiura do ambiente em que um Toreador se encontra (incluindo roupas, bonecas de sangue etc.) o penalizam, baseando-se no senso estético do personagem. Dito isso, até os devotos da Escole Âshcan jamais acham as ruas comuns perfeitamente belas.\n Essa obsessão com a estética também faz com que as divas se percam em momentos de beleza e com que uma falha Bestial geralmente resulte em um transe de arrebatemento,conforme detalhado nas regras de Compulsões (pág. 208),";
+      break;
+      
+      case "Tremere":
+        lore.desgraça = "Houve um tempo em que o clă foi definido por uma rigida hierarquia de Laços de Sangue que iam do topo à base da Pirâmide. Entretanto, após a queda de Viena, seu Sangue recuou e abortou todas essas conexões. O Vitae Tremere não tem mais a capacidade de criar Laços de Sangue com outros Membros, embora os próprios Tremere possam ser Enlaçados por Membros de outros clăs. Um Tremere ainda consegue enlaçar mortais e carniçais, embora seu Vitae corrompido precise ser consumido um número de vezes extra igual à Gravidade da Perdição do vampiro para que o laço se forme. Alguns pensam que essa mudança é a a vingança do Antediluviano devorado por Tremere, outros a atribuem a uma simples mutação. Seja como for, o cla estuda seu proprio Vitae atentamente para descobrir so se o processo pode ser revertido e se, de fato, eles desejam isso";
+      break;
+      
+      case "Ventrue":
+        lore.desgraça = "Os Ventrue possuem paladares refinados. Quando um Bórgia bebe sangue de qualquer mortal que não seja da sua preferência, ele precisa fazer um grande esforço de vontade para que o sangue não volte na forma de vômito escarlate.\nOs gostos variam grandemente, indo desde sangues azuis que só se alimentam de morenas genuínas, de indivíduos com descendência suíça ou homossexuais, àqueles que só bebem de soldados, de mortais que sofrem de transtorno de estresse pós-traumático ou de usuários de metanfetamina. Com um teste de Determinação + Percepção (Dificuldade 4 ou maior), seu personagem pode sentir se um mortal possui o sangue desejado.\nSe você quer que seu personagem se alimente de tudo que não seja seu tipo de vítima predileta, você deve gastar uma quantidade de pontos de Força de Vontade igual à Gravidade da Perdição do personagem.";
+      break;
+
+      case "Caitiff":
+        lore.desgraça = "Intocados pelos Antediluvianos, os Caitiff não compartilham nenhuma perdição. Personagens Caitiff começam com o Defeito Suspeito 1 e você não pode adquirir Status para eles durante a criação de personagem. O Narrador sempre pode impor uma penalidade de um ou dois dados a testes Sociais contra Membros que saibam que eles são Caitiffs, a despeito do seu eventual Status.\nAlém disso, aumentar uma das Disciplinas de um Caitiff cust seis vezes o nível adquirido em pontos de experiência.";
+      break;
+    }
+  }, [
+    infoBasica.cla
+  ]);
+
   const [alertMessage, setAlertMessage] = useState("");
 
   const [pericias, setPericias] = useState({

@@ -656,6 +656,149 @@ export default function CharacterSheet() {
     "Sangue-ralo"
   ];
 
+  const disciplinasTodas = [
+    {
+      nome: "Animalismo",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Auspícios",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Celeridade",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Dominação",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Fortitude",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Ofuscação",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Potência",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Presença",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Proteanismo",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+    {
+      nome: "Feitiçaria de Sangue",
+      descricao: "",
+      poderes: [
+        {
+          nome: "",
+          descricao: ""
+        },
+        {
+          nome: "",
+          descricao: ""
+        }
+      ]
+    },
+  ];
+
   const predatorTypes = [
     "Consensualista",
     "Fazendeiro",
@@ -1567,6 +1710,8 @@ export default function CharacterSheet() {
           >
             <EditableField
               label="Nome"
+              type="select"
+              options={disciplinasTodas.map((d) => d.nome)}
               value={disc.nome}
               onChange={(value) => {
                 const copy = [...disciplinas];

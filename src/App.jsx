@@ -2020,14 +2020,18 @@ export default function CharacterSheet() {
             />
 
             <EditableField
-              label="Poderes"
-              value={disc.poderes}
-              onChange={(value) => {
-                const copy = [...disciplinas];
-                copy[index].poderes = value;
-                setDisciplinas(copy);
-              }}
-            />
+  label="Poder"
+  type="select"
+  options={
+    disciplinaSelecionada?.poderes.map((p) => p.nome) || []
+  }
+  value={disc.poder || ""}
+  onChange={(value) => {
+    const copy = [...disciplinas];
+    copy[index].poder = value;
+    setDisciplinas(copy);
+  }}
+/>
 
             <button
               onClick={() =>

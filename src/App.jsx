@@ -18,10 +18,6 @@ function EditableField({
     textAlign: "center"
   };
 
-  useEffect(() => {
-  console.log("EditableField montou:", label);
-}, []);
-
   return (
     <div style={{ marginBottom: 12 }}>
       <label

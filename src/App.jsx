@@ -1,6 +1,23 @@
 import React, { useState, useEffect } from "react";
 import { supabase } from "./supabase";
 
+function EditableField({
+    label,
+    value,
+    onChange,
+    type = "text",
+    options = []
+  }) {
+    const sharedStyle = {
+      width: "100%",
+      padding: 8,
+      borderRadius: 6,
+      border: "1px solid #444",
+      background: "#333",
+      color: "white",
+      textAlign: "center"
+    };
+
 function TraitDots({ trait, onChange }) {
   return (
     <div
@@ -833,24 +850,6 @@ export default function CharacterSheet() {
     { key: "desejo", label: "Desejo" },
     { key: "geracao", label: "Geração" }
   ];
-
-  function EditableField({
-    label,
-    value,
-    onChange,
-    type = "text",
-    options = []
-  }) {
-    const sharedStyle = {
-      width: "100%",
-      padding: 8,
-      borderRadius: 6,
-      border: "1px solid #444",
-      background: "#333",
-      color: "white",
-      textAlign: "center"
-    };
-
     return (
       <div style={{ marginBottom: 12 }}>
         <label style={{ display: "block", marginBottom: 4 }}>

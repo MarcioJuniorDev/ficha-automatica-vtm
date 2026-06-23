@@ -2,21 +2,68 @@ import React, { useState, useEffect } from "react";
 import { supabase } from "./supabase";
 
 function EditableField({
-    label,
-    value,
-    onChange,
-    type = "text",
-    options = []
-  }) {
-    const sharedStyle = {
-      width: "100%",
-      padding: 8,
-      borderRadius: 6,
-      border: "1px solid #444",
-      background: "#333",
-      color: "white",
-      textAlign: "center"
-    };
+  label,
+  value,
+  onChange,
+  type = "text",
+  options = []
+}) {
+  const sharedStyle = {
+    width: "100%",
+    padding: 8,
+    borderRadius: 6,
+    border: "1px solid #444",
+    background: "#333",
+    color: "white",
+    textAlign: "center"
+  };
+
+  return (
+    <div style={{ marginBottom: 12 }}>
+      <label
+        style={{
+          display: "block",
+          marginBottom: 4
+        }}
+      >
+        {label}
+      </label>
+
+      {type === "select" ? (
+        <select
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          style={sharedStyle}
+        >
+          <option value="">Selecione...</option>
+
+          {options.map((option) => (
+            <option key={option} value={option}>
+              {option}
+            </option>
+          ))}
+        </select>
+      ) : type === "number" ? (
+        <input
+          type="number"
+          value={value}
+          onChange={(e) => onChange(Number(e.target.value))}
+          style={sharedStyle}
+        />
+      ) : (
+        <textarea
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          rows={1}
+          style={{
+            ...sharedStyle,
+            resize: "vertical"
+          }}
+        />
+      )}
+    </div>
+  );
+}
 
 function TraitDots({ trait, onChange }) {
   return (

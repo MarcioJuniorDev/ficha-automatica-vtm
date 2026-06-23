@@ -2142,7 +2142,6 @@ export default function CharacterSheet() {
               }}
             />
           </section>
-        </div>
 
         {/* COLUNA DIREITA */}
         <div style={styles.column}>

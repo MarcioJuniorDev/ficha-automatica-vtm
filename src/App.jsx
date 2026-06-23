@@ -758,11 +758,46 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - SENTIDOS AGUÇADOS",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - SENTIR O INVISÍVEL",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 2 - PREMONIÇÃO",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 3 - COMPARTILHAR OS SENTIDOS",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 3 - PERSCRUTAR A ALMA",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 4 - TOQUE DO ESPÍRITO",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 5 - CLARIVIDÊNCIA",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 5 - POSSESSÃO",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 5 - TELEPATIA",
           descricao: ""
         }
       ]
@@ -772,11 +807,46 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - GRAÇA FELINA",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - REFLEXOS RÁPIDOS",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 2 - RAPIDEZ",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 3 - PISCADELA",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 3 - TRAVESSIA",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 4 - ELEGÂNCIA DIRETO DA FONTE",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 4 - MIRA INFALÍVEL",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 5 - FRAÇÃO DE SEGUNDO",
+          descricao: ""
+        },
+        
+        {
+          nome: "NÍVEL 5 - GOLPE RELÂMPAGO",
           descricao: ""
         }
       ]
@@ -786,11 +856,39 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - COMPELIR",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - NUBLAR MEMÓRIA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - DEMENTAÇÃO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - MESMERISMO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - DIRETRIZ SUBMERSA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - A MENTE ESQUECIDA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - RACIONALIZAR",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - DECRETO TERMINAL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - MANIPULAÇÃO EM MASSA",
           descricao: ""
         }
       ]
@@ -800,11 +898,39 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - MENTE INESCRUTÁVEL",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - RESILIÊNCIA",
+          descricao: ""
+        },
+         {
+          nome: "NÍVEL 2 - FERAS TENAZES",
+          descricao: ""
+        },
+        {
+          nome: "NÍEL 2 - TENACIDADE",
+          descricao: ""
+        },
+         {
+          nome: "NÍVEL 3 - DESAFIO À PERDIÇÃO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - FORTIFICAR A FACHADA INTERIOR",
+          descricao: ""
+        },
+         {
+          nome: "NÍVEL 4 - RESISTÊNCIA DIRETO DA FONTE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - PELE DE MÁRMORE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - PODER VINDO DA DOR",
           descricao: ""
         }
       ]
@@ -813,12 +939,48 @@ export default function CharacterSheet() {
       nome: "Ofuscação",
       descricao: "",
       poderes: [
-        {
-          nome: "",
+       {
+          nome: "NÍVEL 1 - MANTO DE SOMBRAS",
           descricao: ""
         },
-        {
-          nome: "",
+        
+       {
+          nome: "NÍVEL 1 - SILÊNCIO DA MORTE",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 2 - PASSAGEM INVISÍVEL",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 3 - FANTASMA NA MÁQUINA",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 3 - MÁSCARA DE MIL FACES",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 4 - DESAPARECER",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 4 - OCULTAR",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 5 - DISFARCE DO IMPOSTOR",
+          descricao: ""
+        },
+        
+       {
+          nome: "NÍVEL 5 - OCULTAR O GRUPO",
           descricao: ""
         }
       ]
@@ -828,11 +990,39 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - CORPO LETAL",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - SALTO VERTIGINOSO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - PODERIO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - ALIMENTAÇÃO BRUTAL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - CENTELHA DA FÚRIA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - PEGADA SOBRENATURAL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - FORÇA DIRETO DA FONTE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - PUNHO DE CAIM",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - TERREMOTO",
           descricao: ""
         }
       ]
@@ -842,11 +1032,39 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - AMEDONTRAR",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - FASCÍNIO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - BEIJO INDELÉVEL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - OLHAR ATERRORIZANTE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - TRANSE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - CONVOCAR",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - VOZ IRRESISTÍVEL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - MAGNETISMO DE ESTRELA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - MAJESTADE",
           descricao: ""
         }
       ]
@@ -856,11 +1074,35 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - OLHOS DA BESTA",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - PESO PENA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - ARMAS FERAIS",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - FUSÃO COM A TERRA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - MUDANÇA DE FORMA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - METAMORFOSE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - CORAÇÃO VAGANTE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - FORMA DE NÉVOA",
           descricao: ""
         }
       ]
@@ -870,11 +1112,35 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - UM GOSTO POR SANGUE",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - VITAE CORROSIVO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - EXTINGUIR VITAE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - PICADA DE ESCORPIÃO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - SANGUE POTENTE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - ROUBO DE VITAE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - CALDEIRÃO DE SANGUE",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - CARÍCIA DE BAAL",
           descricao: ""
         }
       ]

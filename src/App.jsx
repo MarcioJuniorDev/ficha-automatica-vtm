@@ -8,6 +8,8 @@ function EditableField({
   type = "text",
   options = []
 }) {
+  const textareaRef = useRef(null);
+
   const sharedStyle = {
     width: "100%",
     padding: 8,
@@ -15,8 +17,15 @@ function EditableField({
     border: "1px solid #444",
     background: "#333",
     color: "white",
-    textAlign: "center"
+    textAlign: "center",
+    boxSizing: "border-box"
   };
+
+  function autoResize(e) {
+    e.target.style.height = "auto";
+    e.target.style.height = `${e.target.scrollHeight}px`;
+    onChange(e.target.value);
+  }
 
   return (
     <div style={{ marginBottom: 12 }}>
@@ -52,12 +61,15 @@ function EditableField({
         />
       ) : (
         <textarea
+          ref={textareaRef}
           value={value}
-          onChange={(e) => onChange(e.target.value)}
+          onChange={autoResize}
           rows={1}
           style={{
             ...sharedStyle,
-            resize: "vertical"
+            resize: "none",
+            overflow: "hidden",
+            minHeight: "38px"
           }}
         />
       )}

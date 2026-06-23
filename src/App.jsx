@@ -21,20 +21,23 @@ function EditableField({
     boxSizing: "border-box"
   };
 
-  function autoResize(e) {
-    e.target.style.height = "auto";
-    e.target.style.height = `${e.target.scrollHeight}px`;
-    onChange(e.target.value);
+  function resizeTextarea() {
+    if (!textareaRef.current) return;
+
+    textareaRef.current.style.height = "auto";
+    textareaRef.current.style.height =
+      `${textareaRef.current.scrollHeight}px`;
   }
+
+  useEffect(() => {
+    if (type !== "select" && type !== "number") {
+      resizeTextarea();
+    }
+  }, [value]);
 
   return (
     <div style={{ marginBottom: 12 }}>
-      <label
-        style={{
-          display: "block",
-          marginBottom: 4
-        }}
-      >
+      <label style={{ display: "block", marginBottom: 4 }}>
         {label}
       </label>
 
@@ -63,7 +66,10 @@ function EditableField({
         <textarea
           ref={textareaRef}
           value={value}
-          onChange={autoResize}
+          onChange={(e) => {
+            onChange(e.target.value);
+            resizeTextarea();
+          }}
           rows={1}
           style={{
             ...sharedStyle,
@@ -73,34 +79,6 @@ function EditableField({
           }}
         />
       )}
-    </div>
-  );
-}
-
-function TraitDots({ trait, onChange }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        justifyContent: "space-between",
-        marginBottom: 8
-      }}
-    >
-      <span>{trait.nome}</span>
-
-      <div>
-        {[1, 2, 3, 4, 5].map((n) => (
-          <span
-            key={n}
-            onClick={() =>
-              onChange({ ...trait, pontos: n })
-            }
-            style={{ cursor: "pointer" }}
-          >
-            {n <= trait.pontos ? "●" : "○"}
-          </span>
-        ))}
-      </div>
     </div>
   );
 }

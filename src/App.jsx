@@ -698,6 +698,10 @@ export default function CharacterSheet() {
   }
 
 
+  const disciplinaSelecionada = disciplinasTodas.find(
+  (d) => d.nome === disc.nome
+);
+  
   const clans = [
     "Brujah",
     "Gangrel",
@@ -1998,16 +2002,17 @@ export default function CharacterSheet() {
             }}
           >
             <EditableField
-              label="Nome"
-              type="select"
-              options={disciplinasTodas.map((d) => d.nome)}
-              value={disc.nome}
-              onChange={(value) => {
-                const copy = [...disciplinas];
-                copy[index].nome = value;
-                setDisciplinas(copy);
-              }}
-            />
+  label="Nome"
+  type="select"
+  options={disciplinasTodas.map((d) => d.nome)}
+  value={disc.nome}
+  onChange={(value) => {
+    const copy = [...disciplinas];
+    copy[index].nome = value;
+    copy[index].poderes = ""; // reseta o poder ao trocar disciplina
+    setDisciplinas(copy);
+  }}
+/>
 
             <EditableDots
               label="Nível"
@@ -2020,15 +2025,17 @@ export default function CharacterSheet() {
             />
 
             <EditableField
-  label="Poder"
+  label="Poderes"
   type="select"
   options={
-    disciplinaSelecionada?.poderes.map((p) => p.nome) || []
+    disciplinaSelecionada
+      ? disciplinaSelecionada.poderes.map((p) => p.nome)
+      : []
   }
-  value={disc.poder || ""}
+  value={disc.poderes || ""}
   onChange={(value) => {
     const copy = [...disciplinas];
-    copy[index].poder = value;
+    copy[index].poderes = value;
     setDisciplinas(copy);
   }}
 />

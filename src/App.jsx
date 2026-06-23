@@ -726,11 +726,39 @@ export default function CharacterSheet() {
       descricao: "",
       poderes: [
         {
-          nome: "",
+          nome: "NÍVEL 1 - FAMULUS ENLAÇADO",
           descricao: ""
         },
         {
-          nome: "",
+          nome: "NÍVEL 1 - SENTIR A BESTA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 2 - SUSSURROS SELVAGENS",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - ENXAME NÃO VIVO",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - SUBJUGAR A BESTA",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 3 - SUCULÊNCIA ANIMAL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 4 - COMUNHÃO DE ESPÍRITOS",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - CONTROLE ANIMAL",
+          descricao: ""
+        },
+        {
+          nome: "NÍVEL 5 - EXPULSAR A BESTA",
           descricao: ""
         }
       ]

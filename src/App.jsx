@@ -696,11 +696,6 @@ export default function CharacterSheet() {
 
     setAlertMessage(msg);
   }
-
-
-  const disciplinaSelecionada = disciplinasTodas.find(
-  (d) => d.nome === disc.nome
-);
   
   const clans = [
     "Brujah",
@@ -1990,117 +1985,66 @@ export default function CharacterSheet() {
         </div>
       </section>
       <section style={styles.card}>
-        <h2 style={styles.sectionTitle}>Disciplinas</h2>
-        {disciplinas.map((disc, index) => (
-          <div
-            key={index}
-            style={{
-              marginBottom: "20px",
-              padding: "15px",
-              border: "1px solid #444",
-              borderRadius: "8px"
-            }}
-          >
-            <EditableField
-  label="Nome"
-  type="select"
-  options={disciplinasTodas.map((d) => d.nome)}
-  value={disc.nome}
-  onChange={(value) => {
-    const copy = [...disciplinas];
-    copy[index].nome = value;
-    copy[index].poderes = ""; // reseta o poder ao trocar disciplina
-    setDisciplinas(copy);
-  }}
-/>
+  <h2 style={styles.sectionTitle}>Disciplinas</h2>
 
-            <EditableDots
-              label="Nível"
-              value={disc.nivel}
-              onChange={(value) => {
-                const copy = [...disciplinas];
-                copy[index].nivel = value;
-                setDisciplinas(copy);
-              }}
-            />
+  {disciplinas.map((disc, index) => {
+    const disciplinaSelecionada = disciplinasTodas.find(
+      (d) => d.nome === disc.nome
+    );
 
-            <EditableField
-  label="Poderes"
-  type="select"
-  options={
-    disciplinaSelecionada
-      ? disciplinaSelecionada.poderes.map((p) => p.nome)
-      : []
-  }
-  value={disc.poderes || ""}
-  onChange={(value) => {
-    const copy = [...disciplinas];
-    copy[index].poderes = value;
-    setDisciplinas(copy);
-  }}
-/>
+    return (
+      <div
+        key={index}
+        style={{
+          marginBottom: "20px",
+          padding: "15px",
+          border: "1px solid #444",
+          borderRadius: "8px"
+        }}
+      >
+        <EditableField
+          label="Nome"
+          type="select"
+          options={disciplinasTodas.map((d) => d.nome)}
+          value={disc.nome}
+          onChange={(value) => {
+            const copy = [...disciplinas];
+            copy[index].nome = value;
+            copy[index].poderes = "";
+            setDisciplinas(copy);
+          }}
+        />
 
-            <button
-              onClick={() =>
-                setDisciplinas([
-                  ...disciplinas,
-                  { nome: "", nivel: 0, poderes: "" }
-                ])
-              }
+        <EditableDots
+          label="Nível"
+          value={disc.nivel}
+          onChange={(value) => {
+            const copy = [...disciplinas];
+            copy[index].nivel = value;
+            setDisciplinas(copy);
+          }}
+        />
 
-              style={{
-                marginTop: "10px",
-                padding: "8px 12px",
-                background: "#028b00",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer"
-              }}
-            >
-              + Disciplina
-            </button>
+        <EditableField
+          label="Poderes"
+          type="select"
+          options={
+            disciplinaSelecionada
+              ? disciplinaSelecionada.poderes.map((p) => p.nome)
+              : []
+          }
+          value={disc.poderes || ""}
+          onChange={(value) => {
+            const copy = [...disciplinas];
+            copy[index].poderes = value;
+            setDisciplinas(copy);
+          }}
+        />
 
-            <button
-              disabled={disciplinas.length === 1}
-              onClick={() =>
-                setDisciplinas(
-                  disciplinas.filter((_, i) => i !== index)
-                )
-              }
-              style={{
-                marginTop: "10px",
-                padding: "8px 12px",
-                background: "#8b0000",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer"
-              }}
-            >
-              - Disciplina
-            </button>
-          </div>
-        ))}
-      </section>
-
-      <div style={styles.twoColumns}>
-        {/* COLUNA ESQUERDA */}
-        <div style={styles.column}>
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}></h2>
-
-            {Object.entries(lore).map(([key, value]) => (
-              <EditableField
-                key={key}
-                label={key}
-                value={value}
-                onChange={(v) =>
-                  setLore({ ...lore, [key]: v })
-                }
-              />
-            ))}
-          </section>
+      </div>
+    );
+  })}
+</section>
 
           <section style={styles.card}>
             <h2 style={styles.sectionTitle}>Vantagens e Defeitos</h2>

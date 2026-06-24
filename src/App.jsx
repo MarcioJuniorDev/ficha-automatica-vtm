@@ -696,7 +696,7 @@ export default function CharacterSheet() {
 
     setAlertMessage(msg);
   }
-  
+
   const clans = [
     "Brujah",
     "Gangrel",
@@ -764,37 +764,37 @@ export default function CharacterSheet() {
           nome: "NÍVEL 1 - SENTIR O INVISÍVEL",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 2 - PREMONIÇÃO",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 3 - COMPARTILHAR OS SENTIDOS",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 3 - PERSCRUTAR A ALMA",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 4 - TOQUE DO ESPÍRITO",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 5 - CLARIVIDÊNCIA",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 5 - POSSESSÃO",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 5 - TELEPATIA",
           descricao: ""
@@ -813,37 +813,37 @@ export default function CharacterSheet() {
           nome: "NÍVEL 1 - REFLEXOS RÁPIDOS",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 2 - RAPIDEZ",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 3 - PISCADELA",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 3 - TRAVESSIA",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 4 - ELEGÂNCIA DIRETO DA FONTE",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 4 - MIRA INFALÍVEL",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 5 - FRAÇÃO DE SEGUNDO",
           descricao: ""
         },
-        
+
         {
           nome: "NÍVEL 5 - GOLPE RELÂMPAGO",
           descricao: ""
@@ -904,7 +904,7 @@ export default function CharacterSheet() {
           nome: "NÍVEL 1 - RESILIÊNCIA",
           descricao: ""
         },
-         {
+        {
           nome: "NÍVEL 2 - FERAS TENAZES",
           descricao: ""
         },
@@ -912,7 +912,7 @@ export default function CharacterSheet() {
           nome: "NÍEL 2 - TENACIDADE",
           descricao: ""
         },
-         {
+        {
           nome: "NÍVEL 3 - DESAFIO À PERDIÇÃO",
           descricao: ""
         },
@@ -920,7 +920,7 @@ export default function CharacterSheet() {
           nome: "NÍVEL 3 - FORTIFICAR A FACHADA INTERIOR",
           descricao: ""
         },
-         {
+        {
           nome: "NÍVEL 4 - RESISTÊNCIA DIRETO DA FONTE",
           descricao: ""
         },
@@ -938,47 +938,47 @@ export default function CharacterSheet() {
       nome: "Ofuscação",
       descricao: "",
       poderes: [
-       {
+        {
           nome: "NÍVEL 1 - MANTO DE SOMBRAS",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 1 - SILÊNCIO DA MORTE",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 2 - PASSAGEM INVISÍVEL",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 3 - FANTASMA NA MÁQUINA",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 3 - MÁSCARA DE MIL FACES",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 4 - DESAPARECER",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 4 - OCULTAR",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 5 - DISFARCE DO IMPOSTOR",
           descricao: ""
         },
-        
-       {
+
+        {
           nome: "NÍVEL 5 - OCULTAR O GRUPO",
           descricao: ""
         }
@@ -1985,401 +1985,400 @@ export default function CharacterSheet() {
         </div>
       </section>
       <section style={styles.card}>
-  <h2 style={styles.sectionTitle}>Disciplinas</h2>
+        <h2 style={styles.sectionTitle}>Disciplinas</h2>
 
-  {disciplinas.map((disc, index) => {
-    const disciplinaSelecionada = disciplinasTodas.find(
-      (d) => d.nome === disc.nome
-    );
+        {disciplinas.map((disc, index) => {
+          const disciplinaSelecionada = disciplinasTodas.find(
+            (d) => d.nome === disc.nome
+          );
 
-    return (
-      <div
-        key={index}
-        style={{
-          marginBottom: "20px",
-          padding: "15px",
-          border: "1px solid #444",
-          borderRadius: "8px"
-        }}
-      >
-        <EditableField
-          label="Nome"
-          type="select"
-          options={disciplinasTodas.map((d) => d.nome)}
-          value={disc.nome}
-          onChange={(value) => {
-            const copy = [...disciplinas];
-            copy[index].nome = value;
-            copy[index].poderes = "";
-            setDisciplinas(copy);
-          }}
-        />
-
-        <EditableDots
-          label="Nível"
-          value={disc.nivel}
-          onChange={(value) => {
-            const copy = [...disciplinas];
-            copy[index].nivel = value;
-            setDisciplinas(copy);
-          }}
-        />
-
-        <EditableField
-          label="Poderes"
-          type="select"
-          options={
-            disciplinaSelecionada
-              ? disciplinaSelecionada.poderes.map((p) => p.nome)
-              : []
-          }
-          value={disc.poderes || ""}
-          onChange={(value) => {
-            const copy = [...disciplinas];
-            copy[index].poderes = value;
-            setDisciplinas(copy);
-          }}
-        />
-
-      </div>
-    );
-  })}
-</section>
-
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>Vantagens e Defeitos</h2>
-            {vantagensDefeitos.map((disc, index) => (
-              <div
-                key={index}
-                style={{
-                  marginBottom: "20px",
-                  padding: "15px",
-                  border: "1px solid #444",
-                  borderRadius: "8px"
-                }}
-              >
-                <EditableField
-                  label="Nome"
-                  value={disc.nome}
-                  onChange={(value) => {
-                    const copy = [...vantagensDefeitos];
-                    copy[index].nome = value;
-                    setVantagensDefeitos(copy);
-                  }}
-                />
-
-                <EditableDots
-                  label="Nível"
-                  value={disc.nivel}
-                  onChange={(value) => {
-                    const copy = [...vantagensDefeitos];
-                    copy[index].nivel = value;
-                    setVantagensDefeitos(copy);
-                  }}
-                />
-
-                <button
-                  onClick={() =>
-                    setVantagensDefeitos([
-                      ...vantagensDefeitos,
-                      { nome: "", nivel: 0 }
-                    ])
-                  }
-                  style={{
-                    marginTop: "10px",
-                    padding: "8px 12px",
-                    background: "#028b00",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    cursor: "pointer"
-                  }}
-                >
-                  + Vantagem
-                </button>
-
-                <button
-                  disabled={vantagensDefeitos.length === 1}
-                  onClick={() =>
-                    setVantagensDefeitos(
-                      vantagensDefeitos.filter((_, i) => i !== index)
-                    )
-                  }
-                  style={{
-                    marginTop: "10px",
-                    padding: "8px 12px",
-                    background: "#8b0000",
-                    color: "white",
-                    border: "none",
-                    borderRadius: "6px",
-                    cursor: "pointer"
-                  }}
-                >
-                  - Vantagem
-                </button>
-              </div>
-            ))}
-          </section>
-
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>Notas</h2>
-
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Escreva aqui suas notas..."
-              rows={8}
-              style={{
-                width: "95%",
-                padding: 10,
-                borderRadius: 6,
-                border: "1px solid #444",
-                background: "#333",
-                color: "white",
-                resize: "vertical",
-                fontFamily: "Arial",
-                lineHeight: "1.4"
-              }}
-            />
-          </section>
-
-        {/* COLUNA DIREITA */}
-        <div style={styles.column}>
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
-
-            <StatDots
-              label="Potência"
-              stat={{ atual: blood.potencia, max: 10 }}
-              onChange={(v) =>
-                setBlood({ ...blood, potencia: v.atual })
-              }
-            />
-
+          return (
             <div
+              key={index}
               style={{
-                display: "grid",
-                gridTemplateColumns: "repeat(2, 1fr)",
-                columnGap: "25px"
+                marginBottom: "20px",
+                padding: "15px",
+                border: "1px solid #444",
+                borderRadius: "8px"
               }}
             >
               <EditableField
-                label="Surto de Sangue"
-                type="number"
-                value={blood.surto}
-                onChange={(v) =>
-                  setBlood({ ...blood, surto: v })
-                }
+                label="Nome"
+                type="select"
+                options={disciplinasTodas.map((d) => d.nome)}
+                value={disc.nome}
+                onChange={(value) => {
+                  const copy = [...disciplinas];
+                  copy[index].nome = value;
+                  copy[index].poderes = "";
+                  setDisciplinas(copy);
+                }}
+              />
+
+              <EditableDots
+                label="Nível"
+                value={disc.nivel}
+                onChange={(value) => {
+                  const copy = [...disciplinas];
+                  copy[index].nivel = value;
+                  setDisciplinas(copy);
+                }}
               />
 
               <EditableField
-                label="Cura por Sangue"
-                type="number"
-                value={blood.cura}
-                onChange={(v) =>
-                  setBlood({ ...blood, cura: v })
+                label="Poderes"
+                type="select"
+                options={
+                  disciplinaSelecionada
+                    ? disciplinaSelecionada.poderes.map((p) => p.nome)
+                    : []
                 }
+                value={disc.poderes || ""}
+                onChange={(value) => {
+                  const copy = [...disciplinas];
+                  copy[index].poderes = value;
+                  setDisciplinas(copy);
+                }}
               />
 
-              <EditableField
-                label="Poder Bônus"
-                type="number"
-                value={blood.bonus}
-                onChange={(v) =>
-                  setBlood({ ...blood, bonus: v })
-                }
-              />
-
-              <EditableField
-                label="Re-rolar Fome"
-                type="number"
-                value={blood.reroll}
-                onChange={(v) =>
-                  setBlood({ ...blood, reroll: v })
-                }
-              />
-
-              <EditableField
-                label="Penalidade Alimentícia"
-                type="number"
-                value={blood.penalidade}
-                onChange={(v) =>
-                  setBlood({ ...blood, penalidade: v })
-                }
-              />
-
-              <EditableField
-                label="Severidade da Desgraça"
-                type="number"
-                value={blood.desgraca}
-                onChange={(v) =>
-                  setBlood({ ...blood, desgraca: v })
-                }
-              />
             </div>
-          </section>
+          );
+        })}
+      </section>
 
-
-
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>Experiência</h2>
-
-            <EditableField
-              label="EXP Total"
-              type="number"
-              value={exp.total}
-              onChange={(v) =>
-                setExp({ ...exp, total: v })
-              }
-            />
-
-            <EditableField
-              label="EXP Gasta"
-              type="number"
-              value={exp.gasta}
-              onChange={(v) =>
-                setExp({ ...exp, gasta: v })
-              }
-            />
-          </section>
-
-          <section style={styles.card}>
-            <h2 style={styles.sectionTitle}>Detalhes</h2>
-
-            <EditableField
-              label="Idade verdadeira"
-              value={extras.idadeReal}
-              onChange={(v) =>
-                setExtras({ ...extras, idadeReal: v })
-              }
-            />
-
-            <EditableField
-              label="Idade aparente"
-              value={extras.idadeAparente}
-              onChange={(v) =>
-                setExtras({ ...extras, idadeAparente: v })
-              }
-            />
-
-            <EditableField
-              label="Data de nascimento"
-              value={extras.nascimento}
-              onChange={(v) =>
-                setExtras({ ...extras, nascimento: v })
-              }
-            />
-
-            <EditableField
-              label="Data de morte"
-              value={extras.morte}
-              onChange={(v) =>
-                setExtras({ ...extras, morte: v })
-              }
-            />
-
-            <EditableField
-              label="Aparência"
-              value={extras.aparencia}
-              onChange={(v) =>
-                setExtras({ ...extras, aparencia: v })
-              }
-            />
-
-            <EditableField
-              label="Características distintas"
-              value={extras.caracteristicas}
-              onChange={(v) =>
-                setExtras({ ...extras, caracteristicas: v })
-              }
-            />
-
-            <EditableField
-              label="Prelúdio"
-              value={extras.preludio}
-              onChange={(v) =>
-                setExtras({ ...extras, preludio: v })
-              }
-            />
-
-            <EditableField
-              label="Ressonância"
-              value={extras.ressonancia}
-              onChange={(v) =>
-                setExtras({ ...extras, ressonancia: v })
-              }
-            />
-          </section>
-        </div>
-      </div>
-      {
-        alertMessage && (
+      <section style={styles.card}>
+        <h2 style={styles.sectionTitle}>Vantagens e Defeitos</h2>
+        {vantagensDefeitos.map((disc, index) => (
           <div
+            key={index}
             style={{
-              position: "fixed",
-              top: "50%",
-              left: "50%",
-              transform: "translate(-50%, -50%)",
-              background: "#222",
-              color: "white",
-              padding: "35px 50px",
-              borderRadius: "12px",
-              border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
-                }`,
-              zIndex: 9999,
-              textAlign: "center",
-              minWidth: "300px"
+              marginBottom: "20px",
+              padding: "15px",
+              border: "1px solid #444",
+              borderRadius: "8px"
             }}
           >
-            <h2
-              style={{
-                fontSize: "48px",
-                margin: 0,
-                color:
-                  alertMessage.startsWith("Sucesso")
-                    ? "#00ff66"
-                    : "#ff4444"
+            <EditableField
+              label="Nome"
+              value={disc.nome}
+              onChange={(value) => {
+                const copy = [...vantagensDefeitos];
+                copy[index].nome = value;
+                setVantagensDefeitos(copy);
               }}
-            >
-              {alertMessage}
-            </h2>
-            {podeRerrolar && (
-              <button onClick={rerrolarForcaVontade} style={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                background:
-                  alertMessage.startsWith("Sucesso")
-                    ? "#008800"
-                    : "#8b0000",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "point"
-              }}>
-                Rerrolar(Força de Vontade)
-              </button>
-            )}
+            />
+
+            <EditableDots
+              label="Nível"
+              value={disc.nivel}
+              onChange={(value) => {
+                const copy = [...vantagensDefeitos];
+                copy[index].nivel = value;
+                setVantagensDefeitos(copy);
+              }}
+            />
+
             <button
-              onClick={() => setAlertMessage("")}
+              onClick={() =>
+                setVantagensDefeitos([
+                  ...vantagensDefeitos,
+                  { nome: "", nivel: 0 }
+                ])
+              }
               style={{
-                marginTop: "20px",
-                padding: "10px 20px",
-                marginLeft: "10px",
-                background:
-                  alertMessage.startsWith("Sucesso")
-                    ? "#008800"
-                    : "#8b0000",
+                marginTop: "10px",
+                padding: "8px 12px",
+                background: "#028b00",
                 color: "white",
                 border: "none",
                 borderRadius: "6px",
                 cursor: "pointer"
               }}
             >
-              Fechar
+              + Vantagem
+            </button>
+
+            <button
+              disabled={vantagensDefeitos.length === 1}
+              onClick={() =>
+                setVantagensDefeitos(
+                  vantagensDefeitos.filter((_, i) => i !== index)
+                )
+              }
+              style={{
+                marginTop: "10px",
+                padding: "8px 12px",
+                background: "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              - Vantagem
             </button>
           </div>
-        )
-      }
+        ))}
+      </section>
+
+      <section style={styles.card}>
+        <h2 style={styles.sectionTitle}>Notas</h2>
+
+        <textarea
+          value={notes}
+          onChange={(e) => setNotes(e.target.value)}
+          placeholder="Escreva aqui suas notas..."
+          rows={8}
+          style={{
+            width: "95%",
+            padding: 10,
+            borderRadius: 6,
+            border: "1px solid #444",
+            background: "#333",
+            color: "white",
+            resize: "vertical",
+            fontFamily: "Arial",
+            lineHeight: "1.4"
+          }}
+        />
+      </section>
+
+      {/* COLUNA DIREITA */}
+      <div style={styles.column}>
+        <section style={styles.card}>
+          <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
+
+          <StatDots
+            label="Potência"
+            stat={{ atual: blood.potencia, max: 10 }}
+            onChange={(v) =>
+              setBlood({ ...blood, potencia: v.atual })
+            }
+          />
+
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "repeat(2, 1fr)",
+              columnGap: "25px"
+            }}
+          >
+            <EditableField
+              label="Surto de Sangue"
+              type="number"
+              value={blood.surto}
+              onChange={(v) =>
+                setBlood({ ...blood, surto: v })
+              }
+            />
+
+            <EditableField
+              label="Cura por Sangue"
+              type="number"
+              value={blood.cura}
+              onChange={(v) =>
+                setBlood({ ...blood, cura: v })
+              }
+            />
+
+            <EditableField
+              label="Poder Bônus"
+              type="number"
+              value={blood.bonus}
+              onChange={(v) =>
+                setBlood({ ...blood, bonus: v })
+              }
+            />
+
+            <EditableField
+              label="Re-rolar Fome"
+              type="number"
+              value={blood.reroll}
+              onChange={(v) =>
+                setBlood({ ...blood, reroll: v })
+              }
+            />
+
+            <EditableField
+              label="Penalidade Alimentícia"
+              type="number"
+              value={blood.penalidade}
+              onChange={(v) =>
+                setBlood({ ...blood, penalidade: v })
+              }
+            />
+
+            <EditableField
+              label="Severidade da Desgraça"
+              type="number"
+              value={blood.desgraca}
+              onChange={(v) =>
+                setBlood({ ...blood, desgraca: v })
+              }
+            />
+          </div>
+        </section>
+
+
+
+        <section style={styles.card}>
+          <h2 style={styles.sectionTitle}>Experiência</h2>
+
+          <EditableField
+            label="EXP Total"
+            type="number"
+            value={exp.total}
+            onChange={(v) =>
+              setExp({ ...exp, total: v })
+            }
+          />
+
+          <EditableField
+            label="EXP Gasta"
+            type="number"
+            value={exp.gasta}
+            onChange={(v) =>
+              setExp({ ...exp, gasta: v })
+            }
+          />
+        </section>
+
+        <section style={styles.card}>
+          <h2 style={styles.sectionTitle}>Detalhes</h2>
+
+          <EditableField
+            label="Idade verdadeira"
+            value={extras.idadeReal}
+            onChange={(v) =>
+              setExtras({ ...extras, idadeReal: v })
+            }
+          />
+
+          <EditableField
+            label="Idade aparente"
+            value={extras.idadeAparente}
+            onChange={(v) =>
+              setExtras({ ...extras, idadeAparente: v })
+            }
+          />
+
+          <EditableField
+            label="Data de nascimento"
+            value={extras.nascimento}
+            onChange={(v) =>
+              setExtras({ ...extras, nascimento: v })
+            }
+          />
+
+          <EditableField
+            label="Data de morte"
+            value={extras.morte}
+            onChange={(v) =>
+              setExtras({ ...extras, morte: v })
+            }
+          />
+
+          <EditableField
+            label="Aparência"
+            value={extras.aparencia}
+            onChange={(v) =>
+              setExtras({ ...extras, aparencia: v })
+            }
+          />
+
+          <EditableField
+            label="Características distintas"
+            value={extras.caracteristicas}
+            onChange={(v) =>
+              setExtras({ ...extras, caracteristicas: v })
+            }
+          />
+
+          <EditableField
+            label="Prelúdio"
+            value={extras.preludio}
+            onChange={(v) =>
+              setExtras({ ...extras, preludio: v })
+            }
+          />
+
+          <EditableField
+            label="Ressonância"
+            value={extras.ressonancia}
+            onChange={(v) =>
+              setExtras({ ...extras, ressonancia: v })
+            }
+          />
+        </section>
+      </div>
+    {
+    alertMessage && (
+      <div
+        style={{
+          position: "fixed",
+          top: "50%",
+          left: "50%",
+          transform: "translate(-50%, -50%)",
+          background: "#222",
+          color: "white",
+          padding: "35px 50px",
+          borderRadius: "12px",
+          border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
+            }`,
+          zIndex: 9999,
+          textAlign: "center",
+          minWidth: "300px"
+        }}
+      >
+        <h2
+          style={{
+            fontSize: "48px",
+            margin: 0,
+            color:
+              alertMessage.startsWith("Sucesso")
+                ? "#00ff66"
+                : "#ff4444"
+          }}
+        >
+          {alertMessage}
+        </h2>
+        {podeRerrolar && (
+          <button onClick={rerrolarForcaVontade} style={{
+            marginTop: "20px",
+            padding: "10px 20px",
+            background:
+              alertMessage.startsWith("Sucesso")
+                ? "#008800"
+                : "#8b0000",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "point"
+          }}>
+            Rerrolar(Força de Vontade)
+          </button>
+        )}
+        <button
+          onClick={() => setAlertMessage("")}
+          style={{
+            marginTop: "20px",
+            padding: "10px 20px",
+            marginLeft: "10px",
+            background:
+              alertMessage.startsWith("Sucesso")
+                ? "#008800"
+                : "#8b0000",
+            color: "white",
+            border: "none",
+            borderRadius: "6px",
+            cursor: "pointer"
+          }}
+        >
+          Fechar
+        </button>
+      </div>
+    )
+  }
 
       <input
         value={nomeBusca}
@@ -2421,6 +2420,6 @@ export default function CharacterSheet() {
       >
         Salvar Ficha
       </button>
-    </div>
+    </div >
   );
 }

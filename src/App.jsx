@@ -492,6 +492,15 @@ export default function CharacterSheet() {
     );
   }
 
+  function adicionarHistorico(texto) {
+    setHistoricoRolagens((prev) =>
+      [
+        { id: Date.now(), texto },
+        ...prev
+      ].slice(0, 20)
+    );
+  }
+
   function fnRolarDado(dices, type) {
     let roll;
     let success = 0;
@@ -614,6 +623,7 @@ export default function CharacterSheet() {
         else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
 
         setAlertMessage(msg);
+        adicionarHistorico(carac1+" + "+carac2+"\n"+msg);
         break;
     }
 
@@ -705,6 +715,7 @@ export default function CharacterSheet() {
     else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
 
     setAlertMessage(msg);
+    adicionarHistorico(carac1+" + "+carac2+"\n"+msg);
   }
 
   const clans = [
@@ -1454,6 +1465,9 @@ export default function CharacterSheet() {
 
   const [podeRerrolar, setPodeRerrolar] = useState(false);
   const [modificador, setModificador] = useState(0);
+  const [historicoRolagens, setHistoricoRolagens] = useState([]);
+  const [mostrarHistorico, setMostrarHistorico] = useState(false);
+
   return (
     <div style={styles.page}>
       <div
@@ -1600,6 +1614,64 @@ export default function CharacterSheet() {
             modificador
           )} dados
         </button>
+
+        <button
+          onClick={() => setMostrarHistorico(!mostrarHistorico)}
+          style={{
+            padding: "12px",
+            borderRadius: "10px",
+            border: "1px solid #555",
+            background: mostrarHistorico ? "#8b0000" : "#333",
+            color: "white",
+            cursor: "pointer",
+            fontSize: "15px"
+          }}
+        >
+          {mostrarHistorico ? "Ocultar Histórico" : "Mostrar Histórico"}
+        </button>
+
+        {mostrarHistorico && (
+          <div
+            style={{
+              position: "fixed",
+              right: "330px",
+              top: "50%",
+              transform: "translateY(-50%)",
+              width: "350px",
+              maxHeight: "500px",
+              overflowY: "auto",
+              background: "#1a1a1a",
+              border: "2px solid #444",
+              borderRadius: "16px",
+              padding: "20px",
+              color: "white",
+              zIndex: 9998
+            }}
+          >
+            <h3 style={{ marginTop: 0, textAlign: "center" }}>
+              Histórico de Rolagens
+            </h3>
+
+            {historicoRolagens.length === 0 ? (
+              <p>Nenhuma rolagem ainda.</p>
+            ) : (
+              historicoRolagens.map((roll) => (
+                <div
+                  key={roll.id}
+                  style={{
+                    background: "#2b2b2b",
+                    padding: "12px",
+                    marginBottom: "10px",
+                    borderRadius: "8px",
+                    whiteSpace: "pre-line"
+                  }}
+                >
+                  {roll.texto}
+                </div>
+              ))
+            )}
+          </div>
+        )}
       </div>
       <h1 style={styles.sectionTitle}>Ficha VTM V5</h1>
 

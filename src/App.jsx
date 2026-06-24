@@ -415,11 +415,35 @@ export default function CharacterSheet() {
     return 0;
   }
 
+  const [usouSurtoSangue, setUsouSurtoSangue] = useState(false);
+
+  function usarSurtoDeSangue() {
+    const msgSurto = fnRolarDado(1, "CS");
+    setUsouSurtoSangue(true);
+
+    const valor1 = getValorCaracteristica(carac1);
+    const valor2 = getValorCaracteristica(carac2);
+
+    let totalDados = valor1 + valor2 + modificador + blood.surto;
+
+    const msgTeste = fnRolarDado(totalDados, "TS");
+
+    setAlertMessage(
+      `${msgSurto}\n\nTeste:\n${msgTeste}`
+    );
+    adicionarHistorico(carac1 + " + " + carac2 + "\n" + `${msgSurto}\n\nTeste:\n${msgTeste}`);
+  }
+
   function fazerTeste() {
     const valor1 = getValorCaracteristica(carac1);
     const valor2 = getValorCaracteristica(carac2);
 
-    const totalDados = valor1 + valor2 + modificador;
+    let totalDados = valor1 + valor2 + modificador;
+
+    if (usouSurtoSangue) {
+      totalDados += blood.surto;
+      setUsouSurtoSangue(false);
+    }
 
     fnRolarDado(totalDados, "TS");
     setPodeRerrolar(true);
@@ -532,6 +556,12 @@ export default function CharacterSheet() {
           });
         }
 
+        return (
+          success
+            ? `Sucesso. (${roll})`
+            : `Falha. (${roll}) (fome aumentada)`
+        );
+
         setAlertMessage(
           success
             ? `Sucesso. (${roll})`
@@ -621,9 +651,10 @@ export default function CharacterSheet() {
 
         if (isMessyCritical) msg += "\nCRÍTICO BESTIAL!";
         else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
-
+       
         setAlertMessage(msg);
-        adicionarHistorico(carac1+" + "+carac2+"\n"+msg);
+        adicionarHistorico(carac1 + " + " + carac2 + "\n" + msg);
+        return msg;
         break;
     }
 
@@ -715,7 +746,7 @@ export default function CharacterSheet() {
     else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
 
     setAlertMessage(msg);
-    adicionarHistorico(carac1+" + "+carac2+"\n"+msg);
+    adicionarHistorico(carac1 + " + " + carac2 + "\n" + msg);
   }
 
   const clans = [
@@ -1613,6 +1644,23 @@ export default function CharacterSheet() {
             getValorCaracteristica(carac2) +
             modificador
           )} dados
+        </button>
+
+        <button
+          onClick={usarSurtoDeSangue}
+          style={{
+            width: "100%",
+            marginTop: "20px",
+            padding: "12px",
+            background: "#8b0000",
+            color: "white",
+            border: "none",
+            borderRadius: "10px",
+            fontSize: "16px",
+            cursor: "pointer"
+          }}
+        >
+          Usar Surto de Sangue
         </button>
 
         <button

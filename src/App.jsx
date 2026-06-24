@@ -6,10 +6,9 @@ function EditableField({
   value,
   onChange,
   type = "text",
-  options = []
+  options = [],
+  rightElement = null
 }) {
-  const textareaRef = useRef(null);
-
   const sharedStyle = {
     width: "100%",
     padding: 8,
@@ -17,23 +16,31 @@ function EditableField({
     border: "1px solid #444",
     background: "#333",
     color: "white",
-    textAlign: "center",
-    boxSizing: "border-box"
+    textAlign: "center"
   };
 
-  function resizeTextarea() {
-    if (!textareaRef.current) return;
-
-    textareaRef.current.style.height = "auto";
-    textareaRef.current.style.height =
-      `${textareaRef.current.scrollHeight}px`;
-  }
-
-  useEffect(() => {
-    if (type !== "select" && type !== "number") {
-      resizeTextarea();
-    }
-  }, [value]);
+  const field =
+    type === "select" ? (
+      <select
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        style={sharedStyle}
+      >
+        <option value="">Selecione...</option>
+        {options.map((option) => (
+          <option key={option} value={option}>
+            {option}
+          </option>
+        ))}
+      </select>
+    ) : (
+      <textarea
+        value={value}
+        onChange={(e) => onChange(e.target.value)}
+        rows={1}
+        style={{ ...sharedStyle, resize: "vertical" }}
+      />
+    );
 
   return (
     <div style={{ marginBottom: 12 }}>
@@ -41,44 +48,16 @@ function EditableField({
         {label}
       </label>
 
-      {type === "select" ? (
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          style={sharedStyle}
-        >
-          <option value="">Selecione...</option>
-
-          {options.map((option) => (
-            <option key={option} value={option}>
-              {option}
-            </option>
-          ))}
-        </select>
-      ) : type === "number" ? (
-        <input
-          type="number"
-          value={value}
-          onChange={(e) => onChange(Number(e.target.value))}
-          style={sharedStyle}
-        />
-      ) : (
-        <textarea
-          ref={textareaRef}
-          value={value}
-          onChange={(e) => {
-            onChange(e.target.value);
-            resizeTextarea();
-          }}
-          rows={1}
-          style={{
-            ...sharedStyle,
-            resize: "none",
-            overflow: "hidden",
-            minHeight: "38px"
-          }}
-        />
-      )}
+      <div
+        style={{
+          display: "flex",
+          alignItems: "center",
+          gap: "8px"
+        }}
+      >
+        <div style={{ flex: 1 }}>{field}</div>
+        {rightElement}
+      </div>
     </div>
   );
 }
@@ -651,7 +630,7 @@ export default function CharacterSheet() {
 
         if (isMessyCritical) msg += "\nCRÍTICO BESTIAL!";
         else if (isBestialFailure) msg += "\nFALHA BESTIAL!";
-       
+
         setAlertMessage(msg);
         adicionarHistorico(carac1 + " + " + carac2 + "\n" + msg);
         return msg;
@@ -764,43 +743,43 @@ export default function CharacterSheet() {
   const disciplinasTodas = [
     {
       nome: "Animalismo",
-      descricao: "",
+      descricao: "Alcunhas: Doolittlear, Domar, Bestiae Sermo\nTalvez os vampiros tenham mais em comum com os animais do que com os humanos. Um perigoso conjunto de instintos os governa, e custa muito para que consigam controlar o impulso de simplesmente atacar.\nAssim como um cão selvagem acorrentado, a Besta de um vampiro jamais se deixa domar de fato.\nAlguns Membros encontram um modo de se tornarem um com suas Bestas. Aqueles que o fazem se tornam os mestres do Animalismo. Muitos acompanham o uso deste poder com uivos, rosnados, urros ou se comunicam com animais na 'língua' dos animais, embora isto seja uma afetação e não uma necessidade.\nA Disciplina Animalismo é muito usada entre vampiros que têm dificuldades de adaptação ou não gostam de viver entre os mortais. Muitas vezes classificada como um dos dons utilitários de Caim, permitindo que um vampiro sobreviva de sangue bruto ou faça amizade com seres irracionais, ela também é uma arma devastadora contra vampiros que escalam suas torres, e inquisidores que supôem que seus inimigos só andam sobre suas pernas. Um bando de ratos sedentos de sangue que invade a cobertura-refúgio de um Membro, o vampiro especialista em Animalismo que intimida a Besta do Xerife no Elísio ou o corvo com olhos vidrados que espia um capítulo da Sociedade de São Leopoldo — todos esses servem para fortalecer praticantes de Animalismo e enfraquecer seus inimigos.\n\nCaracterísticas\nNormalmente, os poderes de Animalismo que envolvem animais só podem ser usados em vertebrados. Além disso, qualquer uso do poder em herbívoros soma um à Dificuldade das rolagens de Habilidades envolvidas.\nTipo: Mental\nAmeaça à Máscara: Baixa para média. Apesar de conversar com animais parecer excêntrico, somente as aplicações mais violentas da Disciplina resultam em mais do que sobrancelhas erguidas.\nRessonância de Sangue: Sangue animal, preferivelmente selvagem.",
       poderes: [
         {
           nome: "NÍVEL 1 - FAMULUS ENLAÇADO",
-          descricao: ""
+          descricao: "Ao Enlaçar um animal, o vampiro pode transformá-lo em um famulus, o que cria um vínculo mental com ele e facilita o uso de outros poderes de Animalismo. Apesar de este poder sozinho não permitir a comunicação em mão dupla com o animal, este pode seguir instruções verbais simples como “parado” e “venha aqui”. O animal ataca para defender a si e ao seu mestre, mas não pode ser persuadido a lutar contra algo que normalmente ele não atacaria.\nParada de Dados:Carisma + Empatia com Animais\nCusto: O animal deve ser alimentado com o Sangue do usuário em três noites distintas, cada qual exigindo uma Checagem de Sangue do usuário. A quantidade de Sangue necessária para sustentar o estado de carniçal do animal após isso é insignificante. Jogadores que iniciam com este poder já completaram esse processo e podem escolher um famulus à vontade.\nSistema: Sem o uso de Sussurros Selvagens, abaixo, dar ordens ao animal requer uma rolagem de Carisma + Empatia com Animais (Dificuldade 2); aumente essa dificuldade no caso de ordens mais complexas. Um vampiro só pode ter um famulus; entretanto, pode conseguir um novo se o atual morrer. Um vampiro pode usar Sussurros Selvagens (Animalismo 2) e Comunhão de Espíritos (Animalismo 4) em seu famulus sem custo.\nDuração: Somente a morte liberta um famulus uma vez enlaçado. Enquanto receber Sangue vampírico regularmente, o famulus não envelhecerá."
         },
         {
           nome: "NÍVEL 1 - SENTIR A BESTA",
-          descricao: ""
+          descricao: "O vampiro pode sentir a Besta presente em mortais, vampiros e outros seres sobrenaturais, o que lhe confere uma noção da natureza, fome e hostilidade desses seres.\nCusto: Gratuito\nParada de Dados: Determinação + Animalismo vs. Autocontrole + Subterfúgio\nSistema: Uma vitória permite que o usuário sinta o nível de hostilidade do alvo (se este está pronto para fazer mal ou determinado a causá-lo) e determine se ele abriga uma Besta sobrenatural, descobrindo se se trata de um vampiro ou de outro tipo de criatura sobrenatural. Em caso de vitória, um crítico confere ao usuário informações sobre o tipo exato de criatura (por exemplo, um lobisomem), assim como sobre seu nível de Fome (ou equivalente) e Ressonância.\nEste poder pode ser usado tanto ativa quanto passivamente, avisando o usuário sobre intenções agressivas em suas imediações.\nDuração: Passiva."
         },
         {
           nome: "NÍVEL 2 - SUSSURROS SELVAGENS",
-          descricao: ""
+          descricao: "O vampiro pode entrar em comunhão tanto com as feras dos ermos quanto com as da cidade.\nSussurros Selvagens permite a comunicação em mão dupla com animais. Um gato pode não estar interessado em debater o uso da cor por Tarsila do Amaral, mas discutiria alegremente a falta de presas nas cercanias do edifício marrom do outro lado da rua. Dependendo da perícia do vampiro, ele pode até persuadir animais a prestarem serviços; como humanos, os animais raramente concordam com propostas que vão contra a sua natureza ou os coloquem em perigo.\nVampiros também podem usar Sussurros Selvagens para convocar determinado tipo de animal (veja as limitações do Animalismo, acima), porém os animais devem estar presentes para responder. Nada impede um vampiro de tentar convocar uma orca no Parque do Ibirapuera, mas com baixíssimas chances de sucesso. Animais convocados escutam o que o convocador tem a dizer, mas se dispersam ou atacam quando ameaçados.\nParadas de Dados: Manipulação + Animalismo, Carisma + Animalismo\nCusto: Uma Checagem de Sangue por tipo de animal escolhido para a cena. Permite uma convocação e comunicação ilimitada. Não tem custo quando usado em um famulus.\nSistema: Comunicar ideias simples não requer nenhum teste. Persuadir um animal a prestar um serviço requer uma rolagem de Manipulação + Animalismo; a Dificuldade depende da tarefa dada. Pedir a um pássaro que fique de olho em qualquer um que adentre o parque à noite tem Dificuldade 3, enquanto ordenar que qualquer animal defenda um local com a própria vida tem Dificuldade 6.\nConvocar animais usa uma rolagem de Carisma + Animalismo; a Dificuldade depende da escassez dos animais convocados. A quantidade de animais convocados depende da margem de sucesso; uma vitória crítica convoca a maioria, senão todos, os animais do tipo na região.\nDuração: Uma cena."
         },
         {
           nome: "NÍVEL 3 - ENXAME NÃO VIVO",
-          descricao: ""
+          descricao: "Amálgama: Ofuscação 2\n\nGeralmente visto entre os Nosferatu, este poder perturbador permite que seu usuário estenda sua influência animal a enxames de insetos, como moscas ou baratas. Certos vampiros chegam ao ponto de adotar enxames como famuli (plural de famulus), dando-lhes um lar permanente no interior das dobras e orifícios da sua carne deformada.\nCusto: Nenhum custo adicional\nSistema: Este poder estende todos os poderes anteriores restritos a vertebrados a enxames de insetos, tratando um enxame como uma única criatura. Um vampiro pode Enlaçar o enxame como a um famulus, e alguns usuários até conferem ao enxame a capacidade de se aninhar dentro das cavidades dos seus corpos. Isto oculta o enxame da vista ao mesmo tempo que permite que sugue as quantidades ínfimas de Sangue de que precisa para se sustentar indefinidamente. Enquanto estiver aninhado, o enxame só pode ser detectado por raios-X.\nEnxames causam pouco dano em combate. Eles têm Vitalidade 5 e uma parada de 8 dados para resistir a ataques. Enxames sofrem dano Superficial de Briga; fogo e inseticida causam dano Agravado. Vampiros podem usar enxames para espiar, como distrações (resultando em uma penalidade de dois dados a qualquer rolagem de um único indivíduo envolto pelo enxame), ou para intimidar mortais (adicione entre um e três dados a paradas de Intimidação, dependendo do tipo de inseto e das fobias da vítima). Tanto jogadores quanto Narradores podem, sem dúvida, imaginar usos ainda mais criativos para este poder.\nDuração: Passiva."
         },
         {
           nome: "NÍVEL 3 - SUBJUGAR A BESTA",
-          descricao: ""
+          descricao: "Ao encarar um alvo olho no olho, o vampiro intimida a Besta dele, fazendo com que ela adormeça temporariamente. Mortais assim afetados ficam apáticos, incapazes de realizar quaisquer ações, exceto proteger suas vidas, enquanto os impulsos bestiais de um vampiro diminuem temporariamente, para o bem ou para o mal.\nCusto: Uma Checagem de Sangue\nParadas de Dados: Carisma + Animalismo vs. Vigor + Determinação\nSistema: Role Carisma + Animalismo vs. Vigor + Determinação. Uma vitória contra um alvo mortal o incapacita naquela cena, causando letargia grave. Ele só pode agir para se autopreservar, e não contra o usuário ou qualquer outro indivíduo. Uma vitória contra um vampiro o impede de realizar Surtos de Sangue. Enquanto sua Besta estiver subjugada, um vampiro fica imune a críticos bestiais. Contra vampiros, este poder dura um turno, mais um número de turnos igual à margem de vitória obtida na disputa. Uma vitória crítica contra um vampiro também encerra seu frenesi.\nDuração: Uma cena ou uma quantidade de turnos igual à margem do teste, mais um."
         },
         {
           nome: "NÍVEL 3 - SUCULÊNCIA ANIMAL",
-          descricao: ""
+          descricao: "O vampiro pode saciar Fome adicional ao se alimentar de animais. Ele também pode consumir seu famulus, com isso ganhando muito mais sustento do que conseguiria de um animal de constituição similar e absorvendo um pouco da sua característica primária.\nCusto: Gratuito\nSistema: Alimentar-se de animais sacia 1 nível adicional de Fome, e o vampiro conta sua Potência de Sangue como dois níveis abaixo no que tange à penalidade por saciar a Fome com sangue animal.\nConsumir o próprio famulus sacia 4 de Fome, independentemente do tamanho do animal. Esse ato nunca remove o último dado de Fome. Além disso, consumir o próprio famulus aumenta o Atributo do vampiro mais associado com aquele animal (conforme determinado pelo Narrador) em 2 pontos. Consumir um gato poderia aumentar Destreza ou Autocontrole; consumir um cachorro poderia aumentar Carisma ou Determinação Narradores podem variar a recompensa pelo consumo de um famulus: drenar uma coruja poderia aumentar o Atributo que compôe qualquer parada de percepção em dois pontos, ou fazê-lo em paradas que envolvem em sabedoria. O bônus dura até a próxima alimentação do vampiro ou até sua Fome alcançar 5.\nDuração: Passiva."
         },
         {
           nome: "NÍVEL 4 - COMUNHÃO DE ESPÍRITOS",
-          descricao: ""
+          descricao: "O vampiro pode transferir completamente sua mente para o corpo de um animal. Ele pode controlar o animal e usar seus sentidos livremente, mesmo durante o dia, caso consiga permanecer acordado. Enquanto faz isso, o corpo do vampiro fica imóvel, como se estivesse em Torpor.\nCusto: Uma Checagem de Sangue. Gratuito se usado no famulus do usuário.\nParada de Dados: Manipulação + Animalismo\nSistema: Faça um teste de Manipulação + Animalismo, Dificuldade 4. Em caso de vitória, o vampiro pode habitar o corpo do animal por uma cena. No caso de uma vitória crítica, o vampiro pode habitar o animal indefinidamente.\nEstender esta possessão para as horas diurnas requer que o vampiro fique acordado (pág. 219); ver o sol exige um teste para frenesi de terror, embora a luz solar não cause dano ao animal possuído. O usuário abstrai seu corpo original, mas dano ao corpo tira o usuário do transe e liberta o animal. A morte deste último também encerra o transe, causando ainda 1 ponto de dano Agravado à Força de Vontade do usuário devido ao choque.\nDuração: Uma cena / indefinidamente (veja acima)."
         },
         {
           nome: "NÍVEL 5 - CONTROLE ANIMAL",
-          descricao: ""
+          descricao: "O poder que o vampiro detém sobre feras cresceu a um ponto em que ele pode comandar bandos como se fossem extensões do seu próprio corpo. Com um gesto, animais sacrificam suas vidas às dúzias, até às centenas, para apaziguar seu mestre.\nCusto: Duas Checagens de Sangue.\nParada de Dados: Carisma + Animalismo\nSistema: Escolha um tipo de animal e faça uma rolagem de Carisma + Animalismo com uma Dificuldade determinada pela natureza dos animais e pela ordem dada. Fazer com que um bando de corvos procure um indivíduo específico (com meios para identificá-lo) é relativamente fácil (Dificuldade 3), porém, fazer com que os cães de uma matilha sacrifiquem suas vidas em um ataque suicida contra outro vampiro é mais desafiador (Dificuldade 5).\nO poder não permite que seu usuário convoque animais, contudo obriga aqueles presentes a obedecerem. O vampiro pode ordenar que os animais retornem após completarem a tarefa, caso tenham meios para fazê-lo.\nDuração: Uma única cena ou até a ordem ser cumprida, o que for mais rápida."
         },
         {
           nome: "NÍVEL 5 - EXPULSAR A BESTA",
-          descricao: ""
+          descricao: "Em um momento de terror ou frenesi de fúria, o vampiro pode projetar sua Besta, transferindo-a para um alvo (mortal ou vampiro) próximo. Este experimenta imediatamente o frenesi no lugar do usuário da Disciplina, entrando em um ataque de ira implacável ou fugindo em pânico, dependendo do gatilho.\nCusto: Uma Checagem de Sangue\nParadas de Dados: Raciocínio + Animalismo vs. Autocontrole + Determinação\nSistema: No lugar de uma rolagem de Força de Vontade para resistir a um frenesi de terror ou fúria, role Raciocínio + Animalismo vs. Autocontrole + Determinação do alvo. Se o usuário falhar, ele entra em frenesi como se tivesse falhado na rolagem de Força de Vontade. Em caso de sucesso, o alvo experimenta o frenesi no lugar do usuário. Estímulos posteriores ainda podem provocar um frenesi no usuário que, no entanto, pode usar este poder enquanto puder realizar Checagens de Sangue e tiver alvos à disposição.\nEste poder não pode transferir um frenesi de Fome.\nDuração: A duração do frenesi (consulte a pág. 220)."
         }
       ]
     },
@@ -1365,7 +1344,7 @@ export default function CharacterSheet() {
   });
 
   const [disciplinas, setDisciplinas] = useState([
-    { nome: "", nivel: 0, poderes: "" }
+    { nome: "", nivel: 0, poderes: [""] }
   ]);
 
   const [lore, setLore] = useState({
@@ -2203,9 +2182,32 @@ export default function CharacterSheet() {
                 onChange={(value) => {
                   const copy = [...disciplinas];
                   copy[index].nome = value;
-                  copy[index].poderes = "";
+                  copy[index].poderes = [""];
                   setDisciplinas(copy);
                 }}
+                rightElement={
+                  <button
+                    onClick={() =>
+                      alert(disciplinaSelecionada?.descricao || "Sem descrição")
+                    }
+                    style={{
+                      padding: "10px 14px",
+                      minWidth: "130px",
+                      height: "42px",
+                      borderRadius: "10px",
+                      border: "1px solid #aa2222",
+                      background: "linear-gradient(180deg, #8b0000, #5a0000)",
+                      color: "white",
+                      cursor: "pointer",
+                      fontWeight: "bold",
+                      fontSize: "14px",
+                      whiteSpace: "nowrap",
+                      boxShadow: "0 0 8px rgba(139,0,0,0.4)"
+                    }}
+                  >
+                    Ver descrição
+                  </button>
+                }
               />
 
               <EditableDots
@@ -2218,25 +2220,148 @@ export default function CharacterSheet() {
                 }}
               />
 
-              <EditableField
-                label="Poderes"
-                type="select"
-                options={
-                  disciplinaSelecionada
-                    ? disciplinaSelecionada.poderes.map((p) => p.nome)
-                    : []
-                }
-                value={disc.poderes || ""}
-                onChange={(value) => {
+              {disc.poderes.map((poder, poderIndex) => {
+                const poderSelecionado = disciplinaSelecionada?.poderes.find(
+                  (p) => p.nome === poder
+                );
+
+                return (
+                  <div key={poderIndex} style={{ marginBottom: "12px" }}>
+                    <EditableField
+                      label={`Poder ${poderIndex + 1}`}
+                      type="select"
+                      options={
+                        disciplinaSelecionada
+                          ? disciplinaSelecionada.poderes.map((p) => p.nome)
+                          : []
+                      }
+                      value={poder}
+                      onChange={(value) => {
+                        const copy = [...disciplinas];
+                        copy[index].poderes[poderIndex] = value;
+                        setDisciplinas(copy);
+                      }}
+                      rightElement={
+                        <button
+                          onClick={() =>
+                            alert(poderSelecionado?.descricao || "Sem descrição")
+                          }
+                          style={{
+                            padding: "10px 14px",
+                            minWidth: "130px",
+                            height: "42px",
+                            borderRadius: "10px",
+                            border: "1px solid #aa2222",
+                            background: "linear-gradient(180deg, #8b0000, #5a0000)",
+                            color: "white",
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                            fontSize: "14px",
+                            whiteSpace: "nowrap",
+                            boxShadow: "0 0 8px rgba(139,0,0,0.4)"
+                          }}
+                        >
+                          Ver descrição
+                        </button>
+                      }
+                    />
+
+                    <button
+                      disabled={disc.poderes.length === 1}
+                      onClick={() => {
+                        const copy = [...disciplinas];
+                        copy[index].poderes = copy[index].poderes.filter(
+                          (_, i) => i !== poderIndex
+                        );
+                        setDisciplinas(copy);
+                      }}
+                      style={{
+                        marginTop: "6px",
+                        padding: "8px 12px",
+                        borderRadius: "8px",
+                        border: "none",
+                        background: disc.poderes.length === 1 ? "#555" : "#8b0000",
+                        color: "white",
+                        cursor: disc.poderes.length === 1 ? "not-allowed" : "pointer"
+                      }}
+                    >
+                      Remover Poder
+                    </button>
+                  </div>
+                );
+              })}
+
+              {/* Adicionar poder */}
+              <button
+                onClick={() => {
                   const copy = [...disciplinas];
-                  copy[index].poderes = value;
+                  copy[index].poderes.push("");
                   setDisciplinas(copy);
                 }}
-              />
+                style={{
+                  marginTop: "10px",
+                  marginRight: "10px",
+                  padding: "10px 14px",
+                  border: "none",
+                  borderRadius: "10px",
+                  background: "#006400",
+                  color: "white",
+                  cursor: "pointer"
+                }}
+              >
+                + Poder
+              </button>
 
+              {/* Remover disciplina */}
+              <button
+                disabled={disciplinas.length === 1}
+                onClick={() =>
+                  setDisciplinas(
+                    disciplinas.filter((_, i) => i !== index)
+                  )
+                }
+                style={{
+                  marginTop: "10px",
+                  padding: "10px 14px",
+                  borderRadius: "10px",
+                  border: "none",
+                  background:
+                    disciplinas.length === 1 ? "#555" : "#8b0000",
+                  color: "white",
+                  fontWeight: "bold",
+                  cursor:
+                    disciplinas.length === 1 ? "not-allowed" : "pointer"
+                }}
+              >
+                Remover Disciplina
+              </button>
             </div>
           );
         })}
+
+        {/* Adicionar disciplina */}
+        <button
+          onClick={() =>
+            setDisciplinas([
+              ...disciplinas,
+              { nome: "", nivel: 0, poderes: [""] }
+            ])
+          }
+          style={{
+            width: "100%",
+            padding: "14px",
+            marginTop: "15px",
+            borderRadius: "12px",
+            border: "none",
+            background: "linear-gradient(180deg, #006400, #004d00)",
+            color: "white",
+            fontSize: "16px",
+            fontWeight: "bold",
+            cursor: "pointer"
+          }}
+        >
+          Adicionar Disciplina
+        </button>
       </section>
 
       <section style={styles.card}>

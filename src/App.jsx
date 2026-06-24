@@ -419,7 +419,7 @@ export default function CharacterSheet() {
     const valor1 = getValorCaracteristica(carac1);
     const valor2 = getValorCaracteristica(carac2);
 
-    const totalDados = valor1 + valor2;
+    const totalDados = valor1 + valor2 + modificador;
 
     fnRolarDado(totalDados, "TS");
     setPodeRerrolar(true);
@@ -624,6 +624,17 @@ export default function CharacterSheet() {
   const [lastHungerRoll, setLastHungerRoll] = useState([]);
 
   function rerrolarForcaVontade() {
+    const danoTotalFW =
+      stats.danoSupF.atual + stats.danoAgrF.atual;
+
+    if (danoTotalFW >= stats.forcaVontade.max) {
+      setAlertMessage(
+        "Sem Força de Vontade disponível para rerrolar."
+      );
+      setPodeRerrolar(false);
+      return;
+    }
+
     let rerolled = [...lastNormalRoll];
     let rerolls = 0;
 
@@ -636,14 +647,13 @@ export default function CharacterSheet() {
 
     setLastNormalRoll(rerolled);
 
-    // Gasta 1 dano superficial de força de vontade
     setStats({
       ...stats,
       danoSupF: {
         ...stats.danoSupF,
         atual: Math.min(
           stats.danoSupF.atual + 1,
-          stats.forcaVontade.max
+          stats.forcaVontade.max - stats.danoAgrF.atual
         )
       }
     });
@@ -1443,6 +1453,7 @@ export default function CharacterSheet() {
   }
 
   const [podeRerrolar, setPodeRerrolar] = useState(false);
+  const [modificador, setModificador] = useState(0);
   return (
     <div style={styles.page}>
       <div
@@ -1524,8 +1535,70 @@ export default function CharacterSheet() {
           ))}
         </select>
 
+        <div
+          style={{
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "space-between",
+            gap: "10px"
+          }}
+        >
+          <span style={{ color: "white", fontWeight: "bold" }}>
+            Modificador
+          </span>
+
+          <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+            <button
+              onClick={() => setModificador(modificador - 1)}
+              style={{
+                width: "35px",
+                height: "35px",
+                borderRadius: "8px",
+                border: "none",
+                background: "#8b0000",
+                color: "white",
+                fontSize: "20px",
+                cursor: "pointer"
+              }}
+            >
+              -
+            </button>
+
+            <span
+              style={{
+                minWidth: "40px",
+                textAlign: "center",
+                color: "white",
+                fontSize: "18px"
+              }}
+            >
+              {modificador > 0 ? `+${modificador}` : modificador}
+            </span>
+
+            <button
+              onClick={() => setModificador(modificador + 1)}
+              style={{
+                width: "35px",
+                height: "35px",
+                borderRadius: "8px",
+                border: "none",
+                background: "#008000",
+                color: "white",
+                fontSize: "20px",
+                cursor: "pointer"
+              }}
+            >
+              +
+            </button>
+          </div>
+        </div>
+
         <button onClick={fazerTeste}>
-          Rolar dados
+          Rolar {Math.max(1,
+            getValorCaracteristica(carac1) +
+            getValorCaracteristica(carac2) +
+            modificador
+          )} dados
         </button>
       </div>
       <h1 style={styles.sectionTitle}>Ficha VTM V5</h1>
@@ -2311,74 +2384,74 @@ export default function CharacterSheet() {
           />
         </section>
       </div>
-    {
-    alertMessage && (
-      <div
-        style={{
-          position: "fixed",
-          top: "50%",
-          left: "50%",
-          transform: "translate(-50%, -50%)",
-          background: "#222",
-          color: "white",
-          padding: "35px 50px",
-          borderRadius: "12px",
-          border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
-            }`,
-          zIndex: 9999,
-          textAlign: "center",
-          minWidth: "300px"
-        }}
-      >
-        <h2
-          style={{
-            fontSize: "48px",
-            margin: 0,
-            color:
-              alertMessage.startsWith("Sucesso")
-                ? "#00ff66"
-                : "#ff4444"
-          }}
-        >
-          {alertMessage}
-        </h2>
-        {podeRerrolar && (
-          <button onClick={rerrolarForcaVontade} style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            background:
-              alertMessage.startsWith("Sucesso")
-                ? "#008800"
-                : "#8b0000",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "point"
-          }}>
-            Rerrolar(Força de Vontade)
-          </button>
-        )}
-        <button
-          onClick={() => setAlertMessage("")}
-          style={{
-            marginTop: "20px",
-            padding: "10px 20px",
-            marginLeft: "10px",
-            background:
-              alertMessage.startsWith("Sucesso")
-                ? "#008800"
-                : "#8b0000",
-            color: "white",
-            border: "none",
-            borderRadius: "6px",
-            cursor: "pointer"
-          }}
-        >
-          Fechar
-        </button>
-      </div>
-    )
-  }
+      {
+        alertMessage && (
+          <div
+            style={{
+              position: "fixed",
+              top: "50%",
+              left: "50%",
+              transform: "translate(-50%, -50%)",
+              background: "#222",
+              color: "white",
+              padding: "35px 50px",
+              borderRadius: "12px",
+              border: `3px solid ${alertMessage.startsWith("Sucesso") ? "#00aa00" : "#8b0000"
+                }`,
+              zIndex: 9999,
+              textAlign: "center",
+              minWidth: "300px"
+            }}
+          >
+            <h2
+              style={{
+                fontSize: "48px",
+                margin: 0,
+                color:
+                  alertMessage.startsWith("Sucesso")
+                    ? "#00ff66"
+                    : "#ff4444"
+              }}
+            >
+              {alertMessage}
+            </h2>
+            {podeRerrolar && (
+              <button onClick={rerrolarForcaVontade} style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                background:
+                  alertMessage.startsWith("Sucesso")
+                    ? "#008800"
+                    : "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "point"
+              }}>
+                Rerrolar(Força de Vontade)
+              </button>
+            )}
+            <button
+              onClick={() => setAlertMessage("")}
+              style={{
+                marginTop: "20px",
+                padding: "10px 20px",
+                marginLeft: "10px",
+                background:
+                  alertMessage.startsWith("Sucesso")
+                    ? "#008800"
+                    : "#8b0000",
+                color: "white",
+                border: "none",
+                borderRadius: "6px",
+                cursor: "pointer"
+              }}
+            >
+              Fechar
+            </button>
+          </div>
+        )
+      }
 
       <input
         value={nomeBusca}

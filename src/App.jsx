@@ -9,6 +9,8 @@ function EditableField({
   options = [],
   rightElement = null
 }) {
+  const textareaRef = useRef(null);
+
   const sharedStyle = {
     width: "100%",
     padding: 8,
@@ -16,8 +18,18 @@ function EditableField({
     border: "1px solid #444",
     background: "#333",
     color: "white",
-    textAlign: "center"
+    textAlign: "center",
+    resize: "none", // importante: desativa resize manual
+    overflow: "hidden" // importante: evita scroll interno
   };
+
+  useEffect(() => {
+    if (textareaRef.current) {
+      textareaRef.current.style.height = "auto";
+      textareaRef.current.style.height =
+        textareaRef.current.scrollHeight + "px";
+    }
+  }, [value]);
 
   const field =
     type === "select" ? (
@@ -35,10 +47,11 @@ function EditableField({
       </select>
     ) : (
       <textarea
+        ref={textareaRef}
         value={value}
         onChange={(e) => onChange(e.target.value)}
         rows={1}
-        style={{ ...sharedStyle, resize: "vertical" }}
+        style={sharedStyle}
       />
     );
 
@@ -743,7 +756,7 @@ export default function CharacterSheet() {
   const disciplinasTodas = [
     {
       nome: "Animalismo",
-      descricao: "Alcunhas: Doolittlear, Domar, Bestiae Sermo\nTalvez os vampiros tenham mais em comum com os animais do que com os humanos. Um perigoso conjunto de instintos os governa, e custa muito para que consigam controlar o impulso de simplesmente atacar.\nAssim como um cão selvagem acorrentado, a Besta de um vampiro jamais se deixa domar de fato.\nAlguns Membros encontram um modo de se tornarem um com suas Bestas. Aqueles que o fazem se tornam os mestres do Animalismo. Muitos acompanham o uso deste poder com uivos, rosnados, urros ou se comunicam com animais na 'língua' dos animais, embora isto seja uma afetação e não uma necessidade.\nA Disciplina Animalismo é muito usada entre vampiros que têm dificuldades de adaptação ou não gostam de viver entre os mortais. Muitas vezes classificada como um dos dons utilitários de Caim, permitindo que um vampiro sobreviva de sangue bruto ou faça amizade com seres irracionais, ela também é uma arma devastadora contra vampiros que escalam suas torres, e inquisidores que supôem que seus inimigos só andam sobre suas pernas. Um bando de ratos sedentos de sangue que invade a cobertura-refúgio de um Membro, o vampiro especialista em Animalismo que intimida a Besta do Xerife no Elísio ou o corvo com olhos vidrados que espia um capítulo da Sociedade de São Leopoldo — todos esses servem para fortalecer praticantes de Animalismo e enfraquecer seus inimigos.\n\nCaracterísticas\nNormalmente, os poderes de Animalismo que envolvem animais só podem ser usados em vertebrados. Além disso, qualquer uso do poder em herbívoros soma um à Dificuldade das rolagens de Habilidades envolvidas.\nTipo: Mental\nAmeaça à Máscara: Baixa para média. Apesar de conversar com animais parecer excêntrico, somente as aplicações mais violentas da Disciplina resultam em mais do que sobrancelhas erguidas.\nRessonância de Sangue: Sangue animal, preferivelmente selvagem.",
+      descricao: "Alcunhas: Doolittlear, Domar, Bestiae Sermo\n\nTalvez os vampiros tenham mais em comum com os animais do que com os humanos. Um perigoso conjunto de instintos os governa, e custa muito para que consigam controlar o impulso de simplesmente atacar.\nAssim como um cão selvagem acorrentado, a Besta de um vampiro jamais se deixa domar de fato.\nAlguns Membros encontram um modo de se tornarem um com suas Bestas. Aqueles que o fazem se tornam os mestres do Animalismo. Muitos acompanham o uso deste poder com uivos, rosnados, urros ou se comunicam com animais na 'língua' dos animais, embora isto seja uma afetação e não uma necessidade.\nA Disciplina Animalismo é muito usada entre vampiros que têm dificuldades de adaptação ou não gostam de viver entre os mortais. Muitas vezes classificada como um dos dons utilitários de Caim, permitindo que um vampiro sobreviva de sangue bruto ou faça amizade com seres irracionais, ela também é uma arma devastadora contra vampiros que escalam suas torres, e inquisidores que supôem que seus inimigos só andam sobre suas pernas. Um bando de ratos sedentos de sangue que invade a cobertura-refúgio de um Membro, o vampiro especialista em Animalismo que intimida a Besta do Xerife no Elísio ou o corvo com olhos vidrados que espia um capítulo da Sociedade de São Leopoldo — todos esses servem para fortalecer praticantes de Animalismo e enfraquecer seus inimigos.\n\nCaracterísticas\nNormalmente, os poderes de Animalismo que envolvem animais só podem ser usados em vertebrados. Além disso, qualquer uso do poder em herbívoros soma um à Dificuldade das rolagens de Habilidades envolvidas.\nTipo: Mental\nAmeaça à Máscara: Baixa para média. Apesar de conversar com animais parecer excêntrico, somente as aplicações mais violentas da Disciplina resultam em mais do que sobrancelhas erguidas.\nRessonância de Sangue: Sangue animal, preferivelmente selvagem.",
       poderes: [
         {
           nome: "NÍVEL 1 - FAMULUS ENLAÇADO",
@@ -785,183 +798,183 @@ export default function CharacterSheet() {
     },
     {
       nome: "Auspícios",
-      descricao: "",
+      descricao: "Alcunhas: Voyeurismo, Vidência, Anima Visus\n\nEstando entre os maiores dons e piores maldições que afligem os vampiros, a Disciplina Auspícios permite que os Membros distingam a verdade da mentira, sondem as mentes daqueles ao redor e percebam a realidade em um nível diferente do de outros seres. O que parece ser o poder supremo em previsão e visão concede aos seus usuários, talvez, conhecimento em excesso. Eles são capazes de detectar a lâmina de um assassino antes que ele golpeie ou invadir e revirar a cabeça de um inimigo, mas também podem sentir cada oscilação nas emoções, boas e más, ver coisas que não desejariam ter visto e distinguir futuros que não desejariam explorar.\nOs usuários de Auspícios atraem a paranoia, mas usar esta Disciplina é viciante. Uma vez que você saiba que a verdade está ao seu alcance, você a busca a cada oportunidade.\nOs Membros usam Auspícios de muitos modos. Alguns agem como espiões para suas cortes e facções; outros atuam por conta própria, chantageando mortais e imortais com segredos recolhidos em conversas discretas, alterações emocionais sutis e invasões telepáticas. Auspícios permite que seu usuário exerça o papel de detetive do domínio, estudando a cena da destruição de um vampiro atrás de pistas espirituais reveladoras, ou interrogando suspeitos com precisão sobrenatural.\n\nCaracterísticas\nSe desejarem, os Narradores podem realizar os testes de Auspícios para os personagens; isso permite que forneçam de modo mais convincente respostas corretas ou incorretas após rolagens fracassadas.\nTipo: Mental\nAmeaça à Máscara: Baixa. Auspícios nunca se manifesta de modo visível ao olho nu ou causa efeitos que não possam ser explicados racionalmente, a não ser que seja como mera sorte.\nRessonância de Sangue: Fleumática. Artistas (especialmente fotógrafos) e visionários, certos esquizofrênicos, usuários de substâncias psicoativas, detetives.",
       poderes: [
         {
           nome: "NÍVEL 1 - SENTIDOS AGUÇADOS",
-          descricao: ""
+          descricao: "Os sentidos do vampiro se aguçam a níveis sobrenaturais, concedendo-lhe o poder de ver em trevas totais, ouvir frequências ultrassônicas e sentir o medo de presas encurraladas.\nCusto: Gratuito (mas veja abaixo)\nParada de Dados: Raciocínio + Determinação\nSistema: O usuário adiciona seu valor de Auspícios a todas as suas rolagens de percepção. Se exposto a sensações extremas, como estouros, brilhos intensos ou odores pungentes enquanto o poder está ativo — o usuário deve obter sucesso em uma rolagem de Raciocínio + Determinação (Dificuldade 3 ou mais) para amortecer seus sentidos a tempo, ou a sobrecarga resulta em uma penalidade de -3 dados a todas as suas rolagens baseadas em percepção pelo restante da cena.\nDuração: Até ser desativado. Ter o poder ativo por períodos maiores (mais do que uma cena) sem descanso, especialmente em ambientes com estímulos muito intensos, pode necessitar do gasto de Força de Vontade, a critério do Narrador."
         },
         {
           nome: "NÍVEL 1 - SENTIR O INVISÍVEL",
-          descricao: ""
+          descricao: "Os sentidos do vampiro se sintonizam a dimensões além do mundano, o que lhe permite sentir presenças ocultas a olho nu. Isto pode significar qualquer coisa, de outro vampiro usando Ofuscação ou alguém usando Auspícios para espiar o personagem, a um fantasma no meio do aposento. Feitiços e rituais de Feitiçaria de Sangue inativos também podem ser encontrados com este poder, a critério do Narrador.\nCusto: Gratuito\nParadas de Dados: Raciocínio + Auspícios ou Determinação + Auspícios\nSistema: Sempre que algo sobrenatural estiver se escondendo em plena vista, o Narrador faz uma rolagem oculta de Raciocínio + Auspícios com uma Dificuldade à escolha dele. Contra uma entidade que esteja tentando permanecer oculta, o Narrador pode pedir uma rolagem cega (“Lisa, role sete dados para mim”) como uma disputa contra a parada relevante do alvo. (Por exemplo, detectar um vampiro usando Ofuscação seria uma rolagem de Raciocínio + Auspícios vs. Raciocínio + Ofuscação.) Se o vampiro estiver à procura de uma entidade sobrenatural escondida, ele rola Determinação + Auspícios.\nDuração: Passiva."
         },
 
         {
           nome: "NÍVEL 2 - PREMONIÇÃO",
-          descricao: ""
+          descricao: "O vampiro experimenta insights que podem assumir a forma de arrepios, inspirações repentinas ou até mesmo visões vívidas. Embora nunca sejam demasiadamente precisas, essas visões podem tirar o vampiro do caminho do perigo ou revelar uma verdade antes ignorada.\nCusto: Gratuito ou uma Checagem de Sangue\nParada de Dados: Determinação + Auspícios\nSistema: Sempre que o Narrador julgar apropriado, este poder concede ao personagem um toque ou dica repentina que o ajuda de algum modo: permitindo que encontre uma pista negligenciada ou salvando sua pele. Trata-se de uma visão súbita do próprio personagem caindo em uma armadilha, de um brilho sobre a segunda saída à direita durante uma perseguição, ou de um breve vislumbre de um esqueleto sob o assoalho do escritório do Príncipe. Este poder sempre dá ao Narrador licença para acelerar sutilmente o jogo ou mover a história na direção desejada.\nO limite sugerido é de uma premonição por cena, mesmo se mais de um personagem possuir Premonição.\nO usuário também pode provocar uma Premonição ao se concentrar em um alvo, realizar uma Checagem de Sangue e rolar Determinação + Auspícios. A quantidade de sucessos tirada determina o nível de detalhe obtido sobre o alvo, caso haja algum.\nDuração: Passiva."
         },
 
         {
           nome: "NÍVEL 3 - COMPARTILHAR OS SENTIDOS",
-          descricao: ""
+          descricao: "Ao estender o alcance da sua mente, o vampiro pode sentir o ambiente como se estivesse no lugar de outro mortal ou vampiro, passando a ver, ouvir e sentir com os sentidos dele. O usuário retém suas próprias percepções e ainda tem consciência dos seus arredores, embora o efeito exija algum costume. O usuário decide se se ligará a somente um, alguns ou todos os sentidos do alvo. Ao ser usado em um estranho, este poder requer linha de visão para ser acionado. No entanto, pode ser usado a maiores distâncias em alvos que ainda tenham um pouco do Sangue do usuário em seu corpo.\nCusto: Uma Checagem de Sangue\nParada de Dados: Determinação + Auspícios\nSistema: Role Determinação + Auspícios com Dificuldade 3. Esta Dificuldade pode auemntar por conta de distrações, distância ou outros fatores, tais como a quantidade do sangue do usuário que permanece no alvo. Este geralmente não tem consciência da intrusão, porém Sentir o Invisível pode fazer com que o passageiro seja notado. Para se livrar de um intruso, a vítima deve vencê-lo em uma rolagem de Raciocínio + Determinação vs. Raciocínio + Determinação. Um usuário de Auspícios expulso desse modo não pode realizar outra tentativa de Compartilhamento até a próxima noite.\nDuração: Uma cena."
         },
 
         {
           nome: "NÍVEL 3 - PERSCRUTAR A ALMA",
-          descricao: ""
+          descricao: "Ao se concentrar em uma pessoa, o vampiro pode perceber o estado da psiquê dela na forma de uma aura de cores mutáveis. Auras revelam pouca informação precisa, mas fornecem pistas a respeito de muitos assuntos, como estados emocionais, Ressonâncias e características sobrenaturais. Se estiver à procura de uma condição específica, o vampiro pode tentar detectá-la examinando superficialmente uma multidão. Esse tipo de investigação não fornece nenhum outro tipo de informação.\nCusto: Uma Checagem de Sangue\nParadas de Dados: Inteligência + Auspícios vs. Autocontrole + Subterfúgio\nSistema: Faça uma rolagem de Inteligência + Auspícios vs. Autocontrole + Subterfúgio. Em caso de vitória, o Narrador responde a verdade acerca de um número de perguntas igual à margem da rolagem a respeito da aura e da psiquê do alvo, incluindo:\n -O estado emocional do alvo\n- A Ressonância no sangue do alvo\n- Se o alvo é um vampiro, lobisomem, carniçal ou qualquer outro ser sobrenatural\n- Se o alvo está sob a influência de Feitiçaria de Sangue ou outro tipo de magia\n- Se o alvo cometeu Diablerie no último ano\n- Uma vitória crítica permite a descoberta de algo inesperado, a ser determinado pelo Narrador.\nAo examinar uma multidão, role contra uma Dificuldade determinada pelo número de pessoas e por distrações externas. bem como pelo tipo de características que se procura (encontrar um vampiro em uma sala pode ter Dificuldade 3, enquanto encontrar a pessoa mais inquieta em uma rave provavelmente teria Dificuldade 6 ou maior.\nDuração: Um turno, ou a critério do Narrador."
         },
 
         {
           nome: "NÍVEL 4 - TOQUE DO ESPÍRITO",
-          descricao: ""
+          descricao: "Ao tocar um objeto inanimado ou o solo de uma localização, o vampiro pode sentir o resíduo emocional deixado por aqueles que manusearam o objeto ou visitaram o local. O usuário obtém informações não somente sobre a aquela pessoa, mas também sobre o que foi feito e sob quais circunstâncias. Apesar de raramente claras, as informações muitas vezes oferecem indícios impossíveis de se obter mediante análise forense e dedução.\nCusto: Uma Checagem de Sangue\nParada de Dados: Inteligência + Auspícios\nSistema: Faça uma rolagem de Inteligência + Auspícios contra uma Dificuldade dependente da informação procurada. Vislumbrar o estado emocional do portador de uma arma usada em um assassinato há poucos dias teria Dificuldade 3, enquanto sentir os medos nos quais uma carta de 200 anos foi escrita pode chegar a Dificuldade 6 ou mais. Cada ponto na margem da rolagem permite que o usuário sinta aproximadamente um portador prévio do objeto e um conjunto de circunstâncias adicionais, contando retroativamente a partir do mais recente.\nDuração: Um turno."
         },
 
         {
           nome: "NÍVEL 5 - CLARIVIDÊNCIA",
-          descricao: ""
+          descricao: "Ao fechar seus olhos e entrar em um transe leve, o vampiro se torna mestre dos seus arredores. Em poucos minutos, consegue reunir informações de uma área equivalente a uma quadra (maior, se ao ar livre ou se se tratar de uma área menos populosa), o que normalmente demoraria muitas horas, talvez dias de trabalho e investigação. Uma vez conectado desse modo com seus arredores, o vampiro também pode receber informações sobre tudo o que acontece fora do comum na área.\nCusto: Uma Checagem de Sangue\nParada de Dados: Inteligência + Auspícios\nSistema: Role Inteligência + Auspícios contra uma Dificuldade baseada no nível de segurança e atividade da área. Usar Clarividência na sua própria mansão teria Dificuldade 3, enquanto uma favela desconhecida de uma cidade grande chegaria a 7 ou mais. O usuário adiciona seu valor base em Refúgio em dados extras à parada quando usa Clarividência em seu refúgio.\nO Narrador responde as perguntas do vampiro sobre a movimentação na área, o que as pessoas têm visto ou ouvido, tópicos de fofoca local, grandes surpresas ou impressões, e assim por diante. O jogador pode fazer aproximadamente uma pergunta por ponto da margem; respostas sobre informações deliberadamente escondidas podem consumir mais de um ponto. Uma vitória crítica revela algo maior, independentemente das perguntas feitas, assumindo-se que haja algo a ser revelado.\nO vampiro também pode monitorar clarividentemente eventos em progresso, mas isso exige que ele permaneça na área por tanto tempo quanto o efeito estiver ativo.\nDuração: Alguns minutos para a coleta de informações, até uma noite completa no caso de vigilância."
         },
 
         {
           nome: "NÍVEL 5 - POSSESSÃO",
-          descricao: ""
+          descricao: "Amálgama: Dominação 3\n\nCom este poder, o vampiro pode dominar a vontade de um mortal e possuir seu corpo por completo, usando-o como se fosse seu. Apesar da mente do alvo permanecer escondida do vampiro, este pode fazer tudo o que o alvo poderia ter feito ou ir a qualquer lugar onde ele poderia ter ido enquanto o poder permanecer ativo. Desse modo, o vampiro pode até mesmo experimentar a luz do sol, alimentos e a sensualidade física há muito negado a ele, com seu hospedeiro pagando o preço por quaisquer abusos que o vampiro cause ao corpo enquanto o possuía.\nCusto: Duas Checagens de Sangue\nParadas de Dados: Determinação + Auspícios vs. Determinação + Inteligência\nSistema: Este poder só pode ser usado em mortais. Se o mortal for um carniçal, em primeiro lugar ele deve ser Enlaçado pelo usuário. Antes que a possessão possa começar, o vampiro deve estabelecer contato visual com sua vítima (veja Dominação, pág. 254). O usuário então inicia um conflito de Determinação + Auspícios vs. Determinação + Inteligência com a vítima para tomar-lhe o corpo. Se o jogador do vampiro rolar uma falha total, a vítima fica imune a novas tentativas de Possessão pelo restante da história.\nAssim que o vampiro toma posse do corpo da vítima, seu próprio corpo entra em um transe semelhante ao Torpor, ficando completamente inconsciente dos seus arredores e do seu próprio estado físico, exceto no caso de dano Agravado, que rompe o transe e encerra seus efeitos. Um vampiro que esteja possuindo um mortal pode usar Auspícios, Presença e Dominação através dele. Se o possessor desejar estender a posse para as horas do dia, deve realizar uma rolagem para ficar acordado (pág. 219). Falha nesse caso encerra o poder. Qualquer dano Agravado ao alvo da possessão também pode encerrá-la — o usuário deve obter sucesso em uma rolagem de Determinação + Auspícios (Dificuldade 2 + o dano sofrido) para manter o controle. Se o alvo morrer durante a Possessão, o trauma espiritual resultante causará imediatamente no usuário 3 níveis de dano Agravado à Força de Vontade.\nEste poder não dá ao usuário a capacidade de ler mentes, usar as Habilidades ou imitar os modos da vítima. Quaisquer Habilidades usadas empregam os valores que o vampiro possui nelas, se as possuir.\nO usuário realiza uma rolagem de Manipulação + Performance vs. Raciocínio + Sagacidade para personificar com sucesso os modos e expressões da vítima.\nFinalmente, Possessão viola a vítima ainda mais profundamente do que um Laço de Sangue. O Narrador deve considerar conceder Máculas pelo uso desta Disciplina.\nDuração: Até ser encerrado, voluntariamente ou não."
         },
 
         {
           nome: "NÍVEL 5 - TELEPATIA",
-          descricao: ""
+          descricao: "Localizado nos mais altos níveis de Auspícios, agora o vampiro pode literalmente ler mentes, assim como projetar seus próprios pensamentos nas mentes de terceiros. Enquanto ler a mente de um mortal é relativamente simples, mentes não vivas exigem um esforço maior para serem penetradas.\nCusto: Uma Checagem de Sangue (mais 1 ponto de Força de Vontade contra vampiros involuntários)\nParadas de Dados: Determinação + Auspícios vs. Raciocínio + Subterfúgio\nSistema: O usuário não precisa rolar nenhum dado para projetar seus pensamentos em outra mente, vampírica ou mortal, embora isso exija linha de visão entre um e outro. Para ler a mente de um mortal que esteja à vista do usuário, ele deve rolar Determinação + Auspícios vs. Raciocínio + Subterfúgio enquanto encara seu alvo olho no olho. (A menos que o mortal tenha consentido, caso em que a rolagem não é necessária.) Uma vitória significa que o usuário pode distinguir pensamentos superficiais na forma de um fluxo de imagens, com uma margem maior permitindo que o usuário sonde em busca de memórias mais distantes ou enterradas. Uma vitória crítica fornece um panorama coerente dos pensamentos e intenções atuais do alvo. Para ler a mente de um vampiro involuntário, gaste 1 ponto de Força de Vontade antes de rolar.\nDuração: Aproximadamente um minuto por Checagem de Sangue. Aumente para uma cena completa no caso de alvos voluntários."
         }
       ]
     },
     {
       nome: "Celeridade",
-      descricao: "",
+      descricao: "Alcunhas: Boltear, Escorregar, Velocitas\n\nA capacidade de golpear rápido, esquivar-se de golpes e fugir de perseguidores permite que os Membros se tornem predadores extremamente efetivos. Celeridade permite que um vampiro se mova mais rápido do que qualquer criatura natural, embora faça mais do que conceder velocidade sobrenatural, com vampiros que a usam parecendo, de fato, pensar quase tão rapidamente quanto agem.\nEnquanto alguns vampiros usam esta Disciplina para golpear seus inimigos sem temer contra-ataques, outros simplesmente a usam para ir do ponto A ao B mais rapidamente do que outras pessoas a pé.\n\nCaracterísticas\nTipo: Física\nAmeaça à Máscara: Média para alta. A maioria dos poderes de Celeridade são claramente inumanos, mas o fato de ser muito difícil pegá-los em câmera costuma salvar a noite.\nRessonância de Sangue: Colérica. Medo e terror profundos, corredores, atletas, usuários de anfetamina e alcaloides, jogadores habituais de jogos de tiro em primeira pessoa e outros jogos de ação rápida.",
       poderes: [
         {
           nome: "NÍVEL 1 - GRAÇA FELINA",
-          descricao: ""
+          descricao: "O vampiro ganha equilíbrio e elegância iguais ou superiores às dos melhores trapezistas do mundo. Ele pode caminhar ou até correr sobre saliências e cabos sem esforço e manter o equilíbrio sobre suportes mais estreitos.\nCusto: Gratuito\nSistema: O usuário passa automaticamente em qualquer rolagem baseada em Destreza ou Atletismo necessária para manter o equilíbrio. Note que este poder não permite que o usuário se equilibre em suportes que não aguentem seu peso.\nDuração: Passiva"
         },
         {
           nome: "NÍVEL 1 - REFLEXOS RÁPIDOS",
-          descricao: ""
+          descricao: "Apesar de seus corpos ainda não serem capazes de desafiar as leis da natureza, os vampiros com este poder percebem eventos instantaneamente e podem reagir com presteza sobre-humana. Eles conseguem desviar de projéteis em movimento de poderem tentar se esquivar de flechas e até mesmo balas quando não dispõe de cobertura.\nCusto: Gratuito\nSistema: Com este poder, vampiros não sofrem penalidades em suas paradas de defesa por conta de falta de cobertura contra ataques feitos por Armas de Fogo. Eles também podem realizar uma ação menor (ver pág. 298) que valha até dois dados por turno, tal como preparar e recarregar uma arma.\nDuração: Passiva"
         },
 
         {
           nome: "NÍVEL 2 - RAPIDEZ",
-          descricao: ""
+          descricao: "Seu domínio de Celeridade agora permite que o vampiro se mova e reaja com velocidade atordoante.\nCusto: Uma Checagem de Sangue\nSistema: Adicione o valor de Celeridade à parada de dados de Destreza do usuário em testes de Destreza não relacionados à combate.\nUma vez por turno, o usuário também pode usar isso ao se defender com Destreza + Atletismo.\nDuração: Uma cena"
         },
 
         {
           nome: "NÍVEL 3 - PISCADELA",
-          descricao: ""
+          descricao: "O vampiro se projeta rapidamente de um oponente, confrontando-o ou escapando dele num piscar. Para um observador despreparado, o usuário parece quase se teleportar; uma rajada de vento sendo o único sinal da sua passagem.\nCusto: Uma Checagem de Sangue\nParadas de Dados: Destreza + Atletismo, ou conforme a necessidade\nSistema: O vampiro se move em linha reta até um alvo, cobrindo qualquer distância de até 50 metros, e ainda tem tempo para realizar uma ação, como atacar, durante o turno.\nSe o terreno for de algum modo perigoso, o personagem precisará realizar uma rolagem de Destreza + Atletismo para evitar tropeçar e parar no meio do caminho. O Narrador pode pedir outras disputas conforme a necessidade, especialmente se o vampiro estiver correndo contra um oponente distante para alcançar um objeto ou ação. Vampiros que se deslocam para atacar um inimigo com este poder agem como se já estivessem lutando com ele quando o turno tem início.\nDuração: Um turno"
         },
 
         {
           nome: "NÍVEL 3 - TRAVESSIA",
-          descricao: ""
+          descricao: "O vampiro pode correr ou escalar qualquer superfície com velocidade estonteante, incluindo superfícies verticais e até mesmo líquidas. Apesar de Travessia não conceder tração sobrenatural como a de insetos, correr ao longo de muros ou paredes acima impõe pouca dificuldade. Caminhar sobre água continua sendo impossível, mas o vampiro pode correr sobre água por uma distância limitada se tiver pego impulso.\nCusto: Uma Checagem de Sangue\nParada de Dados: Destreza + Atletismo\nSistema: Faça uma rolagem de Destreza + Atletismo com Dificuldade entre 3 (superfície inclinada com tração) e 6 (superfície vertical lisa ou extensão de água), dependendo da superfície e do ângulo.\Cada ponto de margem leva o vampiro mais longe: margem 0 leva a um alvo próximo, margem 1 a um alvo a maior distância, e assim por diante. O Narrador deve informar o jogador de antemão se um alvo está distante demais para travessia. Como regra geral, qualquer coisa sobre água e a mais de 60 metros (ou acima de 30 andares em uma construção) provavelmente excede o alcance deste poder.\nDuração: Um turno"
         },
 
         {
           nome: "NÍVEL 4 - ELEGÂNCIA DIRETO DA FONTE",
-          descricao: ""
+          descricao: "O sangue do vampiro fica saturado com o poder de Celeridade, repassando parte desse poder a qualquer um que beba dele. Embora esse ato também seja um primeiro passo para um Laço de Sangue, escravos ou servos já enlaçados não precisam se preocupar, e até mesmo aliados não enlaçados podem decidir arriscar um gole para experimentar o poder temporariamente.\nCusto: Uma Checagem de Sangue\nSistema: Beber diretamente do usuário uma quantidade de Sangue equivaente a uma Checagem de Sangue presenteia o bebedor com Celeridade temporária equivalente à metade dos pontos de Celeridade (arredondando para baixo) do doador. O bebedor ganha os mesmos poderes não amálgama do doador, até aquele nível.\nDuração: Uma noite; para vampiros, até a próxima alimentação ou até o vampiro alcançar Fome 5"
         },
 
         {
           nome: "NÍVEL 4 - MIRA INFALÍVEL",
-          descricao: ""
+          descricao: "Amálgama: Auspícios 2\n\nCom o mundo ao seu redor desacelerando até quase parar, o vampiro pode mirar e arremessar ou disparar qualquer arma em um alvo como se este estivesse parado.\nCusto: Uma Checagem de Sangue\nSistema: Use antes de realizar um ataque. O alvo não faz nenhuma rolagem para esquivar ou defender; realize o ataque com Dificuldade 1. Um oponente com Celeridade 5 pode anular este poder realizando sua própria Checagem de Sangue e se defendendo com a mesma velocidade.\nDuração: Um único ataque"
         },
 
         {
           nome: "NÍVEL 5 - FRAÇÃO DE SEGUNDO",
-          descricao: ""
+          descricao: "A velocidade com que o vampiro se movimenta alcança a da sua percepção sobrecarregada, o que permite que ele reaja a eventos de imediato. Emboscadores são emboscados por sua própria presa e favores pedidos são realizados antes que as palavras deixam as bocas dos suplicantes.\nCusto: Uma Checagem de Sangue\nSistema: O jogador pode substituir a narração dos eventos feita pelo Narrador, dentro do razoável. Ele pode dizer que seu personagem atravessa uma porta antes que ela se feche, evita uma emboscada após ela ter começado, sai do caminho de uma explosão, etc. A ação executada deve ser razoável e não pode levar mais do que alguns segundos de tempo real para ser completada. O Narrador decide quais Habilidades, se houver alguma, precisam ser testadas para que a ação iniciada com este poder seja bem-sucedida.\nDuração: Aproximadamente uma ação, conforme determinado pelo Narrador."
         },
 
         {
           nome: "NÍVEL 5 - GOLPE RELÂMPAGO",
-          descricao: ""
+          descricao: "Mais rápido do que a visão, o vampiro pode atacar com os punhos ou armas brancas tão rapidamente que o oponente é incapaz de se defender ou realizar uma ação evasiva.\nCusto: Uma Checagem de Sangue\nSistema: Use antes de realizar um ataque com Briga ou Armas Brancas. O oponente não faz nenhuma rolagem para esquivar ou defender; realize o ataque com Dificuldade 1. Um oponente que possua Celeridade 5 pode anular este poder realizando sua própria Checagem de Sangue e se defendendo na mesma velocidade.\nDuração: Um único ataque"
         }
       ]
     },
     {
       nome: "Dominação",
-      descricao: "",
+      descricao: "Alcunhas: Encantamento de Serpentes, Mesmerismo, Mentis Imperium\n\nDominação concede ao vampiro o poder de controlar as ações de terceiros, manipular suas memórias e forçá-los a realizar ações que não realizariam por vontade própria. Em sua forma mais básica, capacita um vampiro a fazer com que uma vítima esqueça a alimentação que acabou de suportar ou aproveitar. Em sua faceta mais perigosa, permite que os Membros escravizem multidões inteiras de gado. Trata-se da Besta no que tem de mais cruel e controlador.\nDominação age como um cacetete no policiamento da Máscara, cria servos submissos e reforça a autoconfiança do vampiro. Ao usarem esta Disciplina, os Membros se sentem omnipotentes, embora os mais sábios saibam que isso também pode ser uma forma de algema, que o Sangue desliza por seus braços e pernas.\n\nCaracterísticas\nA maioria dos poderes de Dominação requer contato visual com a vítima. Uma vez estabelecido esse contato, Dominação retém o olhar da vítima até o usuário emitir seu comando ou comandos, salvo interferência. Prender o olhar de alguém que esteja tentando evitar os olhos do vampiro requer uma disputa de Determinação + Intimidação do usuário contra Raciocínio + Percepção do alvo. Naturalmente, é impossível prender a atenção de alguém com os olhos fechados ou vendados, embora isso o torne vulnerável a outras táticas.\nO uso de Dominação em combate ou em situações agitadas é limitado a pessoas atacando ou interagindo de outro modo direto com o usuário, dado a atenção dos demais estar firmemente concentrada nos seus próprios conflitos.\nA menos que o usuário tenha à disposição meios sobrenaturais como Telepatia (Auspícios 5), ele deve comandar a vítima verbalmente. A vítima deve ser capaz de ouvir o usuário e entender sua língua.\nSem Decreto Terminal (Dominação 5), comandos que resultem em morte óbvia ou danos graves falham automaticamente. Alvos rolam para resistir a comandos que resultem em outros prejuízos sociais ou físicos (como ficar nu em público), comandos que façam o personagem ir contra suas Convicções, ou aqueles que teriam afeitos negativos para seus Pilares ou seus relacionamentos com eles. Consulte os poderes individuais para maiores detalhes. Vampiros não podem usar Dominação para extrair informações, pois a vítima se torna uma marionete sem cérebro sob a influência desta Disciplina. Por exemplo, o comando 'Fale', de Compleir, resultaria em uma tagarelice sem sentido, enquanto alguém Mesmerizado, a quem seja ordenado que diga o que sabe sobre o assassino literalmente diria 'o que sabe sobre o assassino'. Dominação não pode obrigar suas vítimas a fazer algo que não poderiam fazer sob ordens, como 'Durma'. Em últimos casos, o Narrador determina o que a Disciplina é capaz de realizar, mas deve cuidar para que Dominação continue sendo apenas uma Disciplina entre outras, e não a solução final para todos os problemas.\nDominação está no centro da predação e domínio vampíricos. Portanto, os vampiros devem resistir às tentativas de ser dominados. Um vampiro de geração mais baixa (mais forte) pode resistir a tentativas de Dominação feitas por vampiros de gerações mais altas com o gasto de um ponto de Força de Vontade, anulando o efeito completamente.\nNo caso de uma falha total em uma rolagem de qualquer poder de Dominação, o vampiro fica incapaz de Dominar o mesmo alvo pelo restante da história.\nDominação ameaça diretamente a Humanidade de um vampiro, especialmente se ele possui qualquer príncipio que envolve liberdade ou proíba violações da integridade humana. Usar esta Disciplina pode resultar em Máculas (pág. 239).\nTipo: Mental\nAmeaça à Máscara: Baixa. Tirando alguém que tente Dominar toda uma multidão para que salte do Corcovado, Dominação continua sendo uma das mais sutis Disciplinas vampíricas.\nRessonância de Sangue: Fleumática. O sangue do submisso ou do dominador, mestres e escravos, capitães da indústria, os poderes, líderes e seguidores de cultos.",
       poderes: [
         {
           nome: "NÍVEL 1 - COMPELIR",
-          descricao: ""
+          descricao: "Estabelecido contato visual, o vampiro pode ordenar que sua vítima realiza uma única ação, emitindo um comando que não seja maior do que uma sentença curta e possa ser completado em um único turno, a ser obedecido ao pé da letra. O narrador decide se interpretará comandos ambíguos de um modo inesperado ou desfavorável; uma opção é o comando simplesmente confundir a vítima e falhar.\nCusto: Gratuito\nParada de Dados: Carisma + Dominação vs. Inteligência + Determinação\nSistema: Nenhuma rolagem é necessária contra uma vítima mortal despreparada. Comandar uma vítima que resista, uma que o vampiro já tenha Dominado na mesma cena, ou outro vampiro requer uma disputa de Carisma + Dominação vs. Inteligência + Determinação. Comandos contrários à natureza da vítima também requerem uma disputa.\nDuração: Não mais do que uma única cena."
         },
         {
           nome: "NÍVEL 1 - NUBLAR MEMÓRIA",
-          descricao: ""
+          descricao: "Ao proferir a frase 'Esqueça!', o usuário pode fazer com que a vítima Dominada esqueça tanto o momento atual quanto os últimos minutos, o bastante para mascarar uma alimentação superficial ou um encontro casual. Nenhuma memória nova é formada e, se pressionada, a vítima perceberá que sofreu um apagão de alguns minutos.\nCusto: Gratuito\nParadas de Dados: Carisma + Dominação vs. Raciocínio + Determinação\nSistema: Nenhuma rolagem é exigida contra uma vítima mortal despreparada. Nublar a memória de uma vítima que resista ou de outro vampiro requer uma rolagem de Carisma + Determinação vs. Raciocínio + Determinação.\nDuração: indefinida."
         },
         {
           nome: "NÍVEL 2 - DEMENTAÇÃO",
-          descricao: ""
+          descricao: "Amálgama: Ofuscação 2\n\nEsse poder sutil não requer mais do que uma conversa casual, pois a influência insidiosa do vampiro se esconde nas entrelinhas e inflexões empregadas. A vítima fica cada vez mais agitada, conforme seus demônios internos borbulham até a superfície, eventualmente afogando toda a sua razão.\nCusto: Uma Checagem de Sangue por cena\nParada de Dados: Manipulação + Dominação vs Autocontrole + Inteligência\nSistema: Após iniciar uma conversa com a vítima, o usuário pode ativar esse poder. Enquanto a cena durar, ele poderá atacar um único indivíduo a cada turno em um conflito de Manipulação + Dominação vs Autocontrole + Inteligência, causando dano Superficial à Força de Vontade. Um mortal que fique Debilitado por causa deste poder experimenta um ataque nervoso ou um surto psicótico, cuja forma e natureza dependem da sua personalidade (e, talvez, da Ressonância de Sangue). Um vampiro que fique Debilitado por este poder deve imediatamente sucumbir a uma Compulsão escolhida pelo usuário.\nSe o usuário deseja afetar mais que uma vítima, ele precisa realizar uma Checagem do Sangue para cada uma.\nDuração: Uma cena"
         },
         {
           nome: "NÍVEL 2 - MESMERISMO",
-          descricao: ""
+          descricao: "O vampiro pode emitir comandos complexos para uma vítima, contanto que detenha o olhar dela e haja silêncio suficiente para que a ordem seja ouvida. As instruções devem ser executadas imediatamente o melhor que a vítima for capaz, e não devem conter quaisquer ações condicionais ('...caso você veja o Enrique, dê-lhe o documento'), já que isso exigiria que a vítima exercesse sua cognição.\nCusto: Uma Checagem de Sangue\nParada de Dados: Manipulação + Dominação vs Inteligência + Determinação.\nSistema: Nenhuma rolagem é necessária contra uma vítima mortal despreparada. Comandar uma vítima que resista ou outro vampiro requer uma disputa de Manipulação + Dominação vs. Inteligência + Determinação. Comandos contrários a natureza da vítima também requerem uma disputa.\nDuração: Até que o comando ser executado ou que a cena terminar, o que acontecer primeiro."
         },
         {
           nome: "NÍVEL 3 - DIRETRIZ SUBMERSA",
-          descricao: ""
+          descricao: "Ao usar Mesmerismo, o vampiro agora é capaz de implantar uma sugestão pós-hipnótica, o que permite que o comando fique dormente até a ocorrência de um estímulo específico. Esse gatilho pode ser qualquer coisa, de uma data específica ou uma pessoa ('Quando você encontrar Ronaldo, diga a ele essas palavras'), à audição de uma frase específica. A Diretriz Submersa nunca expira; é concebível que suas vítimas circulem por aí com uma ordem enterrada em suas mentes por anos. O usuário só pode emitir uma sugestão por vítima.\nCusto: Nenhum custo adicional\nSistema: Como Mesmerismo, embora o Narrador possa querer realizar rolagens em segredo. Não tem como saber se a sugestão submersa funciona até que a condição de seu acionamento ocorra.\nDuração: Passiva"
         },
         {
           nome: "NÍVEL 3 - A MENTE ESQUECIDA",
-          descricao: ""
+          descricao: "O vampiro pode reescrever fragmentos inteiros de memória da vítima, contanto que possa deter o olhar e a atenção completa e ininterrupta dela. O vampiro descreve verbalmente as novas memórias da vítima, que são aceitas por ela como se fossem suas. Este poder não permite que o usuário investigue as memórias verdadeiras da vítima; ele se parece mais com uma tatuagem reparadora.\nCusto: Uma Checagem do Sangue\nParada de Dados: Manipulação + Dominação vs Inteligência + Determinação\nSistema: O usuário rola uma disputa de Manipulação + Dominação vs Inteligência + Determinação. Cada ponto da margem permite que o usuário adicione ou remova uma memória extra. A vítima se lembra das edições como ideias vagas e nebulosas que podem ser desmascaradas sob um interrogatório minucioso. Uma vitória crítica cria uma gravação impecável, tão real quanto qualquer memória verdadeira.\nDuração: Indefinida"
         },
         {
           nome: "NÍVEL 4 - RACIONALIZAR",
-          descricao: ""
+          descricao: "As vítimas do vampiro agora acreditam que tudo o que fazem sob a influência de Dominação é resultado da sua própria vontade, e defendem suas ações, não improta o quão absurdas. Exposição prolongada a este poder pode resultar em traumas mentais graves à vítima. \nCusto: Nenhum custo adicional\nSistema: Se pressionada a respeito de sua crença, a vítima pode realizar um teste de Raciocínio + Percepção (Dificuldade 5). Uma vitória faz com que questione sua afirmação, e, possivelmente, sua sanidade.\nDuração: Indefinida"
         },
         {
           nome: "NÍVEL 5 - DECRETO TERMINAL",
-          descricao: ""
+          descricao: "Livre do obstáculo do instinto de autopreservação das suas vítimas, agora o vampiro pode emitir comandos que as levem a se ferir ou até morrer. Mortais podem ser obrigados a explodir seus próprios miolos, saltar de telhados ou ingerir veneno. Vampiros podem, com um pouco de esforço, ser forçados a se expor ao fogo ou luz solar.\nCusto: Nenhum custo adicional em Fome, porém o custo em Humanidade é potencialmente grave.\nSistema: Comandos terminais agora devem ser resistidos (veja os poderes individuais para as rolagens envolvidas), ao invés de falharem automaticamente.\nDuração: Passiva."
         },
         {
           nome: "NÍVEL 5 - MANIPULAÇÃO EM MASSA",
-          descricao: ""
+          descricao: "O vampiro pode comandar aglomerações inteiras de mortais, e, em alguns casos, até grupos de vampiros. O vampiro pode usar este poder tanto para dar instruções quanto para manipular memórias.\nCusto: Uma Checagem do Sangue, além do custo do poder amplificado.\nSistema: O vampiro pode amplificar qualquer um dos seus outros poderes para afetar um grupo mortais ou vampiros. Todas as vítimas precisam ver os olhos do usuário. O usuário realiza qualquer rolagem necessária contra o oponente mais forte do grupo.\nDuração: A mesma do poder amplificado."
         }
       ]
     },
     {
       nome: "Fortitude",
-      descricao: "",
+      descricao: "Apelidos: Murar, Pele de Pedra, Resistentia\n\nMuito estimada pelos imortais, a Fortitude concede o poder de resistir a ataques físicas e mentais. Poucos vampiros sobrevivem mais do que um século sem ao menos um ponto de Fortitude, especialmente em um mundo onde a violência é comum e nem mesmo os Membros estão a salvo. Nas noites de hoje, menos vampiros usam Fortitude para resistir ao sol do que a ataques violentos, ao fogo e coerção sobrenatural.\nAqueles que possuem Fortitude exemplificam os pilares impassíveis da sociedade dos Membros, sendo capazes, como são, de aguentar golpes e encantamentos sem se mover ou demonstrar sinais de desgaste. Poucos vampiros se sentem tão seguros em sua imortalidade como os anciões Sangue Azul e Ferais.\n\nCaracterísticas\nTipo: Física\nAmeaça à Máscara: Média. Sem dúvida testemunhas reagem ao verem alguém que tome uma surra fatal ou uma saraivada de balas e se erga aparentemente ileso. |Explicações favoritas incluem lembranças imprecisas devidas ao susto (as balas só pareceram acertar), efeitos especiais (pegadinhas de YouTube), ou a racionalizações do tipo 'devia estar drogada'.\nRessonância do Sangue: Melancólico. Sobreviventes da guerra, abuso ou desgraças; maratonistas; alpinistas; soldados e forças especiais; pessoas com sistemas imunológicos muito poderosos.",
       poderes: [
         {
           nome: "NÍVEL 1 - MENTE INESCRUTÁVEL",
-          descricao: ""
+          descricao: "O usuário ganha o poder místico de resistir a qualquer tentativa de influenciá-lo por meio de encantos comuns, coerção e artimanhas. Alguns exibem sua Mente Inescrutável na forma de uma calma zen, enquanto outros de uma obstinação sobrenatural.\nCusto: Gratuito\nSistema: O usuário adiciona uma quantidade de dados extras igual ao seu valor em Fortitude a todas as rolagens feitas para resistir à coerção, intimidação, sedução, ou qualquer outra tentativa de influenciá-lo contra sua vontade. Este poder também funciona contra outros poderes, como Dominação e Presença.\nDuração: Passiva"
         },
         {
           nome: "NÍVEL 1 - RESILIÊNCIA",
-          descricao: ""
+          descricao: "Dotado de resistência sobrenatural, o usuário pode fortalecer a sua Vitalidade.\nCusto: Gratuito\nSistema: O usuário adiciona seu valor de Fortitude à sua trilha de Vitalidade.\nDuração: Passiva"
         },
         {
           nome: "NÍVEL 2 - FERAS TENAZES",
-          descricao: ""
+          descricao: "Amálgama: Animalismo 1\n\nO usuário compartilha uma pequena porção de sua resistência antinatural com os animais que ele influencia. Tanto enxames quanto grandes feras exibem uma resistência a pequenos ferimentos quase igual à do próprio vampiro.\nCusto: Gratuito (para famulur); Uma Checagem de Sangue (para outros animais)\nParada de Dados: Vigor + Animalismo (para animais que não sejam famuli)\nSistema: O vampiro pode decidir estender alguns dos seus poderes de Fortitude a animais afetados por seu Animalismo. Qualquer animal assim imbuído ganha uma quantidade de níveis de Vitalidade adicional igual ao valor que o vampiro tem em Fortitude. Usar este poder em seu famulus não tem custo e é automático. Para imbuir outros animais além do famulus, o usuário deve realizar uma Checagem de Sangue e um teste de Vigor + Animalismo (Dificuldade 3). É possível fortificar um animal por ponto da margem. Quando o efeito for encerrado, remova a Vitalidade não marcada primeiro; o pode resultar na morte do animal.\nDuração: Uma cena."
         },
         {
           nome: "NÍEL 2 - TENACIDADE",
-          descricao: ""
+          descricao: "Todos os vampiros com este poder exibem uma capacidade inata de ignorar dano que, de outro modo, incomodaria ou mesmo debilitaria outros da sua espécie. Apesar deste poder sozinho não conceder proteção contra Perdições e outras formas de dano Agravado, a proteção que ele confere aumenta a longo prazo.\nCusto: Uma Checagem de Sangue\nSistema: Subtraia a Fortitude do defensor de todo dano Superficial que ele sofrer. Isso ocorre antes do dano ser diminuído pela metade, e não pode reduzi-lo a menos de um.\nDuração: Uma cena"
         },
         {
           nome: "NÍVEL 3 - DESAFIO À PERDIÇÃO",
-          descricao: ""
+          descricao: "Ao se preparar com um uso deste poder, o vampiro pode ficar temporariamente resistente ao fogo e a luz do sol, bem como a outros ferimentos graves que o ameacem com a Morte Final.\nCusto: Uma Checagem de Sangue\nParada de Dados: Raciocínio + Sobrevivência (para ativar por reflexo)\nSistema: Ao sofrer dano Agravado, o usuário pode converter uma quantidade igual ao seu valor em Fortitude desse dano em dano Superficial. Ele não pode curar o dano convertido em Superficial pelo restante da cena. Este poder converte uma quantidade de dano por cena, não por ferimento ou por ataque.\nUma vez expirado esse poder,o usuário pode renová-lo fazendo outra Checagem de Sangue. Quando colocado em perigo inesperadamente e receber dano Agravado, poderá ativar este poder com um reflexo, rolando Raciocínio + Sobrevivência (Dificuldade 3). Se falhar, o poder não será ativado; se for bem-sucedido, deverá realizar uma Checagem de Sangue para pagar pelo uso.\nDuração: Uma cena ou até o poder expirar, o que ocorrer primeiro."
         },
         {
           nome: "NÍVEL 3 - FORTIFICAR A FACHADA INTERIOR",
-          descricao: ""
+          descricao: "Em vez de endurecer a estrutura física do vampiro, este poder permite que ele proteja seus pensamentos e emoções de escrutínio sobrenatural. Sua mente parece estar completamente vazia, enquanto sua aura parece, por falta de termo mais adequado, insípida.\nCusto: Gratuito\nSistema: Aumenta a Dificuldade de usar Perscrutar a Alma (Auspícios 3), Telepatia (Auspícios 5) e poderes do mesmo tipo no usuário em metade do valor que ele possui em Fortitude (arredondado para cima). Se as regras permitirem que ele resista a esses poderes, em vez de aumenta a Dificuldade do uso deles, conforme explicado, ele adicionará seu valor de Fortitude às paradas de dados usadas para acionar aqueles poderes.\nDuração: Uma cena."
         },
         {
           nome: "NÍVEL 4 - RESISTÊNCIA DIRETO DA FONTE",
-          descricao: ""
+          descricao: "O Sangue do vampiro fica saturado com o poder da Fortitude, transmitindo parte desse poder a qualquer um que beba dele. Este é o equivalente para Fortitude de Elegância Direto da Fonte (pág. 254).\nCusto: Uma Checagem de Sangue\nSistema: Beber o equivalente a uma Checagem de Sangue diretamente do usuário concede ao bebedor Fortitude temporária igual à metade dos pontos de Fortitude do doador (arredondado para baixo). O bebedor ganha os mesmos poderes que o doador tem, até aquele nível.\nDuração: Uma noite; para vampiros, até a próxima alimentação ou até o vampiro alcançar Fome 5"
         },
         {
           nome: "NÍVEL 5 - PELE DE MÁRMORE",
-          descricao: ""
+          descricao: "O poder do Sangue faz com que a pele do vampiro endureça, adquirindo um brilho semelhante ao do mármore, apesar de flexível e capaz de parar praticamente quase qualquer golpe antes de quebrar momentaneamente e se refazer. Um vampiro que use este poder é quase impossível de destruir completamente, salvo por um golpe de sorte ou restrição física.\nCusto: Duas Checagens de Sangue\nSistema: Com este poder ativo, o vampiro ignora a primeira fonte de dano físico que o atingir em cada turno, incluindo fogo, mas não luz solar. Se surgir alguma dúvida sobre qual fonte é a 'primeira', o Narrador decide baseado na narrativa ou o vampiro ignora a fonte única causadora de maior dano naquele turno. Uma vitória crítica em uma rolagem de ataque ignora supera este poder.\nDuração: Uma cena"
         },
         {
           nome: "NÍVEL 5 - PODER VINDO DA DOR",
-          descricao: ""
+          descricao: "Agora ferimentos e debilitações só alimentam os poderes do vampiro, que fica mais forte e veloz a cada golpe recebido. Somente a destruição total pode parar aquele que emprega este poder de Fortitude.\nCusto: Uma Checagem de Sangue\nSistema: Ao ativar este poder, o vampiro para de sofrer quaisquer penalidades de dados derivadas de dano à Vitalidade que ele tenha sofrido, como a penalidade de Debilitação. Além disso, ele pode aumentar um Atributo Físico em um ponto (características derivadas não são afetadas) para cada nível de dano em sua trilha de Vitalidade, Agravado ou Superficial. Os Atributos do usuário não podem exceder um valor igual ao seu Surto de Sangue + 6 por meio deste poder. "
         }
       ]
     },
@@ -2364,270 +2377,290 @@ export default function CharacterSheet() {
         </button>
       </section>
 
-      <section style={styles.card}>
-        <h2 style={styles.sectionTitle}>Vantagens e Defeitos</h2>
-        {vantagensDefeitos.map((disc, index) => (
-          <div
-            key={index}
-            style={{
-              marginBottom: "20px",
-              padding: "15px",
-              border: "1px solid #444",
-              borderRadius: "8px"
-            }}
-          >
-            <EditableField
-              label="Nome"
-              value={disc.nome}
-              onChange={(value) => {
-                const copy = [...vantagensDefeitos];
-                copy[index].nome = value;
-                setVantagensDefeitos(copy);
-              }}
-            />
+      <div style={styles.twoColumns}>
+        {/* COLUNA ESQUERDA */}
+        <div style={styles.column}>
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}></h2>
 
-            <EditableDots
-              label="Nível"
-              value={disc.nivel}
-              onChange={(value) => {
-                const copy = [...vantagensDefeitos];
-                copy[index].nivel = value;
-                setVantagensDefeitos(copy);
-              }}
-            />
+            {Object.entries(lore).map(([key, value]) => (
+              <EditableField
+                key={key}
+                label={key}
+                value={value}
+                onChange={(v) =>
+                  setLore({ ...lore, [key]: v })
+                }
+              />
+            ))}
+          </section>
 
-            <button
-              onClick={() =>
-                setVantagensDefeitos([
-                  ...vantagensDefeitos,
-                  { nome: "", nivel: 0 }
-                ])
-              }
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Vantagens e Defeitos</h2>
+            {vantagensDefeitos.map((disc, index) => (
+              <div
+                key={index}
+                style={{
+                  marginBottom: "20px",
+                  padding: "15px",
+                  border: "1px solid #444",
+                  borderRadius: "8px"
+                }}
+              >
+                <EditableField
+                  label="Nome"
+                  value={disc.nome}
+                  onChange={(value) => {
+                    const copy = [...vantagensDefeitos];
+                    copy[index].nome = value;
+                    setVantagensDefeitos(copy);
+                  }}
+                />
+
+                <EditableDots
+                  label="Nível"
+                  value={disc.nivel}
+                  onChange={(value) => {
+                    const copy = [...vantagensDefeitos];
+                    copy[index].nivel = value;
+                    setVantagensDefeitos(copy);
+                  }}
+                />
+
+                <button
+                  onClick={() =>
+                    setVantagensDefeitos([
+                      ...vantagensDefeitos,
+                      { nome: "", nivel: 0 }
+                    ])
+                  }
+                  style={{
+                    marginTop: "10px",
+                    padding: "8px 12px",
+                    background: "#028b00",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer"
+                  }}
+                >
+                  + Vantagem
+                </button>
+
+                <button
+                  disabled={vantagensDefeitos.length === 1}
+                  onClick={() =>
+                    setVantagensDefeitos(
+                      vantagensDefeitos.filter((_, i) => i !== index)
+                    )
+                  }
+                  style={{
+                    marginTop: "10px",
+                    padding: "8px 12px",
+                    background: "#8b0000",
+                    color: "white",
+                    border: "none",
+                    borderRadius: "6px",
+                    cursor: "pointer"
+                  }}
+                >
+                  - Vantagem
+                </button>
+              </div>
+            ))}
+          </section>
+
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Notas</h2>
+
+            <textarea
+              value={notes}
+              onChange={(e) => setNotes(e.target.value)}
+              placeholder="Escreva aqui suas notas..."
+              rows={8}
               style={{
-                marginTop: "10px",
-                padding: "8px 12px",
-                background: "#028b00",
+                width: "95%",
+                padding: 10,
+                borderRadius: 6,
+                border: "1px solid #444",
+                background: "#333",
                 color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer"
+                resize: "vertical",
+                fontFamily: "Arial",
+                lineHeight: "1.4"
+              }}
+            />
+          </section>
+        </div>
+
+        {/* COLUNA DIREITA */}
+        <div style={styles.column}>
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
+
+            <StatDots
+              label="Potência"
+              stat={{ atual: blood.potencia, max: 10 }}
+              onChange={(v) =>
+                setBlood({ ...blood, potencia: v.atual })
+              }
+            />
+
+            <div
+              style={{
+                display: "grid",
+                gridTemplateColumns: "repeat(2, 1fr)",
+                columnGap: "25px"
               }}
             >
-              + Vantagem
-            </button>
+              <EditableField
+                label="Surto de Sangue"
+                type="number"
+                value={blood.surto}
+                onChange={(v) =>
+                  setBlood({ ...blood, surto: v })
+                }
+              />
 
-            <button
-              disabled={vantagensDefeitos.length === 1}
-              onClick={() =>
-                setVantagensDefeitos(
-                  vantagensDefeitos.filter((_, i) => i !== index)
-                )
-              }
-              style={{
-                marginTop: "10px",
-                padding: "8px 12px",
-                background: "#8b0000",
-                color: "white",
-                border: "none",
-                borderRadius: "6px",
-                cursor: "pointer"
-              }}
-            >
-              - Vantagem
-            </button>
-          </div>
-        ))}
-      </section>
+              <EditableField
+                label="Cura por Sangue"
+                type="number"
+                value={blood.cura}
+                onChange={(v) =>
+                  setBlood({ ...blood, cura: v })
+                }
+              />
 
-      <section style={styles.card}>
-        <h2 style={styles.sectionTitle}>Notas</h2>
+              <EditableField
+                label="Poder Bônus"
+                type="number"
+                value={blood.bonus}
+                onChange={(v) =>
+                  setBlood({ ...blood, bonus: v })
+                }
+              />
 
-        <textarea
-          value={notes}
-          onChange={(e) => setNotes(e.target.value)}
-          placeholder="Escreva aqui suas notas..."
-          rows={8}
-          style={{
-            width: "95%",
-            padding: 10,
-            borderRadius: 6,
-            border: "1px solid #444",
-            background: "#333",
-            color: "white",
-            resize: "vertical",
-            fontFamily: "Arial",
-            lineHeight: "1.4"
-          }}
-        />
-      </section>
+              <EditableField
+                label="Re-rolar Fome"
+                type="number"
+                value={blood.reroll}
+                onChange={(v) =>
+                  setBlood({ ...blood, reroll: v })
+                }
+              />
 
-      {/* COLUNA DIREITA */}
-      <div style={styles.column}>
-        <section style={styles.card}>
-          <h2 style={styles.sectionTitle}>Potência de Sangue</h2>
+              <EditableField
+                label="Penalidade Alimentícia"
+                type="number"
+                value={blood.penalidade}
+                onChange={(v) =>
+                  setBlood({ ...blood, penalidade: v })
+                }
+              />
 
-          <StatDots
-            label="Potência"
-            stat={{ atual: blood.potencia, max: 10 }}
-            onChange={(v) =>
-              setBlood({ ...blood, potencia: v.atual })
-            }
-          />
+              <EditableField
+                label="Severidade da Desgraça"
+                type="number"
+                value={blood.desgraca}
+                onChange={(v) =>
+                  setBlood({ ...blood, desgraca: v })
+                }
+              />
+            </div>
+          </section>
 
-          <div
-            style={{
-              display: "grid",
-              gridTemplateColumns: "repeat(2, 1fr)",
-              columnGap: "25px"
-            }}
-          >
+
+
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Experiência</h2>
+
             <EditableField
-              label="Surto de Sangue"
+              label="EXP Total"
               type="number"
-              value={blood.surto}
+              value={exp.total}
               onChange={(v) =>
-                setBlood({ ...blood, surto: v })
+                setExp({ ...exp, total: v })
               }
             />
 
             <EditableField
-              label="Cura por Sangue"
+              label="EXP Gasta"
               type="number"
-              value={blood.cura}
+              value={exp.gasta}
               onChange={(v) =>
-                setBlood({ ...blood, cura: v })
+                setExp({ ...exp, gasta: v })
+              }
+            />
+          </section>
+
+          <section style={styles.card}>
+            <h2 style={styles.sectionTitle}>Detalhes</h2>
+
+            <EditableField
+              label="Idade verdadeira"
+              value={extras.idadeReal}
+              onChange={(v) =>
+                setExtras({ ...extras, idadeReal: v })
               }
             />
 
             <EditableField
-              label="Poder Bônus"
-              type="number"
-              value={blood.bonus}
+              label="Idade aparente"
+              value={extras.idadeAparente}
               onChange={(v) =>
-                setBlood({ ...blood, bonus: v })
+                setExtras({ ...extras, idadeAparente: v })
               }
             />
 
             <EditableField
-              label="Re-rolar Fome"
-              type="number"
-              value={blood.reroll}
+              label="Data de nascimento"
+              value={extras.nascimento}
               onChange={(v) =>
-                setBlood({ ...blood, reroll: v })
+                setExtras({ ...extras, nascimento: v })
               }
             />
 
             <EditableField
-              label="Penalidade Alimentícia"
-              type="number"
-              value={blood.penalidade}
+              label="Data de morte"
+              value={extras.morte}
               onChange={(v) =>
-                setBlood({ ...blood, penalidade: v })
+                setExtras({ ...extras, morte: v })
               }
             />
 
             <EditableField
-              label="Severidade da Desgraça"
-              type="number"
-              value={blood.desgraca}
+              label="Aparência"
+              value={extras.aparencia}
               onChange={(v) =>
-                setBlood({ ...blood, desgraca: v })
+                setExtras({ ...extras, aparencia: v })
               }
             />
-          </div>
-        </section>
 
+            <EditableField
+              label="Características distintas"
+              value={extras.caracteristicas}
+              onChange={(v) =>
+                setExtras({ ...extras, caracteristicas: v })
+              }
+            />
 
+            <EditableField
+              label="Prelúdio"
+              value={extras.preludio}
+              onChange={(v) =>
+                setExtras({ ...extras, preludio: v })
+              }
+            />
 
-        <section style={styles.card}>
-          <h2 style={styles.sectionTitle}>Experiência</h2>
-
-          <EditableField
-            label="EXP Total"
-            type="number"
-            value={exp.total}
-            onChange={(v) =>
-              setExp({ ...exp, total: v })
-            }
-          />
-
-          <EditableField
-            label="EXP Gasta"
-            type="number"
-            value={exp.gasta}
-            onChange={(v) =>
-              setExp({ ...exp, gasta: v })
-            }
-          />
-        </section>
-
-        <section style={styles.card}>
-          <h2 style={styles.sectionTitle}>Detalhes</h2>
-
-          <EditableField
-            label="Idade verdadeira"
-            value={extras.idadeReal}
-            onChange={(v) =>
-              setExtras({ ...extras, idadeReal: v })
-            }
-          />
-
-          <EditableField
-            label="Idade aparente"
-            value={extras.idadeAparente}
-            onChange={(v) =>
-              setExtras({ ...extras, idadeAparente: v })
-            }
-          />
-
-          <EditableField
-            label="Data de nascimento"
-            value={extras.nascimento}
-            onChange={(v) =>
-              setExtras({ ...extras, nascimento: v })
-            }
-          />
-
-          <EditableField
-            label="Data de morte"
-            value={extras.morte}
-            onChange={(v) =>
-              setExtras({ ...extras, morte: v })
-            }
-          />
-
-          <EditableField
-            label="Aparência"
-            value={extras.aparencia}
-            onChange={(v) =>
-              setExtras({ ...extras, aparencia: v })
-            }
-          />
-
-          <EditableField
-            label="Características distintas"
-            value={extras.caracteristicas}
-            onChange={(v) =>
-              setExtras({ ...extras, caracteristicas: v })
-            }
-          />
-
-          <EditableField
-            label="Prelúdio"
-            value={extras.preludio}
-            onChange={(v) =>
-              setExtras({ ...extras, preludio: v })
-            }
-          />
-
-          <EditableField
-            label="Ressonância"
-            value={extras.ressonancia}
-            onChange={(v) =>
-              setExtras({ ...extras, ressonancia: v })
-            }
-          />
-        </section>
+            <EditableField
+              label="Ressonância"
+              value={extras.ressonancia}
+              onChange={(v) =>
+                setExtras({ ...extras, ressonancia: v })
+              }
+            />
+          </section>
+        </div>
       </div>
       {
         alertMessage && (

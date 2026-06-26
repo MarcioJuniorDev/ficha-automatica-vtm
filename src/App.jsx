@@ -1030,161 +1030,161 @@ export default function CharacterSheet() {
     },
     {
   nome: "Potência",
-  descricao: "Apelidos: Bruto, Poderio do Sangue.\\n\\nExiste um ditado popular entre os membros do Clã Brujah: “Você só subestima nossa força uma vez.” Potência é uma força movida por vitae além da capacidade de outros vampiros. Mais poderosa do que qualquer droga anabolizante, mas mais não-natural do que o físico de qualquer bodybuilder, Potência é a Besta liberta através dos punhos, pés, membros, e o poder corporal cru do vampiro. A Disciplina é usada para mais coisas além de bater em coisas, apesar de cumprir muito bem essa tarefa. É a habilidade do vampiro de forçar seu corpo a fazer coisas que seriam impossíveis para os mortais replicar. Potência supera as outras Disciplinas no quesito incongruência, um Nosferatu aparentemente velho que golpeia mais forte que um mortal peso pesado ou um Brujah Abraçado ainda criança que pode decapitar um alvo com um único corte.\\n\\nCaracterísticas\\n⬛ Tipo: Físico.\\n⬛ Ameaça à Máscara: Média para alta. Pequenas demonstrações da Disciplina podem passar como “força absurda”, mas assim que o pavimento rachar e prédios começarem a desabar essa explicação perde a pouca credibilidade que tem.\\n⬛ Ressonância de Sangue: Colérico. Os fortes e saudáveis; atletas e jovens homens e mulheres no seu auge, ratos de academia, lutadores de luta livre, trabalhadores da construção civil e lenhadores, descarregadores.",
+  descricao: "Apelidos: Bruto, Poderio do Sangue.\n\nExiste um ditado popular entre os membros do Clã Brujah: “Você só subestima nossa força uma vez.” Potência é uma força movida por vitae além da capacidade de outros vampiros. Mais poderosa do que qualquer droga anabolizante, mas mais não-natural do que o físico de qualquer bodybuilder, Potência é a Besta liberta através dos punhos, pés, membros, e o poder corporal cru do vampiro. A Disciplina é usada para mais coisas além de bater em coisas, apesar de cumprir muito bem essa tarefa. É a habilidade do vampiro de forçar seu corpo a fazer coisas que seriam impossíveis para os mortais replicar. Potência supera as outras Disciplinas no quesito incongruência, um Nosferatu aparentemente velho que golpeia mais forte que um mortal peso pesado ou um Brujah Abraçado ainda criança que pode decapitar um alvo com um único corte.\n\nCaracterísticas\nTipo: Físico.\nAmeaça à Máscara: Média para alta. Pequenas demonstrações da Disciplina podem passar como “força absurda”, mas assim que o pavimento rachar e prédios começarem a desabar essa explicação perde a pouca credibilidade que tem.\nRessonância de Sangue: Colérico. Os fortes e saudáveis; atletas e jovens homens e mulheres no seu auge, ratos de academia, lutadores de luta livre, trabalhadores da construção civil e lenhadores, descarregadores.",
   poderes: [
     {
       nome: "NÍVEL 1 - CORPO LETAL",
-      descricao: "Usando esse poder, o usuário é capaz de causar dano assustador a mortais, rasgando pele e quebrando ossos com a mão nua.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: Os ataques desarmados do usuário agora podem causar dano Agravado à Vitalidade de mortais, se desejado. Ele também ignora um nível de armadura por nível de Potência do usuário.\\n⬛ Duração: Passiva."
+      descricao: "Usando esse poder, o usuário é capaz de causar dano assustador a mortais, rasgando pele e quebrando ossos com a mão nua.\n\nCusto: Grátis.\nSistema: Os ataques desarmados do usuário agora podem causar dano Agravado à Vitalidade de mortais, se desejado. Ele também ignora um nível de armadura por nível de Potência do usuário.\nDuração: Passiva."
     },
     {
       nome: "NÍVEL 1 - SALTO VERTIGINOSO",
-      descricao: "Possuindo uma força profana não apenas nos seus braços e punhos, o usuário pode saltar muito mais alto e distante do que qualquer mortal.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: O usuário pode pular um número de metros igual a três vezes seu nível de Potência verticalmente, e cinco vezes seu nível de Potência horizontalmente. O usuário não precisa pegar impulso para fazer esses saltos.\\n⬛ Duração: Passiva."
+      descricao: "Possuindo uma força profana não apenas nos seus braços e punhos, o usuário pode saltar muito mais alto e distante do que qualquer mortal.\n\nCusto: Grátis.\nSistema: O usuário pode pular um número de metros igual a três vezes seu nível de Potência verticalmente, e cinco vezes seu nível de Potência horizontalmente. O usuário não precisa pegar impulso para fazer esses saltos.\nDuração: Passiva."
     },
     {
       nome: "NÍVEL 2 - PODERIO",
-      descricao: "Vampiros com Potência ganham uma força muito maior do seu Sangue do que os que não a têm.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: Quando ativado, adicione o valor de Potência do usuário ao seu valor de dano desarmado, bem como às suas façanhas de Força.\\n⬛ Duração: Uma cena."
+      descricao: "Vampiros com Potência ganham uma força muito maior do seu Sangue do que os que não a têm.\n\nCusto: Uma Checagem de Sangue.\nSistema: Quando ativado, adicione o valor de Potência do usuário ao seu valor de dano desarmado, bem como às suas façanhas de Força.\nDuração: Uma cena."
     },
     {
       nome: "NÍVEL 3 - ALIMENTAÇÃO BRUTAL",
-      descricao: "Conhecido como o “Beijo Selvagem”, este poder permite que o usuário empregue uma profana força interior quando estiver drenando o sangue da vítima. Em meros segundos, o atacante engole torrentes de sangue enquanto está ferindo sua vítima.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: O vampiro pode drenar um humano completamente em segundos, geralmente dentro de um único turno. Cada ponto de Fome saciado causa um ponto de dano Agravado à Vitalidade da vítima. Usar Alimentação Brutal em um vampiro causa apenas dano Superficial. Em combate, Alimentação Brutal vem imediatamente depois de um ataque de Briga bem sucedido usando as presas.\\n⬛ Duração: Uma alimentação."
+      descricao: "Conhecido como o “Beijo Selvagem”, este poder permite que o usuário empregue uma profana força interior quando estiver drenando o sangue da vítima. Em meros segundos, o atacante engole torrentes de sangue enquanto está ferindo sua vítima.\n\nCusto: Grátis.\nSistema: O vampiro pode drenar um humano completamente em segundos, geralmente dentro de um único turno. Cada ponto de Fome saciado causa um ponto de dano Agravado à Vitalidade da vítima. Usar Alimentação Brutal em um vampiro causa apenas dano Superficial. Em combate, Alimentação Brutal vem imediatamente depois de um ataque de Briga bem sucedido usando as presas.\nDuração: Uma alimentação."
     },
     {
       nome: "NÍVEL 3 - CENTELHA DA FÚRIA",
-      descricao: "⬛ Amálgama: Presença 3.\\n\\nCombinando Potência e Presença, o vampiro pode incitar raiva e até frenesi em espectadores tão facilmente quanto admiração ou terror.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Manipulação + Potência.\\n⬛ Sistema: Quando ativo, o usuário pode adicionar seu valor de Potência a qualquer tentativa de irritar ou incitar uma pessoa ou multidão à violência. Contra vampiros, pode forçar um teste de frenesi de fúria com Dificuldade 3.\\n⬛ Duração: Uma cena."
+      descricao: "Amálgama: Presença 3.\n\nCombinando Potência e Presença, o vampiro pode incitar raiva e até frenesi em espectadores tão facilmente quanto admiração ou terror.\n\nCusto: Um Checagem de Sangue.\nParada de Dados: Manipulação + Potência.\nSistema: Quando ativo, o usuário pode adicionar seu valor de Potência a qualquer tentativa de irritar ou incitar uma pessoa ou multidão à violência. Contra vampiros, pode forçar um teste de frenesi de fúria com Dificuldade 3.\nDuração: Uma cena."
     },
     {
       nome: "NÍVEL 3 - PEGADA SOBRENATURAL",
-      descricao: "Focando sua força sobrenatural nos dedos das mãos e pés, o vampiro consegue escalar paredes e tetos, mesmo sem suporte.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: O vampiro é automaticamente bem sucedido em testes para escalar superfícies não metálicas. Também pode se pendurar em paredes ou tetos por até uma cena. Isso deixa rastros visíveis de dano na superfície.\\n⬛ Duração: Uma cena."
+      descricao: "Focando sua força sobrenatural nos dedos das mãos e pés, o vampiro consegue escalar paredes e tetos, mesmo sem suporte.\n\nCusto: Uma Checagem de Sangue.\nSistema: O vampiro é automaticamente bem sucedido em testes para escalar superfícies não metálicas. Também pode se pendurar em paredes ou tetos por até uma cena. Isso deixa rastros visíveis de dano na superfície.\nDuração: Uma cena."
     },
     {
       nome: "NÍVEL 4 - FORÇA DIRETO DA FONTE",
-      descricao: "O Sangue do vampiro fica saturado com o poder da Potência, conferindo parte desse poder a quem o beber.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: Beber o equivalente a um Rouse Check diretamente do usuário concede Potência temporária igual à metade da Potência do doador (arredondado para baixo), incluindo seus poderes até aquele nível.\\n⬛ Duração: Uma noite; para vampiros, até a próxima alimentação ou Fome 5."
+      descricao: "O Sangue do vampiro fica saturado com o poder da Potência, conferindo parte desse poder a quem o beber.\n\nCusto: Uma Checagem de Sangue.\nSistema: Beber o equivalente a Uma Checagem de Sangue diretamente do usuário concede Potência temporária igual à metade da Potência do doador (arredondado para baixo), incluindo seus poderes até aquele nível.\nDuração: Uma noite; para vampiros, até a próxima alimentação ou Fome 5."
     },
     {
       nome: "NÍVEL 5 - PUNHO DE CAIM",
-      descricao: "As mãos nuas do vampiro podem infligir ferimentos graves, letais tanto para mortais quanto para outros vampiros.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: Por uma cena, o usuário pode infligir dano Agravado à Vitalidade de mortais e seres sobrenaturais usando Briga. Ele literalmente rasga carne e rompe membros com as mãos nuas.\\n⬛ Duração: Uma cena."
+      descricao: "As mãos nuas do vampiro podem infligir ferimentos graves, letais tanto para mortais quanto para outros vampiros.\n\nCusto: Uma Checagem de Sangue.\nSistema: Por uma cena, o usuário pode infligir dano Agravado à Vitalidade de mortais e seres sobrenaturais usando Briga. Ele literalmente rasga carne e rompe membros com as mãos nuas.\nDuração: Uma cena."
     },
     {
       nome: "NÍVEL 5 - TERREMOTO",
-      descricao: "Sua força torna-se energia elemental. O vampiro pode bater no chão, criando uma onda de choque que derruba os oponentes.\\n\\n⬛ Custo: Dois Rouse Checks.\\n⬛ Sistema: Qualquer um em um raio de cinco metros deve fazer um teste de Destreza + Esportes (Dificuldade 3). Falhas derrubam o alvo. O poder causa dano colateral massivo em pisos, paredes e estruturas. Só pode ser usado uma vez por cena.\\n⬛ Duração: Um uso."
+      descricao: "Sua força torna-se energia elemental. O vampiro pode bater no chão, criando uma onda de choque que derruba os oponentes.\n\nCusto: Duas Checagem de Sangue.\nSistema: Qualquer um em um raio de cinco metros deve fazer um teste de Destreza + Esportes (Dificuldade 3). Falhas derrubam o alvo. O poder causa dano colateral massivo em pisos, paredes e estruturas. Só pode ser usado uma vez por cena.\nDuração: Um uso."
     }
   ]
     },
     {
   nome: "Presença",
-  descricao: "Apelidos: Super-estrelato, Encantamento, Sublimitas.\\n\\nA maioria dos vampiros são criaturas de graça e letalidade. Associado com violência aterradora e beleza devastadora, o Membro incorpora opostos, alternando entre pesadelos e sonhos dependendo do observador e do capricho do vampiro. Presença é uma disciplina que expressa essa existência bipolar. Usada para atrair vítimas ou dispersá-las em medo, Presença permite controle de massas, manipulação emocional e devoção forçada. O maior medo de um mortal poderia aparecer na frente dele e subitamente parecer a criatura mais radiante da Terra.\\n\\nMuitos praticantes de Presença usam essa Disciplina para conseguir se alimentar com facilidade, enquanto outros usam para se esgueirar na noite como criaturas de terror, fazendo o gado de mente fraca fugir horrorizado, incertos do que acabaram de ver. Eficaz como uma isca, bem como uma proteção, vampiros com Presença aproveitam uma vida noturna fácil ao custo de se esquecerem quais sentimentos projetados neles são normais e quais são forçados.\\n\\nCaracterísticas\\nPresença afeta as emoções de seus alvos, não suas mentes. Apesar disso ser útil naquelas vítimas que estão cientes (diferente de Dominação), eles não estão sob controle direto do usuário e são frequentemente imprevisíveis. Para ser afetado pela Presença, o alvo precisa estar na presença física do usuário ou pelo menos dentro do alcance de sua voz.\\n\\n⬛ Tipo: Mental.\\n⬛ Ameaça à Máscara: Baixa-Média.\\n⬛ Ressonância de Sangue: Otimista.",
+  descricao: "Apelidos: Super-estrelato, Encantamento, Sublimitas.\n\nA maioria dos vampiros são criaturas de graça e letalidade. Associado com violência aterradora e beleza devastadora, o Membro incorpora opostos, alternando entre pesadelos e sonhos dependendo do observador e do capricho do vampiro. Presença é uma disciplina que expressa essa existência bipolar. Usada para atrair vítimas ou dispersá-las em medo, Presença permite controle de massas, manipulação emocional e devoção forçada. O maior medo de um mortal poderia aparecer na frente dele e subitamente parecer a criatura mais radiante da Terra.\n\nMuitos praticantes de Presença usam essa Disciplina para conseguir se alimentar com facilidade, enquanto outros usam para se esgueirar na noite como criaturas de terror, fazendo o gado de mente fraca fugir horrorizado, incertos do que acabaram de ver. Eficaz como uma isca, bem como uma proteção, vampiros com Presença aproveitam uma vida noturna fácil ao custo de se esquecerem quais sentimentos projetados neles são normais e quais são forçados.\n\nCaracterísticas\nPresença afeta as emoções de seus alvos, não suas mentes. Apesar disso ser útil naquelas vítimas que estão cientes (diferente de Dominação), eles não estão sob controle direto do usuário e são frequentemente imprevisíveis. Para ser afetado pela Presença, o alvo precisa estar na presença física do usuário ou pelo menos dentro do alcance de sua voz.\n\nTipo: Mental.\nAmeaça à Máscara: Baixa-Média.\nRessonância de Sangue: Otimista.",
   poderes: [
     {
       nome: "NÍVEL 1 - AMEDONTRAR",
-      descricao: "Ao invés de atrair pessoas, o vampiro usa Presença para repeli-las. Com esse poder o usuário aparece ameaçador e exala uma aura de perigo poderosa o bastante para fazer a maioria dos mortais evitar sua atenção.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: Adicione o valor de Presença do usuário em qualquer teste de Intimidação. Atacar o usuário requer um teste de Perseverança + Autocontrole com Dificuldade 2. Vampiros não podem usar Fascínio e Ameaça simultaneamente.\\n⬛ Duração: Uma cena ou até que cesse voluntariamente."
+      descricao: "Ao invés de atrair pessoas, o vampiro usa Presença para repeli-las. Com esse poder o usuário aparece ameaçador e exala uma aura de perigo poderosa o bastante para fazer a maioria dos mortais evitar sua atenção.\n\nCusto: Grátis.\nSistema: Adicione o valor de Presença do usuário em qualquer teste de Intimidação. Atacar o usuário requer um teste de Perseverança + Autocontrole com Dificuldade 2. Vampiros não podem usar Fascínio e Ameaça simultaneamente.\\n⬛ Duração: Uma cena ou até que cesse voluntariamente."
     },
     {
       nome: "NÍVEL 1 - FASCÍNIO",
-      descricao: "Qualquer um na presença do vampiro tem sua atenção inexplicavelmente atraída para ele.\\n\\n⬛ Custo: Grátis.\\n⬛ Parada de Dados: Manipulação + Presença vs Autocontrole + Inteligência.\\n⬛ Sistema: Adicione o valor de Presença para qualquer teste envolvendo Persuasão, Performance ou Carisma. Alvos podem resistir com um teste resistido.\\n⬛ Duração: Uma cena ou até que cesse voluntariamente."
+      descricao: "Qualquer um na presença do vampiro tem sua atenção inexplicavelmente atraída para ele.\n\nCusto: Grátis.\nParada de Dados: Manipulação + Presença vs Autocontrole + Inteligência.\nSistema: Adicione o valor de Presença para qualquer teste envolvendo Persuasão, Performance ou Carisma. Alvos podem resistir com um teste resistido.\nDuração: Uma cena ou até que cesse voluntariamente."
     },
     {
       nome: "NÍVEL 2 - BEIJO INDELÉVEL",
-      descricao: "O Beijo do vampiro induz um quase-êxtase em mortais, tornando-os viciados.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: O usuário adiciona dados iguais à sua Presença para testes de Carisma contra o alvo mordido. O alvo pode tentar resistir semanalmente.\\n⬛ Duração: Até o alvo resistir com sucesso."
+      descricao: "O Beijo do vampiro induz um quase-êxtase em mortais, tornando-os viciados.\n\nCusto: Grátis.\nSistema: O usuário adiciona dados iguais à sua Presença para testes de Carisma contra o alvo mordido. O alvo pode tentar resistir semanalmente.\nDuração: Até o alvo resistir com sucesso."
     },
     {
       nome: "NÍVEL 3 - OLHAR ATERRORIZANTE",
-      descricao: "Expondo brevemente sua natureza vampírica, o usuário incita terror absoluto em um alvo.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Carisma + Presença vs Autocontrole + Perseverança.\\n⬛ Sistema: Mortais podem fugir, congelar ou se curvar de medo. Vampiros podem entrar em Rötschreck.\\n⬛ Duração: Um turno."
+      descricao: "Expondo brevemente sua natureza vampírica, o usuário incita terror absoluto em um alvo.\n\nCusto: Uma Checagem de Sangue.\nParada de Dados: Carisma + Presença vs Autocontrole + Perseverança.\nSistema: Mortais podem fugir, congelar ou se curvar de medo. Vampiros podem entrar em Rötschreck.\nDuração: Um turno."
     },
     {
       nome: "NÍVEL 3 - TRANSE",
-      descricao: "O vampiro foca sua atração sobrenatural em uma única pessoa, gerando admiração e paixão intensas.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Carisma + Presença vs Autocontrole + Raciocínio.\\n⬛ Sistema: Se bem sucedido, o alvo faz o possível para agradar o vampiro, desde que não envolva dano grave a si ou aos seus entes queridos.\\n⬛ Duração: Uma hora mais uma por sucesso extra."
+      descricao: "O vampiro foca sua atração sobrenatural em uma única pessoa, gerando admiração e paixão intensas.\n\nCusto: Uma Checagem de Sangue.\nParada de Dados: Carisma + Presença vs Autocontrole + Raciocínio.\nSistema: Se bem sucedido, o alvo faz o possível para agradar o vampiro, desde que não envolva dano grave a si ou aos seus entes queridos.\nDuração: Uma hora mais uma por sucesso extra."
     },
     {
       nome: "NÍVEL 4 - CONVOCAR",
-      descricao: "O vampiro pode chamar para si qualquer pessoa previamente afetada por seus poderes ou que tenha provado seu sangue.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Manipulação + Presença vs Autocontrole + Inteligência.\\n⬛ Sistema: O alvo sente o chamado e tenta chegar até o vampiro, desde que isso não o coloque em perigo físico ou financeiro.\\n⬛ Duração: Uma noite."
+      descricao: "O vampiro pode chamar para si qualquer pessoa previamente afetada por seus poderes ou que tenha provado seu sangue.\n\nCusto: Uma Checagem de Sangue.\nParada de Dados: Manipulação + Presença vs Autocontrole + Inteligência.\nSistema: O alvo sente o chamado e tenta chegar até o vampiro, desde que isso não o coloque em perigo físico ou financeiro.\nDuração: Uma noite."
     },
     {
       nome: "NÍVEL 4 - VOZ IRRESISTÍVEL",
-      descricao: "⬛ Amálgama: Dominação 1.\\n\\nA presença do usuário se torna um condutor para Dominação.\\n\\n⬛ Custo: Sem custo adicional.\\n⬛ Sistema: A voz do usuário passa a ser suficiente para aplicar Dominação, desde que seja ouvida diretamente.\\n⬛ Duração: Passiva."
+      descricao: "Amálgama: Dominação 1.\n\nA presença do usuário se torna um condutor para Dominação.\n\nCusto: Sem custo adicional.\nSistema: A voz do usuário passa a ser suficiente para aplicar Dominação, desde que seja ouvida diretamente.\nDuração: Passiva."
     },
     {
       nome: "NÍVEL 5 - MAGNETISMO DE ESTRELA",
-      descricao: "Os poderes de Presença agora afetam pessoas em transmissões ao vivo ou chamadas telefônicas.\\n\\n⬛ Custo: Um Rouse Check adicional.\\n⬛ Sistema: Fascínio, Amedontrar e Transe podem ser transmitidos por telas ou telefone. Gravações não mantêm o efeito.\\n⬛ Duração: A do poder usado."
+      descricao: "Os poderes de Presença agora afetam pessoas em transmissões ao vivo ou chamadas telefônicas.\n\nCusto: Uma Checagem de Sangue adicional.\nSistema: Fascínio, Amedontrar e Transe podem ser transmitidos por telas ou telefone. Gravações não mantêm o efeito.\nDuração: A do poder usado."
     },
     {
       nome: "NÍVEL 5 - MAJESTADE",
-      descricao: "No auge da Disciplina, o vampiro amplifica sua presença até níveis sobrenaturais.\\n\\n⬛ Custo: Dois Rouse Checks.\\n⬛ Parada de Dados: Carisma + Presença vs Autocontrole + Perseverança.\\n⬛ Sistema: Qualquer um que tente agir contra o usuário deve vencer um teste resistido ou ficará incapaz de enfrentá-lo.\\n⬛ Duração: Uma cena."
+      descricao: "No auge da Disciplina, o vampiro amplifica sua presença até níveis sobrenaturais.\n\nCusto: Duas Checagens de Sangue.\nParada de Dados: Carisma + Presença vs Autocontrole + Perseverança.\nSistema: Qualquer um que tente agir contra o usuário deve vencer um teste resistido ou ficará incapaz de enfrentá-lo.\nDuração: Uma cena."
     }
   ]
     },
    {
   nome: "Proteanismo",
-  descricao: "Apelidos: Morfar, Troca-peles, Mutante.\\n\\nLobisomens desprezam os vampiros por possuírem essa habilidade. Eles consideram-na uma zombaria contra a própria natureza, já que seres não-vivos se transformam em lobos e morcegos, portando garras e presas como um dos seus semelhantes. Além disso, Metamorfose tem se espalhado através do Sangue praticamente desde quando os Membros surgiram. O poder de mudar, trocar de forma, e se tornar um predador ainda mais mortal é tão natural para o vampiro quanto é para o lupino.\\n\\nPraticantes de Metamorfose utilizam a Disciplina por conta de sua versatilidade. O poder permite ao vampiro se tornar uma besta, transformar seus membros em armas, ou mudar sua forma para uma névoa a fim de impedir uma captura, deslizar por dentro de fechaduras ou por frestas em uma janela.\\n\\nCaracterísticas\\n⬛ Tipo: Físico.\\n⬛ Ameaça à Máscara: Alta.\\n⬛ Ressonância de Sangue: Sangue animal, principalmente dos animais correspondentes à forma transmutada.",
+  descricao: "Apelidos: Morfar, Troca-peles, Mutante.\n\nLobisomens desprezam os vampiros por possuírem essa habilidade. Eles consideram-na uma zombaria contra a própria natureza, já que seres não-vivos se transformam em lobos e morcegos, portando garras e presas como um dos seus semelhantes. Além disso, Metamorfose tem se espalhado através do Sangue praticamente desde quando os Membros surgiram. O poder de mudar, trocar de forma, e se tornar um predador ainda mais mortal é tão natural para o vampiro quanto é para o lupino.\n\nPraticantes de Metamorfose utilizam a Disciplina por conta de sua versatilidade. O poder permite ao vampiro se tornar uma besta, transformar seus membros em armas, ou mudar sua forma para uma névoa a fim de impedir uma captura, deslizar por dentro de fechaduras ou por frestas em uma janela.\n\nCaracterísticas\nTipo: Físico.\nAmeaça à Máscara: Alta.\nRessonância de Sangue: Sangue animal, principalmente dos animais correspondentes à forma transmutada.",
   poderes: [
     {
       nome: "NÍVEL 1 - OLHOS DA BESTA",
-      descricao: "O vampiro pode fazer surgir um brilho vermelho sobrenatural em seus olhos, dando visão a ele mesmo na ausência total de luz.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: Nenhum teste é exigido para ativar Olhos da Besta. Enquanto ativo, o usuário ignora qualquer penalidade da visão imposta pela escuridão, incluindo sobrenatural. Enquanto ativo, a aparência inumana dos olhos confere dois dados bônus nas paradas de Intimidação contra mortais.\\n⬛ Duração: Tão longa quanto desejada."
+      descricao: "O vampiro pode fazer surgir um brilho vermelho sobrenatural em seus olhos, dando visão a ele mesmo na ausência total de luz.\n\nCusto: Grátis.\nSistema: Nenhum teste é exigido para ativar Olhos da Besta. Enquanto ativo, o usuário ignora qualquer penalidade da visão imposta pela escuridão, incluindo sobrenatural. Enquanto ativo, a aparência inumana dos olhos confere dois dados bônus nas paradas de Intimidação contra mortais.\nDuração: Tão longa quanto desejada."
     },
     {
       nome: "NÍVEL 1 - PESO PENA",
-      descricao: "O vampiro pode reduzir sua densidade e massa efetiva, fazendo com que fique quase sem peso. Isso permite evitar sensores de pressão e reduzir danos de quedas e colisões.\\n\\n⬛ Custo: Grátis.\\n⬛ Parada de Dados: Raciocínio + Sobrevivência.\\n⬛ Sistema: Se tiver tempo para se preparar, nenhum teste é exigido. Como reação, requer teste de Raciocínio + Sobrevivência (Dificuldade 3). Enquanto ativo, o vampiro é imune a dano por quedas, colisões e arremessos.\\n⬛ Duração: Tão longa quanto desejada."
+      descricao: "O vampiro pode reduzir sua densidade e massa efetiva, fazendo com que fique quase sem peso. Isso permite evitar sensores de pressão e reduzir danos de quedas e colisões.\n\nCusto: Grátis.\nParada de Dados: Raciocínio + Sobrevivência.\nSistema: Se tiver tempo para se preparar, nenhum teste é exigido. Como reação, requer teste de Raciocínio + Sobrevivência (Dificuldade 3). Enquanto ativo, o vampiro é imune a dano por quedas, colisões e arremessos.\nDuração: Tão longa quanto desejada."
     },
     {
       nome: "NÍVEL 2 - ARMAS FERAIS",
-      descricao: "O vampiro pode estender suas armas naturais até proporções monstruosas, geralmente garras ou presas alongadas.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: Nenhum teste é necessário. O vampiro adiciona +2 ao dano de Briga e causa dano Agravado à Vitalidade de mortais. O dano Superficial infligido com Armas Ferais não é dividido pela metade.\\n⬛ Duração: Uma cena."
+      descricao: "O vampiro pode estender suas armas naturais até proporções monstruosas, geralmente garras ou presas alongadas.\n\nCusto: Uma Checagem de Sangue.\nSistema: Nenhum teste é necessário. O vampiro adiciona +2 ao dano de Briga e causa dano Agravado à Vitalidade de mortais. O dano Superficial infligido com Armas Ferais não é dividido pela metade.\nDuração: Uma cena."
     },
     {
       nome: "NÍVEL 3 - FUSÃO COM A TERRA",
-      descricao: "Tornando-se um com o solo, o vampiro mergulha na terra e pode permanecer oculto até a noite seguinte.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: Nenhum teste necessário, mas deve estar sobre superfície natural como terra, rocha ou grama. Não funciona em concreto ou asfalto. Leva um turno para mergulhar. Objetos carregados ficam para trás.\\n⬛ Duração: Um dia ou mais, ou até ser perturbado."
+      descricao: "Tornando-se um com o solo, o vampiro mergulha na terra e pode permanecer oculto até a noite seguinte.\n\nCusto: Uma Checagem de Sangue.\nSistema: Nenhum teste necessário, mas deve estar sobre superfície natural como terra, rocha ou grama. Não funciona em concreto ou asfalto. Leva um turno para mergulhar. Objetos carregados ficam para trás.\nDuração: Um dia ou mais, ou até ser perturbado."
     },
     {
       nome: "NÍVEL 3 - MUDANÇA DE FORMA",
-      descricao: "O vampiro pode assumir a forma de um animal aproximadamente do mesmo tamanho de sua massa original.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: Nenhum teste necessário. A transformação leva um turno. O vampiro ganha atributos físicos, sentidos e habilidades do animal, além de suas limitações.\\n⬛ Duração: Uma cena, a menos que encerre antes."
+      descricao: "O vampiro pode assumir a forma de um animal aproximadamente do mesmo tamanho de sua massa original.\n\nCusto: Uma Checagem de Sangue.\nSistema: Nenhum teste necessário. A transformação leva um turno. O vampiro ganha atributos físicos, sentidos e habilidades do animal, além de suas limitações.\nDuração: Uma cena, a menos que encerre antes."
     },
     {
       nome: "NÍVEL 4 - METAMORFOSE",
-      descricao: "⬛ Pré-requisito: Mudança de Forma.\\n\\nEsse poder concede uma forma animal adicional ao usuário, permitindo também alterar seu tamanho. Formas comuns incluem morcegos, ratos, insetos grandes e cobras.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Sistema: O mesmo de Mudança de Forma.\\n⬛ Duração: Uma cena, a menos que encerre antes."
+      descricao: "Pré-requisito: Mudança de Forma.\n\nEsse poder concede uma forma animal adicional ao usuário, permitindo também alterar seu tamanho. Formas comuns incluem morcegos, ratos, insetos grandes e cobras.\n\nCusto: Uma Checagem de Sangue.\nSistema: O mesmo de Mudança de Forma.\nDuração: Uma cena, a menos que encerre antes."
     },
     {
       nome: "NÍVEL 5 - FORMA DE NÉVOA",
-      descricao: "O vampiro ganha o poder de se transformar em uma nuvem brumosa. Pode atravessar canos, fendas e rachaduras, sendo vulnerável apenas a fogo, luz solar e ataques sobrenaturais.\\n\\n⬛ Custo: De um a três Rouse Checks.\\n⬛ Sistema: Nenhum teste necessário. A transformação leva três turnos, podendo ser acelerada com ativações extras de sangue. Em forma de névoa, move-se em velocidade de caminhada e percebe o ambiente por meios místicos.\\n⬛ Duração: Uma cena, a menos que encerre antes."
+      descricao: "O vampiro ganha o poder de se transformar em uma nuvem brumosa. Pode atravessar canos, fendas e rachaduras, sendo vulnerável apenas a fogo, luz solar e ataques sobrenaturais.\n\nCusto: De Uma a Três Checagens de Sangue .\nSistema: Nenhum teste necessário. A transformação leva três turnos, podendo ser acelerada com ativações extras de sangue. Em forma de névoa, move-se em velocidade de caminhada e percebe o ambiente por meios místicos.\nDuração: Uma cena, a menos que encerre antes."
     },
     {
       nome: "NÍVEL 5 - CORAÇÃO VAGANTE",
-      descricao: "Tendo dominado Metamorfose, até mesmo o interior do vampiro se torna maleável. Seu coração move-se livremente dentro do tórax, tornando extremamente difícil estaqueá-lo.\\n\\n⬛ Custo: Grátis.\\n⬛ Sistema: Aumenta em 3 a Dificuldade para estaquear o vampiro fora de combate. Em combate corpo-a-corpo, apenas um sucesso crítico permite atingir o coração. Mesmo estaqueado, o usuário pode tentar expulsar a estaca com Força + Perseverança (Dificuldade 5) uma vez por hora.\\n⬛ Duração: Passiva."
+      descricao: "Tendo dominado Metamorfose, até mesmo o interior do vampiro se torna maleável. Seu coração move-se livremente dentro do tórax, tornando extremamente difícil estaqueá-lo.\n\nCusto: Grátis.\nSistema: Aumenta em 3 a Dificuldade para estaquear o vampiro fora de combate. Em combate corpo-a-corpo, apenas um sucesso crítico permite atingir o coração. Mesmo estaqueado, o usuário pode tentar expulsar a estaca com Força + Perseverança (Dificuldade 5) uma vez por hora.\nDuração: Passiva."
     }
   ]
    },
       {
   nome: "Feitiçaria de Sangue",
-  descricao: "Apelidos: Um Tipo de Magia, Taumaturgia, Quietus.\\n\\nOs Tremere sustentam que Feitiçaria de Sangue, ou “Taumaturgia” como eles chamam, são invenção sua. Só para ouvir os Banu Haqim darem sua versão, “Quietus” era seu direito de sangue muito antes dos Tremere se tornarem vampiros. Outros clãs fazem a mesma afirmação. Enquanto sua origem é obscura, a terrível natureza de Feitiçaria de Sangue não é. Poucos Membros confiam em possuidores de um poder que pode manipular a vitae em suas veias e transformá-la em veneno.\\n\\nDiferentemente das outras Disciplinas, praticantes de Feitiçaria de Sangue necessitam de professores para evoluir e aprender Rituais.\\n\\nCaracterísticas\\n⬛ Tipo: Feitiçaria.\\n⬛ Ameaça à Máscara: Baixa-Alta.\\n⬛ Ressonância de Sangue: Sanguíneo.",
+  descricao: "Apelidos: Um Tipo de Magia, Taumaturgia, Quietus.\n\nOs Tremere sustentam que Feitiçaria de Sangue, ou “Taumaturgia” como eles chamam, são invenção sua. Só para ouvir os Banu Haqim darem sua versão, “Quietus” era seu direito de sangue muito antes dos Tremere se tornarem vampiros. Outros clãs fazem a mesma afirmação. Enquanto sua origem é obscura, a terrível natureza de Feitiçaria de Sangue não é. Poucos Membros confiam em possuidores de um poder que pode manipular a vitae em suas veias e transformá-la em veneno.\n\nDiferentemente das outras Disciplinas, praticantes de Feitiçaria de Sangue necessitam de professores para evoluir e aprender Rituais.\n\nCaracterísticas\nTipo: Feitiçaria.\nAmeaça à Máscara: Baixa-Alta.\nRessonância de Sangue: Sanguíneo.",
   poderes: [
     {
       nome: "NÍVEL 1 - UM GOSTO POR SANGUE",
-      descricao: "Provando uma gota de sangue, o usuário pode determinar algumas características básicas do seu possuidor.\\n\\n⬛ Custo: Grátis.\\n⬛ Parada de Dados: Perseverança + Feitiçaria de Sangue.\\n⬛ Sistema: O usuário toca o sangue em sua língua e faz um teste de Perseverança + Feitiçaria de Sangue (Dificuldade 3). Com sucesso, determina ressonância, intensidade e natureza do sangue. Um sucesso crítico também pode revelar Diablerie e geração aproximada.\\n⬛ Duração: Não aplicável."
+      descricao: "Provando uma gota de sangue, o usuário pode determinar algumas características básicas do seu possuidor.\n\nCusto: Grátis.\nParada de Dados: Determinação + Feitiçaria de Sangue.\nSistema: O usuário toca o sangue em sua língua e faz um teste de Perseverança + Feitiçaria de Sangue (Dificuldade 3). Com sucesso, determina ressonância, intensidade e natureza do sangue. Um sucesso crítico também pode revelar Diablerie e geração aproximada.\nDuração: Não aplicável."
     },
     {
       nome: "NÍVEL 1 - VITAE CORROSIVO",
-      descricao: "Alterando as propriedades de parte do seu próprio Sangue, o usuário pode torná-lo altamente corrosivo.\\n\\n⬛ Custo: Um ou mais Rouse Checks.\\n⬛ Sistema: O usuário força o Sangue por uma ferida aberta e o derrama sobre um objeto sem vida para corroê-lo. Cada ativação corrói cerca de 35 cm de matéria.\\n⬛ Duração: Não aplicável."
+      descricao: "Alterando as propriedades de parte do seu próprio Sangue, o usuário pode torná-lo altamente corrosivo.\n\nCusto: Um ou mais Checagens de Sangue.\nSistema: O usuário força o Sangue por uma ferida aberta e o derrama sobre um objeto sem vida para corroê-lo. Cada ativação corrói cerca de 35 cm de matéria.\nDuração: Não aplicável."
     },
     {
       nome: "NÍVEL 2 - EXTINGUIR VITAE",
-      descricao: "O usuário remove propriedades místicas do sangue de outro vampiro, aumentando sua Fome.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Inteligência + Feitiçaria de Sangue vs Vigor + Autocontrole.\\n⬛ Sistema: Em sucesso, aumenta a Fome do alvo em 1; sucesso crítico aumenta em 2.\\n⬛ Duração: Não aplicável."
+      descricao: "O usuário remove propriedades místicas do sangue de outro vampiro, aumentando sua Fome.\n\nCusto: Uma Checagem de Sangue.\nParada de Dados: Inteligência + Feitiçaria de Sangue vs Vigor + Autocontrole.\nSistema: Em sucesso, aumenta a Fome do alvo em 1; sucesso crítico aumenta em 2.\nDuração: Não aplicável."
     },
     {
       nome: "NÍVEL 3 - PICADA DE ESCORPIÃO",
-      descricao: "O vampiro transmute parte de seu sangue em veneno paralisante capaz de afetar mortais e vampiros.\\n\\n⬛ Custo: Um ou mais Rouse Checks.\\n⬛ Parada de Dados: Força + Feitiçaria de Sangue vs Vigor + Ocultismo ou Fortitude.\\n⬛ Sistema: O sangue envenenado pode banhar armas ou ser cuspido. Se acertar, causa dano agravado em mortais e superficial não reduzido em vampiros.\\n⬛ Duração: O veneno permanece potente por uma cena."
+      descricao: "O vampiro transmute parte de seu sangue em veneno paralisante capaz de afetar mortais e vampiros.\n\nCusto: Uma ou mais Checagens de Sangue.\nParada de Dados: Força + Feitiçaria de Sangue vs Vigor + Ocultismo ou Fortitude.\nSistema: O sangue envenenado pode banhar armas ou ser cuspido. Se acertar, causa dano agravado em mortais e superficial não reduzido em vampiros.\nDuração: O veneno permanece potente por uma cena."
     },
     {
       nome: "NÍVEL 3 - SANGUE POTENTE",
-      descricao: "O vampiro concentra seu Sangue, aumentando temporariamente sua Potência de Sangue.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Perseverança + Feitiçaria de Sangue.\\n⬛ Sistema: Teste contra Dificuldade 2 + Potência de Sangue atual. Sucesso aumenta em 1; sucesso crítico em 2.\\n⬛ Duração: Uma cena ou uma noite."
+      descricao: "O vampiro concentra seu Sangue, aumentando temporariamente sua Potência de Sangue.\n\nCusto: Uma Checagem de Sangue.\nParada de Dados: Determinação + Feitiçaria de Sangue.\nSistema: Teste contra Dificuldade 2 + Potência de Sangue atual. Sucesso aumenta em 1; sucesso crítico em 2.\nDuração: Uma cena ou uma noite."
     },
     {
       nome: "NÍVEL 4 - ROUBO DE VITAE",
-      descricao: "Misticamente, o vampiro abre uma ferida arterial em um mortal e puxa o sangue até sua boca à distância.\\n\\n⬛ Custo: Um Rouse Check.\\n⬛ Parada de Dados: Raciocínio + Feitiçaria de Sangue vs Raciocínio + Ocultismo.\\n⬛ Sistema: Em sucesso, o vampiro pode se alimentar à distância em velocidade dobrada (tripla com crítico).\\n⬛ Duração: Uma alimentação."
+      descricao: "Misticamente, o vampiro abre uma ferida arterial em um mortal e puxa o sangue até sua boca à distância.\n\nCusto: Uma Checagem de Sangue.\nParada de Dados: Raciocínio + Feitiçaria de Sangue vs Raciocínio + Ocultismo.\nSistema: Em sucesso, o vampiro pode se alimentar à distância em velocidade dobrada (tripla com crítico).\nDuração: Uma alimentação."
     },
     {
       nome: "NÍVEL 5 - CALDEIRÃO DE SANGUE",
-      descricao: "O usuário ferve o sangue da vítima em suas próprias veias, causando dor extrema e dano massivo.\\n\\n⬛ Custo: Um Rouse Check e ganha uma ou mais Máculas.\\n⬛ Parada de Dados: Perseverança + Feitiçaria de Sangue vs Autocontrole + Ocultismo ou Fortitude.\\n⬛ Sistema: Cada sucesso extra causa 1 ponto de dano Agravado. Mortais que sofrem dano morrem gritando. Vampiros ganham 1 Fome por ponto de dano.\\n⬛ Duração: Um turno."
+      descricao: "O usuário ferve o sangue da vítima em suas próprias veias, causando dor extrema e dano massivo.\n\nCusto: Uma Checagem de Sangue e ganha uma ou mais Máculas.\nParada de Dados: Perseverança + Feitiçaria de Sangue vs Autocontrole + Ocultismo ou Fortitude.\nSistema: Cada sucesso extra causa 1 ponto de dano Agravado. Mortais que sofrem dano morrem gritando. Vampiros ganham 1 Fome por ponto de dano.\nDuração: Um turno."
     },
     {
       nome: "NÍVEL 5 - CARÍCIA DE BAAL",
-      descricao: "O vampiro transmute seu sangue em um veneno extremamente agressivo, letal para mortais e vampiros.\\n\\n⬛ Custo: Um ou mais Rouse Checks.\\n⬛ Parada de Dados: Força + Feitiçaria de Sangue vs Vigor + Ocultismo ou Fortitude.\\n⬛ Sistema: Funciona como Picada de Escorpião, mas causa dano Agravado também em vampiros. Mortais morrem instantaneamente ao sofrer dano.\\n⬛ Duração: O veneno permanece potente por uma cena."
+      descricao: "O vampiro transmute seu sangue em um veneno extremamente agressivo, letal para mortais e vampiros.\n\nCusto: Uma ou mais Checagens de Sangue.\nParada de Dados: Força + Feitiçaria de Sangue vs Vigor + Ocultismo ou Fortitude.\nSistema: Funciona como Picada de Escorpião, mas causa dano Agravado também em vampiros. Mortais morrem instantaneamente ao sofrer dano.\nDuração: O veneno permanece potente por uma cena."
     }
   ]
       }

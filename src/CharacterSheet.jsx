@@ -337,7 +337,8 @@ const styles = {
 
     sectionTitle: {
         color: "white",
-        marginTop: 0
+        marginTop: 0,
+        textAlign: "center"
     },
 
     grid3: {
@@ -1204,6 +1205,7 @@ export default function CharacterSheet() {
         "Vira-lata"
     ];
 
+    const [mostrarPainelTeste, setMostrarPainelTeste] = useState(true);
     const [cronicas, setCronicas] = useState([]);
 
     const infoFields = [
@@ -1532,184 +1534,167 @@ export default function CharacterSheet() {
 
     return (
         <div style={styles.page}>
-            <div
-                style={{
-                    position: "fixed",
-                    right: "25px",
-                    top: "50%",
-                    transform: "translateY(-50%)",
-                    zIndex: 9999,
-                    display: "flex",
-                    flexDirection: "column",
-                    gap: "14px",
-                    width: "280px",
-                    padding: "20px",
-                    background: "#1a1a1a",
-                    border: "2px solid #8b0000",
-                    borderRadius: "16px",
-                    boxShadow: "0 0 25px rgba(0,0,0,0.7)"
-                }}
-            >
-                <h3
-                    style={{
-                        margin: 0,
-                        padding: "14px",
-                        textAlign: "center",
-                        background: "linear-gradient(180deg, #8b0000, #5a0000)",
-                        color: "white",
-                        borderRadius: "12px",
-                        fontSize: "26px",
-                        fontWeight: "bold",
-                        letterSpacing: "1px",
-                        boxShadow: "inset 0 0 10px rgba(255,255,255,0.1)"
-                    }}
-                >
-                    Teste
-                </h3>
-
-                <select
-                    value={carac1}
-                    onChange={(e) => setCarac1(e.target.value)}
-                    style={{
-                        width: "100%",
-                        padding: "12px",
-                        borderRadius: "10px",
-                        border: "1px solid #8b0000",
-                        background: "#2b2b2b",
-                        color: "white",
-                        fontSize: "16px",
-                        outline: "none"
-                    }}
-                >
-                    <option value="">Selecione...</option>
-                    {getAllOptions().map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
-
-                <select
-                    value={carac2}
-                    onChange={(e) => setCarac2(e.target.value)}
-                    style={{
-                        width: "100%",
-                        padding: "12px",
-                        borderRadius: "10px",
-                        border: "1px solid #8b0000",
-                        background: "#2b2b2b",
-                        color: "white",
-                        fontSize: "16px",
-                        outline: "none"
-                    }}
-                >
-                    <option value="">Selecione...</option>
-                    {getAllOptions().map((option) => (
-                        <option key={option.value} value={option.value}>
-                            {option.label}
-                        </option>
-                    ))}
-                </select>
-
-                <div
-                    style={{
-                        display: "flex",
-                        alignItems: "center",
-                        justifyContent: "space-between",
-                        gap: "10px"
-                    }}
-                >
-                    <span style={{ color: "white", fontWeight: "bold" }}>
-                        Modificador
-                    </span>
-
-                    <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                        <button
-                            onClick={() => setModificador(modificador - 1)}
-                            style={{
-                                width: "35px",
-                                height: "35px",
-                                borderRadius: "8px",
-                                border: "none",
-                                background: "#8b0000",
-                                color: "white",
-                                fontSize: "20px",
-                                cursor: "pointer"
-                            }}
-                        >
-                            -
-                        </button>
-
-                        <span
-                            style={{
-                                minWidth: "40px",
-                                textAlign: "center",
-                                color: "white",
-                                fontSize: "18px"
-                            }}
-                        >
-                            {modificador > 0 ? `+${modificador}` : modificador}
-                        </span>
-
-                        <button
-                            onClick={() => setModificador(modificador + 1)}
-                            style={{
-                                width: "35px",
-                                height: "35px",
-                                borderRadius: "8px",
-                                border: "none",
-                                background: "#008000",
-                                color: "white",
-                                fontSize: "20px",
-                                cursor: "pointer"
-                            }}
-                        >
-                            +
-                        </button>
-                    </div>
-                </div>
-
-                <button onClick={fazerTeste}>
-                    Rolar {Math.max(1,
-                        getValorCaracteristica(carac1) +
-                        getValorCaracteristica(carac2) +
-                        modificador
-                    )} dados
-                </button>
-
+            <>
                 <button
-                    onClick={usarSurtoDeSangue}
+                    onClick={() => setMostrarPainelTeste(!mostrarPainelTeste)}
                     style={{
-                        width: "100%",
-                        marginTop: "20px",
-                        padding: "12px",
+                        position: "fixed",
+                        right: "9%",
+                        top: "20%",
+                        zIndex: 10000,
+                        padding: "12px 18px",
+                        borderRadius: "12px",
+                        border: "1px solid #8b0000",
                         background: "#8b0000",
                         color: "white",
-                        border: "none",
-                        borderRadius: "10px",
-                        fontSize: "16px",
-                        cursor: "pointer"
-                    }}
-                >
-                    Usar Surto de Sangue
-                </button>
-
-                <button
-                    onClick={() => setMostrarHistorico(!mostrarHistorico)}
-                    style={{
-                        padding: "12px",
-                        borderRadius: "10px",
-                        border: "1px solid #555",
-                        background: mostrarHistorico ? "#8b0000" : "#333",
-                        color: "white",
                         cursor: "pointer",
-                        fontSize: "15px"
+                        fontWeight: "bold",
+                        boxShadow: "0 0 15px rgba(139,0,0,0.5)"
                     }}
                 >
-                    {mostrarHistorico ? "Ocultar Histórico" : "Mostrar Histórico"}
+                    {mostrarPainelTeste ? "Ocultar" : "Mostrar"}
                 </button>
 
-                {mostrarHistorico && (
+                {mostrarPainelTeste && (
+                    <div
+                        style={{
+                            position: "fixed",
+                            right: "25px",
+                            top: "50%",
+                            transform: "translateY(-50%)",
+                            zIndex: 9999,
+                            display: "flex",
+                            flexDirection: "column",
+                            gap: "14px",
+                            width: "280px",
+                            padding: "20px",
+                            background: "#1a1a1a",
+                            border: "2px solid #8b0000",
+                            borderRadius: "16px",
+                            boxShadow: "0 0 25px rgba(0,0,0,0.7)"
+                        }}
+                    >
+                        <h3
+                            style={{
+                                margin: 0,
+                                padding: "14px",
+                                textAlign: "center",
+                                background: "linear-gradient(180deg, #8b0000, #5a0000)",
+                                color: "white",
+                                borderRadius: "12px",
+                                fontSize: "26px",
+                                fontWeight: "bold"
+                            }}
+                        >
+                            Teste
+                        </h3>
+
+                        <select
+                            value={carac1}
+                            onChange={(e) => setCarac1(e.target.value)}
+                        >
+                            <option value="">Selecione...</option>
+                            {getAllOptions().map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+
+                        <select
+                            value={carac2}
+                            onChange={(e) => setCarac2(e.target.value)}
+                        >
+                            <option value="">Selecione...</option>
+                            {getAllOptions().map((option) => (
+                                <option key={option.value} value={option.value}>
+                                    {option.label}
+                                </option>
+                            ))}
+                        </select>
+
+                        <div
+                            style={{
+                                display: "flex",
+                                alignItems: "center",
+                                justifyContent: "space-between",
+                                gap: "10px"
+                            }}
+                        >
+                            <span style={{ color: "white", fontWeight: "bold" }}>
+                                Modificador
+                            </span>
+
+                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
+                                <button
+                                    onClick={() => setModificador(modificador - 1)}
+                                >
+                                    -
+                                </button>
+
+                                <span
+                                    style={{
+                                        minWidth: "40px",
+                                        textAlign: "center",
+                                        color: "white",
+                                        fontSize: "18px"
+                                    }}
+                                >
+                                    {modificador > 0 ? `+${modificador}` : modificador}
+                                </span>
+
+                                <button
+                                    onClick={() => setModificador(modificador + 1)}
+                                >
+                                    +
+                                </button>
+                            </div>
+                        </div>
+
+                        <button onClick={fazerTeste}>
+                            Rolar{" "}
+                            {Math.max(
+                                1,
+                                getValorCaracteristica(carac1) +
+                                getValorCaracteristica(carac2) +
+                                modificador
+                            )}{" "}
+                            dados
+                        </button>
+
+                        <button
+                            onClick={usarSurtoDeSangue}
+                            style={{
+                                width: "100%",
+                                padding: "12px",
+                                background: "#8b0000",
+                                color: "white",
+                                border: "none",
+                                borderRadius: "10px",
+                                fontSize: "16px",
+                                cursor: "pointer"
+                            }}
+                        >
+                            Usar Surto de Sangue
+                        </button>
+
+                        <button
+                            onClick={() => setMostrarHistorico(!mostrarHistorico)}
+                            style={{
+                                padding: "12px",
+                                borderRadius: "10px",
+                                border: "1px solid #555",
+                                background: mostrarHistorico ? "#8b0000" : "#333",
+                                color: "white",
+                                cursor: "pointer"
+                            }}
+                        >
+                            {mostrarHistorico ? "Ocultar Histórico" : "Mostrar Histórico"}
+                        </button>
+                    </div>
+                )}
+
+                {mostrarHistorico && mostrarPainelTeste && (
                     <div
                         style={{
                             position: "fixed",
@@ -1751,7 +1736,7 @@ export default function CharacterSheet() {
                         )}
                     </div>
                 )}
-            </div>
+            </>
             <h1 style={styles.sectionTitle}>Ficha VTM V5</h1>
 
             <section style={styles.card}>

@@ -1769,7 +1769,9 @@ export default function CharacterSheet() {
                 <div style={styles.grid3}>
                     {/* Físicos */}
                     <div>
-                        <h3>Físicos</h3>
+                        <h3 style={{
+                            marginLeft: "45%"
+                        }}>Físicos</h3>
 
                         <EditableDots
                             label="Força"
@@ -1798,7 +1800,9 @@ export default function CharacterSheet() {
 
                     {/* Sociais */}
                     <div>
-                        <h3>Sociais</h3>
+                        <h3 style={{
+                            marginLeft: "45%"
+                        }}>Sociais</h3>
 
                         <EditableDots
                             label="Carisma"
@@ -1827,7 +1831,9 @@ export default function CharacterSheet() {
 
                     {/* Mentais */}
                     <div>
-                        <h3>Mentais</h3>
+                        <h3 style={{
+                            marginLeft: "45%"
+                        }}>Mentais</h3>
 
                         <EditableDots
                             label="Inteligência"
@@ -2041,7 +2047,9 @@ export default function CharacterSheet() {
                 <div style={styles.grid3}>
                     {/* Físicas */}
                     <div>
-                        <h3>Físicas</h3>
+                        <h3 style={{
+                            marginLeft: "45%"
+                        }}>Físicas</h3>
 
                         <EditableDots
                             label="Esportes"
@@ -2092,7 +2100,9 @@ export default function CharacterSheet() {
 
                     {/* Sociais */}
                     <div>
-                        <h3>Sociais</h3>
+                        <h3 style={{
+                            marginLeft: "45%"
+                        }}>Sociais</h3>
 
                         <EditableDots
                             label="Empatia c/ Animais"
@@ -2143,7 +2153,9 @@ export default function CharacterSheet() {
 
                     {/* Mentais */}
                     <div>
-                        <h3>Mentais</h3>
+                        <h3 style={{
+                            marginLeft: "45%"
+                        }}>Mentais</h3>
 
                         <EditableDots
                             label="Acadêmicos"

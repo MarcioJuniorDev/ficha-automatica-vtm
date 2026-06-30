@@ -1535,164 +1535,138 @@ export default function CharacterSheet() {
     return (
         <div style={styles.page}>
             <>
-                <button
-                    onClick={() => setMostrarPainelTeste(!mostrarPainelTeste)}
+                <div
                     style={{
                         position: "fixed",
-                        right: "9%",
-                        top: "20%",
-                        zIndex: 10000,
-                        padding: "12px 18px",
-                        borderRadius: "12px",
-                        border: "1px solid #8b0000",
-                        background: "#8b0000",
-                        color: "white",
-                        cursor: "pointer",
-                        fontWeight: "bold",
-                        boxShadow: "0 0 15px rgba(139,0,0,0.5)"
+                        right: "25px",
+                        top: "50%",
+                        transform: "translateY(-50%)",
+                        zIndex: 9999
                     }}
                 >
-                    {mostrarPainelTeste ? "Ocultar" : "Mostrar"}
-                </button>
-
-                {mostrarPainelTeste && (
-                    <div
+                    <button
+                        onClick={() => setMostrarPainelTeste(!mostrarPainelTeste)}
                         style={{
-                            position: "fixed",
-                            right: "25px",
-                            top: "50%",
-                            transform: "translateY(-50%)",
-                            zIndex: 9999,
-                            display: "flex",
-                            flexDirection: "column",
-                            gap: "14px",
-                            width: "280px",
-                            padding: "20px",
-                            background: "#1a1a1a",
+                            position: "absolute",
+                            left: "-90px",
+                            top: "20px",
+                            width: "90px",
+                            height: "45px",
+                            borderRadius: "12px 0 0 12px",
                             border: "2px solid #8b0000",
-                            borderRadius: "16px",
-                            boxShadow: "0 0 25px rgba(0,0,0,0.7)"
+                            borderRight: "none",
+                            background: "#8b0000",
+                            color: "white",
+                            cursor: "pointer",
+                            fontWeight: "bold",
+                            boxShadow: "-4px 0 15px rgba(139,0,0,0.4)"
                         }}
                     >
-                        <h3
-                            style={{
-                                margin: 0,
-                                padding: "14px",
-                                textAlign: "center",
-                                background: "linear-gradient(180deg, #8b0000, #5a0000)",
-                                color: "white",
-                                borderRadius: "12px",
-                                fontSize: "26px",
-                                fontWeight: "bold"
-                            }}
-                        >
-                            Teste
-                        </h3>
+                        {mostrarPainelTeste ? "Ocultar" : "Mostrar"}
+                    </button>
 
-                        <select
-                            value={carac1}
-                            onChange={(e) => setCarac1(e.target.value)}
-                        >
-                            <option value="">Selecione...</option>
-                            {getAllOptions().map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-
-                        <select
-                            value={carac2}
-                            onChange={(e) => setCarac2(e.target.value)}
-                        >
-                            <option value="">Selecione...</option>
-                            {getAllOptions().map((option) => (
-                                <option key={option.value} value={option.value}>
-                                    {option.label}
-                                </option>
-                            ))}
-                        </select>
-
+                    {mostrarPainelTeste && (
                         <div
                             style={{
                                 display: "flex",
-                                alignItems: "center",
-                                justifyContent: "space-between",
-                                gap: "10px"
+                                flexDirection: "column",
+                                gap: "14px",
+                                width: "280px",
+                                padding: "20px",
+                                background: "#1a1a1a",
+                                border: "2px solid #8b0000",
+                                borderRadius: "16px",
+                                boxShadow: "0 0 25px rgba(0,0,0,0.7)"
                             }}
                         >
-                            <span style={{ color: "white", fontWeight: "bold" }}>
-                                Modificador
-                            </span>
+                            <h3
+                                style={{
+                                    margin: 0,
+                                    padding: "14px",
+                                    textAlign: "center",
+                                    background: "linear-gradient(180deg, #8b0000, #5a0000)",
+                                    color: "white",
+                                    borderRadius: "12px",
+                                    fontSize: "26px",
+                                    fontWeight: "bold"
+                                }}
+                            >
+                                Teste
+                            </h3>
 
-                            <div style={{ display: "flex", alignItems: "center", gap: "10px" }}>
-                                <button
-                                    onClick={() => setModificador(modificador - 1)}
-                                >
-                                    -
-                                </button>
+                            <select
+                                value={carac1}
+                                onChange={(e) => setCarac1(e.target.value)}
+                            >
+                                <option value="">Selecione...</option>
+                                {getAllOptions().map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
 
-                                <span
-                                    style={{
-                                        minWidth: "40px",
-                                        textAlign: "center",
-                                        color: "white",
-                                        fontSize: "18px"
-                                    }}
-                                >
-                                    {modificador > 0 ? `+${modificador}` : modificador}
+                            <select
+                                value={carac2}
+                                onChange={(e) => setCarac2(e.target.value)}
+                            >
+                                <option value="">Selecione...</option>
+                                {getAllOptions().map((option) => (
+                                    <option key={option.value} value={option.value}>
+                                        {option.label}
+                                    </option>
+                                ))}
+                            </select>
+
+                            <div
+                                style={{
+                                    display: "flex",
+                                    alignItems: "center",
+                                    justifyContent: "space-between"
+                                }}
+                            >
+                                <span style={{ color: "white", fontWeight: "bold" }}>
+                                    Modificador
                                 </span>
 
-                                <button
-                                    onClick={() => setModificador(modificador + 1)}
-                                >
-                                    +
-                                </button>
+                                <div style={{ display: "flex", gap: "10px" }}>
+                                    <button onClick={() => setModificador(modificador - 1)}>
+                                        -
+                                    </button>
+
+                                    <span style={{ color: "white" }}>
+                                        {modificador > 0 ? `+${modificador}` : modificador}
+                                    </span>
+
+                                    <button onClick={() => setModificador(modificador + 1)}>
+                                        +
+                                    </button>
+                                </div>
                             </div>
+
+                            <button onClick={fazerTeste}>
+                                Rolar{" "}
+                                {Math.max(
+                                    1,
+                                    getValorCaracteristica(carac1) +
+                                    getValorCaracteristica(carac2) +
+                                    modificador
+                                )}{" "}
+                                dados
+                            </button>
+
+                            <button onClick={usarSurtoDeSangue}>
+                                Usar Surto de Sangue
+                            </button>
+
+                            <button onClick={() => setMostrarHistorico(!mostrarHistorico)}>
+                                {mostrarHistorico
+                                    ? "Ocultar Histórico"
+                                    : "Mostrar Histórico"}
+                            </button>
                         </div>
-
-                        <button onClick={fazerTeste}>
-                            Rolar{" "}
-                            {Math.max(
-                                1,
-                                getValorCaracteristica(carac1) +
-                                getValorCaracteristica(carac2) +
-                                modificador
-                            )}{" "}
-                            dados
-                        </button>
-
-                        <button
-                            onClick={usarSurtoDeSangue}
-                            style={{
-                                width: "100%",
-                                padding: "12px",
-                                background: "#8b0000",
-                                color: "white",
-                                border: "none",
-                                borderRadius: "10px",
-                                fontSize: "16px",
-                                cursor: "pointer"
-                            }}
-                        >
-                            Usar Surto de Sangue
-                        </button>
-
-                        <button
-                            onClick={() => setMostrarHistorico(!mostrarHistorico)}
-                            style={{
-                                padding: "12px",
-                                borderRadius: "10px",
-                                border: "1px solid #555",
-                                background: mostrarHistorico ? "#8b0000" : "#333",
-                                color: "white",
-                                cursor: "pointer"
-                            }}
-                        >
-                            {mostrarHistorico ? "Ocultar Histórico" : "Mostrar Histórico"}
-                        </button>
-                    </div>
-                )}
+                    )}
+                </div>
 
                 {mostrarHistorico && mostrarPainelTeste && (
                     <div
@@ -1700,40 +1674,10 @@ export default function CharacterSheet() {
                             position: "fixed",
                             right: "330px",
                             top: "50%",
-                            transform: "translateY(-50%)",
-                            width: "350px",
-                            maxHeight: "500px",
-                            overflowY: "auto",
-                            background: "#1a1a1a",
-                            border: "2px solid #444",
-                            borderRadius: "16px",
-                            padding: "20px",
-                            color: "white",
-                            zIndex: 9998
+                            transform: "translateY(-50%)"
                         }}
                     >
-                        <h3 style={{ marginTop: 0, textAlign: "center" }}>
-                            Histórico de Rolagens
-                        </h3>
-
-                        {historicoRolagens.length === 0 ? (
-                            <p>Nenhuma rolagem ainda.</p>
-                        ) : (
-                            historicoRolagens.map((roll) => (
-                                <div
-                                    key={roll.id}
-                                    style={{
-                                        background: "#2b2b2b",
-                                        padding: "12px",
-                                        marginBottom: "10px",
-                                        borderRadius: "8px",
-                                        whiteSpace: "pre-line"
-                                    }}
-                                >
-                                    {roll.texto}
-                                </div>
-                            ))
-                        )}
+                        {/* histórico */}
                     </div>
                 )}
             </>

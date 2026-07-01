@@ -410,6 +410,7 @@ export default function CharacterSheet() {
     }
 
     const [usouSurtoSangue, setUsouSurtoSangue] = useState(false);
+    const [statusSalvamento, setStatusSalvamento] = useState("");
 
     function usarSurtoDeSangue() {
         const msgSurto = fnRolarDado(1, "CS");
@@ -1448,6 +1449,8 @@ export default function CharacterSheet() {
     ]);
 
     async function salvarFichaAutomaticamente() {
+        setStatusSalvamento("salvando");
+
         const ficha = {
             infoBasica,
             atributos,
@@ -1469,8 +1472,14 @@ export default function CharacterSheet() {
 
         if (error) {
             console.error(error);
+            setStatusSalvamento("erro");
         } else {
             console.log("Ficha salva automaticamente");
+            setStatusSalvamento("salvo");
+
+            setTimeout(() => {
+                setStatusSalvamento("");
+            }, 2000);
         }
     }
 
@@ -1534,6 +1543,31 @@ export default function CharacterSheet() {
 
     return (
         <div style={styles.page}>
+            {statusSalvamento && (
+                <div
+                    style={{
+                        position: "fixed",
+                        top: "20px",
+                        right: "20px",
+                        zIndex: 10000,
+                        padding: "12px 20px",
+                        borderRadius: "12px",
+                        color: "white",
+                        fontWeight: "bold",
+                        background:
+                            statusSalvamento === "salvando"
+                                ? "#d97706"
+                                : statusSalvamento === "salvo"
+                                    ? "#16a34a"
+                                    : "#dc2626",
+                        boxShadow: "0 0 15px rgba(0,0,0,0.4)"
+                    }}
+                >
+                    {statusSalvamento === "salvando" && "Salvando..."}
+                    {statusSalvamento === "salvo" && "✓ Salvo"}
+                    {statusSalvamento === "erro" && "Erro ao salvar"}
+                </div>
+            )}
             <>
                 <div
                     style={{
